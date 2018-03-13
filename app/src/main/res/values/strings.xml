@@ -1,0 +1,139 @@
+<resources>
+    <string name="app_name">AQUATICS</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="exit">Exit</string>
+    <string name="exit_confirmation">Are you sure you want to exit the application?</string>
+
+    <string name="press_again">Press again to exit</string>
+    <string name="home">Home</string>
+    <string name="classes">Session</string>
+    <string name="notifi">Notifications</string>
+    <string name="complain">Complains</string>
+    <string name="request">Requests</string>
+    <string name="report">Reports</string>
+    <string name="academy">Academy\'s website</string>
+    <string name="title_activity_profile">ProfileActivity</string>
+    <string name="filter_current">current</string>
+    <string name="filter_postponed">postponed</string>
+    <string name="filter_canceled">canceled</string>
+    <string name="filter_all">all</string>
+    <string name="no_classes">No Classes today</string>
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="No_Class">There is No Classes</string>
+    <string name="Link">\"http://thesportsinc.com/\"</string>
+    <string name="send">Send</string>
+    <string name="filter_Trainee">Trainee</string>
+    <string name="filter_Coach">Coach</string>
+    <string name="filter_Admin">Admin</string>
+
+    <string name="edit">Edit Profile</string>
+    <string name="gender">Gender</string>
+    <string name="slash">/</string>
+    <string name="date_of_birth">Date of Birth</string>
+    <string name="email">Email</string>
+    <string name="phone">Phone Number</string>
+    <string name="user_name">Full Name</string>
+
+
+    <!-- Calendar Srtrings -->
+
+    <string name="current_date">June, 2016</string>
+    <string name="add_event">ADD CALENDAR EVENT</string>
+    <string name="sun">Sun</string>
+    <string name="mon">Mon</string>
+    <string name="tue">Tue</string>
+    <string name="wed">Wed</string>
+    <string name="thu">Thu</string>
+    <string name="fri">Fri</string>
+    <string name="sat">Sat</string>
+    <string name="last_date">30</string>
+
+
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
+    <string name="password">Password</string>
+    <string name="old_password">Old Password</string>
+    <string name="new_password">New Password</string>
+    <string name="confirm_password">Confirm New Password</string>
+    <string name="change_password">Change Password</string>
+    <string name="no_Courses">No Courses Available</string>
+    <string name="no_Events">No New Events</string>
+    <string name="no_rules">No Rules</string>
+    <string name="no_news">No News</string>
+    <string name="log_in">Log in</string>
+    <string name="no_notifications">No Notifications</string>
+    <string name="no_Requests">No Requests</string>
+    <string name="no_complains">No Complains</string>
+    <string name="no_Report">No Payments</string>
+    <string name="no_groups">No Groups</string>
+    <string name="action_settings">Settings</string>
+    <string name="lorem_ipsum">My Test</string>
+
+
+    <string name="creation_date">Creation date</string>
+    <string name="course_name_class_number">Course name, Class number</string>
+    <string name="class_date">Class date</string>
+    <string name="request_for">Request for:</string>
+    <string name="newsSection">News</string>
+    <string name="moreButton">MORE</string>
+    <string name="eventsSections">Events</string>
+    <string name="title_activity_news">NewsActivity</string>
+    <string name="title_activity_events">EventsActivity</string>
+    <string name="filter_running">Running</string>
+    <string name="no_sessions">No Session</string>
+    <string name="compose">Compose</string>
+    <string name="class_details">Session Details</string>
+    <string name="upload">Upload</string>
+    <string name="postpone_class">Postpone Session</string>
+    <string name="cancel_class">Cancel Session</string>
+    <string name="BackupCoach">BackUp-Coach:</string>
+    <string name="Coach">Coach:</string>
+    <string name="Course">Course:</string>
+    <string name="Session">Session:</string>
+    <string name="Class">Class:</string>
+    <string name="pool">Pool:</string>
+    <string name="write_a_note">Write a Note</string>
+    <string name="done">Done</string>
+    <string name="session_has_been_cancelled">Session has been Canceled</string>
+    <string name="failed_to_cancel_session">Faied to cancel Session</string>
+    <string name="failed_to_postpone_session">Failed to postpone Session</string>
+    <string name="server_dateTimeFormate">dd/MM/yyyy hh:mm</string>
+    <string name="Postpone_msg">has been postponed to</string>
+    <string name="server_dateFormate">yyyy-MM-dd</string>
+    <string name="TimeFormate">hh:mm</string>
+    <string name="StatusCanceled">Canceled</string>
+    <string name="StatusPostponed">Postponed</string>
+    <string name="StatusFinished">Finished</string>
+    <string name="SessionNote">Session note:</string>
+    <string name="SessionStatus">ClassStatus</string>
+    <string name="select_sessionStatus">status</string>
+    <string name="select_sessionPostponeDate">postpone_date</string>
+    <string name="select_sessionPostponeTime">postpone_time</string>
+    <string name="select_sessionID">id</string>
+    <string name="select_sessionNote">class_notes</string>
+    <string name="parameter_Table">table</string>
+    <string name="parameter_where">where</string>
+    <string name="parameter_values">values</string>
+    <string name="Table_classes">classes</string>
+    <string name="ResponseSuccess">DONE</string>
+    <string name="Key_ClassEntity">Myclass</string>
+    <string name="course_name">Level Name</string>
+    <string name="group_number">Class Name</string>
+    <string name="pool_number">Pool Name</string>
+    <string name="coach_s_notes">Coach\'s note</string>
+    <string name="attendance">Trainee Attendance</string>
+    <string name="trainee_s_name">Trainee\'s name</string>
+
+
+
+    <string name="Key_Course_name">course_name</string>
+    <string name="Key_Group_name">group_name</string>
+    <string name="Key_Pool_name">poolName</string>
+
+    <integer name="selectLimit">10</integer>
+    <integer name="sliderLimit">3</integer>
+
+</resources>

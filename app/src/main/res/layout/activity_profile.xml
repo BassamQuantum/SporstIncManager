@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.bassam.sporstincmanger.Activities.ProfileActivity"
+    android:orientation="vertical">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/appbar_padding_top"
+        android:theme="@style/AppTheme.AppBarOverlay"
+        app:elevation="0dp">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay">
+        </android.support.v7.widget.Toolbar>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:id="@+id/aboveLinearLayout_register"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/imageView_profile"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_centerInParent="true"
+                    android:layout_marginBottom="10dp"
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/ic_profile_round" />
+
+                <TextView
+                    android:id="@+id/upload_new_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/imageView_profile"
+                    android:layout_alignEnd="@+id/imageView_profile"
+                    android:layout_marginEnd="18dp"
+                    android:background="@drawable/cycle_shape"
+                    android:drawableEnd="@drawable/ic_edit"
+                    android:padding="5dp" />
+
+                <Button
+                    android:id="@+id/upload_image"
+                    android:visibility="gone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_toEndOf="@+id/imageView_profile"
+                    android:text="upload Image"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
+            </RelativeLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:paddingBottom="10dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="5dp"
+                    android:gravity="center"
+                    android:background="@drawable/ic_profile_name"/>
+                <EditText
+                    android:id="@+id/profile_userName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Bassam Saber"
+                    android:textColor="@color/colorGray"
+                    android:enabled="false"
+                    android:ems="10"
+                    android:inputType="textPersonName"
+                    android:hint="@string/user_name"
+                    android:textColorHint="@color/colorPrimary"
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:paddingBottom="10dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="10dp"
+                    android:gravity="center"
+                    android:background="@drawable/ic_profile_call"/>
+                <EditText
+                    android:id="@+id/profile_userPhone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="01147050373"
+                    android:textColor="@color/colorGray"
+                    android:enabled="false"
+                    android:hint="@string/phone"
+                    android:ems="10"
+                    android:inputType="phone"
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:paddingBottom="10dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="5dp"
+                    android:gravity="center"
+                    android:background="@drawable/ic_profile_email"/>
+
+                <EditText
+                    android:id="@+id/profile_userMail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Bassamsaber46@gmail.com"
+                    android:textColor="@color/colorGray"
+                    android:enabled="false"
+                    android:ems="10"
+                    android:inputType="textEmailAddress"
+                    android:hint="@string/email"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:paddingBottom="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/dateTextView_register"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:background="@drawable/ic_birthdate"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
+
+                <TextView
+                    android:id="@+id/profile_date_birth"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                    android:text="28/08/1995"/>
+
+
+
+            </LinearLayout>
+
+            <!--LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:paddingBottom="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/genderTextView_register"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:paddingRight="20dp"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:background="@drawable/ic_gender"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
+
+                <TextView
+                    android:id="@+id/profile_gender"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                    android:layout_gravity="center"
+                    android:layout_height="wrap_content"
+                    android:text="Male"
+                    android:layout_marginLeft="10dp"/>
+
+            </LinearLayout-->
+
+            <TextView
+                android:id="@+id/profile_change_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:visibility="gone"
+                android:textColor="@color/colorAccent"
+                android:gravity="center"
+                android:text="@string/change_password"
+                android:textStyle="italic"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"/>
+
+
+            <Button
+                android:id="@+id/profile_edit_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                android:text="@string/edit"
+                android:layout_margin="16dp"
+                android:textColor="#FFFFFF"
+                android:background="@drawable/button_red_background"
+                />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:visibility="gone"
+                android:id="@+id/EDitButtons">
+                <Button
+                    android:id="@+id/profile_cancel_btn"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                    android:text="@string/cancel"
+                    android:layout_margin="16dp"
+                    android:textColor="#FFFFFF"
+                    android:background="@drawable/buttonshape_notclicked"/>
+
+                <Button
+                    android:id="@+id/profile_save_btn"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                    android:text="@string/save"
+                    android:layout_margin="16dp"
+                    android:textColor="#FFFFFF"
+                    android:background="@drawable/buttonshape_notclicked"/>
+
+            </LinearLayout>
+        </LinearLayout>
+
+    </ScrollView>
+</LinearLayout>
+

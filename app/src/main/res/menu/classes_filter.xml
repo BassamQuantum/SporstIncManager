@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <group android:checkableBehavior="single">
+    <item
+        android:id="@+id/action_filter1"
+        android:title="@string/filter_all"
+        android:orderInCategory="1"/>
+        <item
+            android:id="@+id/action_filter2"
+            android:orderInCategory="2"
+            android:title="@string/filter_running"/>
+        <item
+        android:id="@+id/action_filter3"
+        android:title="@string/filter_postponed"
+        android:orderInCategory="3"/>
+        <item
+            android:id="@+id/action_filter4"
+            android:title="@string/filter_canceled"
+            android:orderInCategory="4"/>
+    </group>
+
+</menu>

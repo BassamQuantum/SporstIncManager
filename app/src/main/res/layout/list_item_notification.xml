@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:id="@+id/notification_layout"
+    android:background="@color/colorWhite"
+    android:padding="12dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp">
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="3"
+        android:id="@+id/notificationTitle"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/colorBlack"
+        android:text="Class#1 from Course#2 Canceled" />
+    <TextView
+        android:id="@+id/notificationDate"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="21 Dec"
+        android:gravity="end"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="7dp"
+        android:layout_marginEnd="27dp"
+        android:maxLines="2"
+        android:id="@+id/notificationSubject"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/cardview_dark_background"
+        android:text="Class#1 from course #2 Canceled" />
+
+</LinearLayout>

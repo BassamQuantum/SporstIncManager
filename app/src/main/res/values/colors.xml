@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorExpanded">#22a630</color>
+    <color name="colorItems">#CFD8F2</color>
+    <color name="colorNotification">#ebf1fc</color>
+
+    <color name="colorPrimary">#ce2305</color>
+    <color name="colorPrimaryDark">#ac1b01</color>
+    <color name="colorAccent">#b12025</color>   
+
+
+    <color name="colorCalendarBack">#f1c1c1c1</color>
+
+    <color name="colorTextDark">#2393af</color>
+    <color name="colorText">#002a35</color>
+    <color name="colorTextLight">#ffffff</color>
+
+    <color name="colorTabIndicator">#932121</color>
+
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="colorBlack">#000000</color>
+
+    <color name="colorGray">#ed4e4d4d</color>
+    <color name="colorBlue">#2393af</color>
+    <color name="colorRed">#b12025</color>
+    <color name="colorMaroon">#650000</color>
+
+    <color name="colorLightBackground">#e7e7ff</color>
+    <color name="colorScores">#026f94</color>
+    <color name="colorWaiting">#f98a03</color>
+
+    <color name="FloatingClick">#b2b4b2</color>
+
+
+    <!-- Test floating action button Colors-->
+
+    <color name="black_semi_transparent">#B2000000</color>
+    <color name="background">#e5e5e5</color>
+    <color name="half_black">#808080</color>
+    <color name="white">#fafafa</color>
+    <color name="white_pressed">#f1f1f1</color>
+    <color name="pink">#e91e63</color>
+    <color name="pink_pressed">#ec407a</color>
+    <color name="blue_semi_transparent">#805677fc</color>
+    <color name="blue_semi_transparent_pressed">#80738ffe</color>
+
+
+    <color name="app_primary">#1976D2</color>
+    <color name="app_primary_dark">#1565C0</color>
+    <color name="grey">#DDDDDD</color>
+    <color name="light_grey">#EEEEEE</color>
+    <color name="white_transparent">#99FFFFFF</color>
+    <color name="black">#000</color>
+    <color name="colorTest">#DEF0f4</color>
+
+</resources>

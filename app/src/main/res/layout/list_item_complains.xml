@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorWhite"
+    card_view:contentPadding="5dp"
+    card_view:cardUseCompatPadding="true"
+    card_view:cardElevation="5sp"
+    card_view:cardCornerRadius="5dp">
+
+    <LinearLayout
+        android:padding="5dp"
+        android:paddingBottom="25dp"
+        android:paddingTop="15dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="10dp">
+
+            <TextView
+                android:id="@+id/complainFrom"
+                android:text="Bassam Saber"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                android:textColor="@color/colorBlack"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3" />
+            <TextView
+                android:id="@+id/complainDate"
+                android:text="21 Dec"
+                android:gravity="end"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+        </LinearLayout>
+        <TextView
+            android:id="@+id/complainContent"
+            android:text="Ahmed Ali Hassan is a bad coach and I can't learn from him anything at all from any leason"
+            android:maxLength="80"
+            android:paddingBottom="15dp"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>

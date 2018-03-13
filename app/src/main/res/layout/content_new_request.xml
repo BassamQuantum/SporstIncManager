@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="12dp"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.example.bassam.sporstincmanger.Activities.NewRequestActivity"
+    tools:showIn="@layout/activity_new_request">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
+            android:id="@+id/NewRequest_Course"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:hint="Course"
+            android:textColorHint="@color/colorAccent"
+            app:met_floatingLabel="normal"/>
+        <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
+            android:id="@+id/NewRequest_Group"
+            android:layout_width="0dp"
+            android:layout_marginStart="7dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:hint="Group"
+            android:visibility="gone"
+            android:textColorHint="@color/colorAccent"
+            app:met_floatingLabel="normal"/>
+    </LinearLayout>
+
+    <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
+        android:id="@+id/NewRequest_To"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="To"
+        android:textColorHint="@color/colorAccent"
+        app:met_floatingLabel="normal" />
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp">
+        <EditText android:id="@+id/inputRequest_subject"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:gravity="top|left"
+            android:hint="Subject"
+            android:textColorHint="@color/colorAccent"
+            />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp">
+        <EditText android:id="@+id/inputRequest_Message"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="textMultiLine"
+            android:gravity="top|left"
+            android:scrollbars="vertical"
+            android:hint="Message"
+            android:backgroundTint="@android:color/transparent"
+            />
+    </android.support.design.widget.TextInputLayout>
+</LinearLayout>
