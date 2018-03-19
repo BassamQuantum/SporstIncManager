@@ -9,6 +9,7 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +24,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.example.bassam.sporstincmanger.Aaa_data.GlobalVars;
 import com.example.bassam.sporstincmanger.Backend.HttpCall;
 import com.example.bassam.sporstincmanger.Backend.HttpRequest;
 import com.example.bassam.sporstincmanger.CustomView.CustomLoadingView;
@@ -54,6 +56,8 @@ public class ClassesDetailsActivity extends AppCompatActivity {
     private classesEntity myclass;
 
     private int result = -1;
+
+    GlobalVars globalVars;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,6 +69,7 @@ public class ClassesDetailsActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+        globalVars = (GlobalVars) getApplication();
 
         progressDialog = new ProgressDialog(ClassesDetailsActivity.this);
         progressDialog.setCancelable(false);
@@ -136,6 +141,8 @@ public class ClassesDetailsActivity extends AppCompatActivity {
             httpCall.setUrl(Constants.updateData);
             final HashMap<String,String> params = new HashMap<>();
             params.put(getString(R.string.parameter_Table),getString(R.string.Table_classes));
+            params.put("person_id",String.valueOf(globalVars.getId()));
+            params.put("notify","true");
             params.put(getString(R.string.parameter_where),where.toString());
             params.put(getString(R.string.parameter_values),values.toString());
 
@@ -276,7 +283,7 @@ public class ClassesDetailsActivity extends AppCompatActivity {
                         cancelClass(note);
                         break;
                     case 2:
-                        savePostponedTime(note);
+                        insertPostponedClass(note);
                         break;
                 }
             }
@@ -354,7 +361,58 @@ public class ClassesDetailsActivity extends AppCompatActivity {
         return dateCal.getTime();
     }
 
-    private void savePostponedTime(String note) {
+    private void insertPostponedClass(final String notes){
+        try {
+            Date PostponeDate = showPostponedTime();
+            SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.ENGLISH);
+            String date = df.format(PostponeDate);
+
+            df = new SimpleDateFormat("yyyy-MM-dd");
+            String postponedDate = df.format(PostponeDate);
+            df = new SimpleDateFormat("HH:mm");
+            String postponedTime = df.format(PostponeDate);
+
+            JSONObject values_info = new JSONObject();
+            values_info.put("class_number",myclass.getClassNum());
+            values_info.put("class_date",postponedDate);
+            values_info.put("class_time",postponedTime);
+            values_info.put("group_id",myclass.getGroup_id());
+            values_info.put("status",3);
+
+            HttpCall httpCall = new HttpCall();
+            httpCall.setMethodtype(HttpCall.POST);
+            httpCall.setUrl(Constants.insertData);
+            HashMap<String,String> params = new HashMap<>();
+            params.put("table","classes");
+            params.put("values",values_info.toString());
+
+            httpCall.setParams(params);
+            progressDialog.show();
+
+            new HttpRequest(){
+                @Override
+                public void onResponse(JSONArray response) {
+                    super.onResponse(response);
+                    if(checkResponse(response)){
+                        try {
+                            int id = response.getInt(0);
+                            savePostponedTime(id,notes);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }else {
+                        show_toast("Fail to postpone class...");
+                    }
+                }
+
+            }.execute(httpCall);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void savePostponedTime(int class_postponed_id ,String note) {
         try {
             Date PostponeDate = showPostponedTime();
 
@@ -371,6 +429,7 @@ public class ClassesDetailsActivity extends AppCompatActivity {
             values.put(getString(R.string.select_sessionStatus),2);
             values.put(getString(R.string.select_sessionPostponeDate),postponedDate);
             values.put(getString(R.string.select_sessionPostponeTime),postponedTime);
+            values.put("postponed_class_id",class_postponed_id);
             values.put(getString(R.string.select_sessionNote),note);
 
             JSONObject where = new JSONObject();
@@ -382,6 +441,8 @@ public class ClassesDetailsActivity extends AppCompatActivity {
 
             final HashMap<String,String> params = new HashMap<>();
             params.put(getString(R.string.parameter_Table),getString(R.string.Table_classes));
+            params.put("person_id",String.valueOf(globalVars.getId()));
+            params.put("notify","true");
             params.put(getString(R.string.parameter_where),where.toString());
             params.put(getString(R.string.parameter_values),values.toString());
 

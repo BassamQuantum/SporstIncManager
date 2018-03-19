@@ -38,7 +38,7 @@ public class NotificationDetailsActivity extends AppCompatActivity {
     GlobalVars globalVars;
     ProgressDialog progressDialog;
 
-    TextView subject ,content ,person ,date ;
+    TextView subject ,content ,person ,date  ,personLable;
     LinearLayout mybuttons;
     TextView accept , reject;
 
@@ -47,6 +47,7 @@ public class NotificationDetailsActivity extends AppCompatActivity {
     CustomLoadingView loadingView;
     private int ID , loadingTime = 1200;
     private NotificationEntity notification;
+    private boolean sent = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +72,7 @@ public class NotificationDetailsActivity extends AppCompatActivity {
 
         subject = findViewById(R.id.notificationReviewTitle);
         content = findViewById(R.id.notificationReviewContent);
+        personLable = findViewById(R.id.notificationReviewPersonLabel);
         person = findViewById(R.id.notificationReviewPerson);
         date = findViewById(R.id.notificationReviewDate);
         mybuttons = findViewById(R.id.notificationReviewButtons);
@@ -109,6 +111,7 @@ public class NotificationDetailsActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         notification = (NotificationEntity) getIntent().getSerializableExtra("MyNotification");
+        sent = getIntent().getBooleanExtra("type",false);
         final int notify_id = getIntent().getIntExtra("notify_id",-1);
 
         if (loadingTime == 0){
@@ -211,9 +214,16 @@ public class NotificationDetailsActivity extends AppCompatActivity {
             mybuttons.setVisibility(View.VISIBLE);
         }
         subject.setText(notification.getSubject());
-        person.setText(notification.getFrom());
         content.setText(notification.getContent());
         date.setText(notification.getDate());
+        if (sent){
+            personLable.setText(R.string.To_Label);
+            person.setText(notification.getTo_name());
+        }
+        else {
+            personLable.setText(R.string.From_Lable);
+            person.setText(notification.getFrom());
+        }
         loadingView.success();
     }
 

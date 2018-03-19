@@ -157,6 +157,14 @@ public class requestsEntity implements Serializable {
         return state;
     }
 
+    public void setState(int state) {
+        this.state = state;
+        if(this.state == 0)
+            this.status = "Rejected";
+        else if (this.state == 1)
+            this.status = "Accepted";
+    }
+
     public String getCreation_date() {
         return creation_date;
     }

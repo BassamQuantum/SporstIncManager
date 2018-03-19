@@ -1,75 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout  xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/colorWhite"
-    card_view:contentPadding="5dp"
-    card_view:cardUseCompatPadding="true"
-    card_view:cardElevation="5sp"
-    card_view:cardCornerRadius="5dp">
-    <LinearLayout
+    android:padding="10dp"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/course_item_name"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <ImageView
-            android:id="@+id/Course_icon"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="match_parent"
-            android:src="@drawable/star"/>
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorLogoBlue"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+        android:textStyle="italic"
+        android:text="@string/email"/>
 
-    <LinearLayout
-        android:padding="5dp"
+
+    <android.support.v7.widget.CardView
+        android:layout_marginTop="@dimen/ten_dimens"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_width="0dp"
-        android:layout_weight="3"
-        android:layout_height="wrap_content">
+        android:layout_margin="10dp"
+        card_view:cardCornerRadius="8dp"
+        card_view:cardElevation="@dimen/cardview_default_elevation">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-
-            <TextView
-                android:id="@+id/course_item_name"
-                android:text="Course#1"
-                android:paddingBottom="5dp"
-                android:paddingStart="5dp"
-                android:textColor="@color/colorPrimaryDark"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/course_item_level"
-                android:gravity="center"
-                android:paddingEnd="7dp"
+            android:layout_marginStart="@dimen/padding_5"
+            android:layout_marginEnd="@dimen/padding_5"
+            android:background="@color/colorLogoBlue">
+            <RelativeLayout
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:text="Beginner Level"
-                android:textColor="@color/colorBlack"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
-            <TextView
-                android:id="@+id/course_item_price"
-                android:gravity="end"
-                android:paddingRight="7dp"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="100"
-                android:textColor="@color/colorBlack"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/ten_dimens"
+                android:background="@color/colorWhite">
+                <ProgressBar
+                    android:id="@+id/progress_bar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"/>
+                <ImageView
+                    android:id="@+id/Course_icon"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:src="@drawable/star"/>
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:layout_height="80dp"
+                android:background="@color/colorWhite">
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/ten_dimens"
+                    android:orientation="vertical">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/colorLogoBlue"
+                            android:text="@string/SessionNum"/>
+                        <TextView
+                            android:id="@+id/sessionNum"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/padding_5"
+                            android:text="8"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_marginTop="@dimen/ten_dimens"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/colorLogoBlue"
+                            android:text="@string/duration"/>
+                        <TextView
+                            android:id="@+id/sessionDuration"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/padding_5"
+                            android:text="8"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+            </RelativeLayout>
         </LinearLayout>
-
-    </LinearLayout>
-    </LinearLayout>
-
-</android.support.v7.widget.CardView>
+    </android.support.v7.widget.CardView>
+</LinearLayout>

@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:padding="12dp"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.example.bassam.sporstincmanger.Activities.NewRequestActivity"
+    tools:context="com.example.bassam.sporstincmanger.Activities.AddNotificationActivity"
     tools:showIn="@layout/activity_new_request">
 
     <LinearLayout

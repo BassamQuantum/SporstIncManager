@@ -9,7 +9,7 @@
 
     <string name="press_again">Press again to exit</string>
     <string name="home">Home</string>
-    <string name="classes">Session</string>
+    <string name="classes">Sessions</string>
     <string name="notifi">Notifications</string>
     <string name="complain">Complains</string>
     <string name="request">Requests</string>
@@ -128,10 +128,26 @@
     <string name="trainee_s_name">Trainee\'s name</string>
 
 
-
     <string name="Key_Course_name">course_name</string>
     <string name="Key_Group_name">group_name</string>
     <string name="Key_Pool_name">poolName</string>
+    <string name="parameter_Table1">table1</string>
+    <string name="parameter_Table2">table2</string>
+    <string name="Key_CoachID">coach_id</string>
+    <string name="Key_FinishedClass">finishedClass</string>
+    <string name="enter_verfication_code">Enter Verification Code</string>
+    <string name="about">about academy</string>
+    <string name="To_Label">To: </string>
+    <string name="From_Lable">From:</string>
+    <string name="classesNum">Number of classes:</string>
+    <string name="SessionNum">Number of Sessions:</string>
+    <string name="duration">Session Duration:</string>
+    <string name="courses">Courses</string>
+    <string name="attend">Attendance</string>
+    <string name="account">My Account</string>
+    <string name="startDate">Start Date:-</string>
+    <string name="remaindar">Remindar</string>
+    <string name="status">Status</string>
 
     <integer name="selectLimit">10</integer>
     <integer name="sliderLimit">3</integer>

@@ -25,7 +25,8 @@ public class CourseEntity implements Serializable {
     Date EndDate;
     String price;
     String level;
-    String classes_Num;
+    String Session_duration ;
+    String classes_Num , GroupsNum;
     String description;
     List<GroupEntity> groups;
 
@@ -72,8 +73,9 @@ public class CourseEntity implements Serializable {
             EndDate = formatter.parse(dateFormated);
             this.price = object.getString("price");
             this.level = object.getString("level");
-            this.classes_Num = object.getString("no_of_classes");;
-            this.description = object.getString("description");;
+            this.classes_Num = object.getString("no_of_classes");
+            this.Session_duration = object.getString("class_duration");
+            this.description = object.getString("description");
         } catch (JSONException e) {
             e.printStackTrace();
         } catch (ParseException e) {
@@ -96,6 +98,9 @@ public class CourseEntity implements Serializable {
         try {
             id = jsonObject.getInt("course_id");
             CourseName = jsonObject.getString("course_name");
+            ImageUrl = jsonObject.getString("ImageUrl");
+            classes_Num = jsonObject.getString("no_of_classes");
+            GroupsNum = jsonObject.getString("GroupsNum");
             /*String dateFormated =  jsonObject.getString("start_date");
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
             StartDate = formatter.parse(dateFormated);
@@ -198,5 +203,21 @@ public class CourseEntity implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public int getPaid_count() {
+        return paid_count;
+    }
+
+    public int getTrainees_count() {
+        return trainees_count;
+    }
+
+    public String getGroupsNum() {
+        return GroupsNum;
+    }
+
+    public String getSession_duration() {
+        return Session_duration;
     }
 }

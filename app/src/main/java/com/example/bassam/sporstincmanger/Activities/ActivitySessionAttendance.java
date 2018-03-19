@@ -3,6 +3,7 @@ package com.example.bassam.sporstincmanger.Activities;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -11,7 +12,6 @@ import com.example.bassam.sporstincmanger.Backend.HttpCall;
 import com.example.bassam.sporstincmanger.Backend.HttpRequest;
 import com.example.bassam.sporstincmanger.CustomView.CustomLoadingView;
 import com.example.bassam.sporstincmanger.Entities.AttendanceEntity;
-import com.example.bassam.sporstincmanger.Entities.item_finsihed_course_single;
 import com.example.bassam.sporstincmanger.Entities.item_trainee_attendance;
 import com.example.bassam.sporstincmanger.Interfaces.Constants;
 import com.example.bassam.sporstincmanger.R;
@@ -33,13 +33,15 @@ public class ActivitySessionAttendance extends AppCompatActivity {
 
     ArrayList<item_trainee_attendance> list_items;
 
-    AttendanceEntity AdminClass;
+    AttendanceEntity myClassAttend;
 
     TextView class_date_textView, course_name_textView, group_number_textView,
             pool_number_textView, coach_note_textView;
 
     CustomLoadingView loadingView;
-    private int ID;
+    private int ID , coach_id;
+    private ImageView attended;
+    private TextView trainee_name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,9 +62,10 @@ public class ActivitySessionAttendance extends AppCompatActivity {
 
         String course_name = getIntent().getStringExtra(getString(R.string.Key_Course_name));
         String group_name = getIntent().getStringExtra(getString(R.string.Key_Group_name));
+        coach_id = getIntent().getIntExtra(getResources().getString(R.string.Key_CoachID), 0);
         String pool_name = getIntent().getStringExtra(getString(R.string.Key_Pool_name));
 
-        AdminClass = (AttendanceEntity) getIntent().getSerializableExtra("finishedClass");
+        myClassAttend = (AttendanceEntity) getIntent().getSerializableExtra(getResources().getString(R.string.Key_FinishedClass));
 
 
 
@@ -72,11 +75,14 @@ public class ActivitySessionAttendance extends AppCompatActivity {
         pool_number_textView  = findViewById(R.id.poolNumberTextView_coachCourseSingleClass);
         coach_note_textView = findViewById(R.id.coachNotesTextView_coachCourseSingleClass);
 
+        trainee_name =  findViewById(R.id.coach_name);
+
+        attended = findViewById(R.id.coach_attend);
+
         listView = findViewById(R.id.traineesAttendanceListView_coachCourseSingleClass);
         list_items = new ArrayList<>();
         adapter_listView = new ListView_Adapter_trainees_attendance_coach(ActivitySessionAttendance.this, list_items);
         listView.setAdapter(adapter_listView);
-
         fillView(course_name,group_name,pool_name,savedInstanceState);
 
     }
@@ -88,9 +94,10 @@ public class ActivitySessionAttendance extends AppCompatActivity {
         String class_note = "";
         String class_date = "";
         int class_id = 0;
-        class_note = AdminClass.getCoach_note();
-        class_date = AdminClass.getDate();
-        class_id = AdminClass.getClassId();
+        class_note = myClassAttend.getCoach_note();
+        class_date = myClassAttend.getDate();
+        class_id = myClassAttend.getClassId();
+        initilizeCoachAttend(class_id);
 
         coach_note_textView.setText(class_note);
         class_date_textView.setText(class_date);
@@ -175,5 +182,61 @@ public class ActivitySessionAttendance extends AppCompatActivity {
         adapter_listView.notifyDataSetChanged();
         loadingView.success();
 
+    }
+
+    private void initilizeCoachAttend(int class_id) {
+        if (!checkConnection()){
+            ID = class_id;
+            loadingView.fails();
+            loadingView.enableRetry();
+            return;
+        }
+        try {
+            JSONObject where_info = new JSONObject();
+            where_info.put("class_id", class_id);
+            where_info.put("user_id", coach_id);
+
+            String OnCondition = "class_info.user_id = users.id";
+            HttpCall httpCall = new HttpCall();
+            httpCall.setMethodtype(HttpCall.POST);
+            httpCall.setUrl(Constants.join);
+
+            HashMap<String, String> params = new HashMap<>();
+            params.put(getResources().getString(R.string.parameter_Table1) , "users");
+            params.put(getResources().getString(R.string.parameter_Table2) , "class_info");
+
+            params.put("where", where_info.toString());
+            params.put("on", OnCondition);
+
+            httpCall.setParams(params);
+
+            new HttpRequest() {
+                @Override
+                public void onResponse(JSONArray response) {
+                    super.onResponse(response);
+                    if (response!= null)
+                        fillCoachView(response);
+                }
+            }.execute(httpCall);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void fillCoachView(JSONArray response) {
+        try{
+            String name = response.getJSONObject(0).getString("name");
+            int attend = response.getJSONObject(0).getInt("attend");
+
+            // Populate the data into the template view using the data object
+            trainee_name.setText(name);
+            if (attend == 0) {
+                attended.setBackgroundResource(R.drawable.ic_not_checked);
+            }
+            else
+                attended.setBackgroundResource(R.drawable.ic_check_circle);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 }

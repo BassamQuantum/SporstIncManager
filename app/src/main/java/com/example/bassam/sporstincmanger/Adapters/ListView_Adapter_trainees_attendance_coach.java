@@ -42,6 +42,8 @@ public class ListView_Adapter_trainees_attendance_coach extends ArrayAdapter<ite
         if (!attendance.isAttended()) {
             attended.setBackgroundResource(R.drawable.ic_not_checked);
         }
+        else
+            attended.setBackgroundResource(R.drawable.ic_check_circle);
         // Return the completed view to render on screen
         return convertView;
     }

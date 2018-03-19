@@ -111,41 +111,22 @@ public class calender_Fragment extends Fragment {
     }
 
     private void initializeClassesList() {
-        try {
-            JSONObject where_info = new JSONObject();
 
-            HashMap<String, String> params = new HashMap<>();
+        HashMap<String, String> params = new HashMap<>();
+        HttpCall httpCall = new HttpCall();
+        httpCall.setMethodtype(HttpCall.POST);
+        httpCall.setUrl(Constants.classesData);
 
-            switch (globalVars.getType()){
-                case 0:
-                    where_info.put("group_trainee.trainee_id",globalVars.getId());
-                    params.put("where", where_info.toString());
-                    break;
-                case 1:
-                    where_info.put("groups.coach_id",globalVars.getId());
-                    params.put("where", where_info.toString());
-                    break;
-                case 2:
-                    where_info.put("groups.admin_id",globalVars.getId());
-                    params.put("where", where_info.toString());
-                    break;
+        params.put("user_type",String.valueOf(globalVars.getType()));
+        httpCall.setParams(params);
+
+        new HttpRequest() {
+            @Override
+            public void onResponse(JSONArray response) {
+                super.onResponse(response);
+                fillAdapter(response);
             }
-            HttpCall httpCall = new HttpCall();
-            httpCall.setMethodtype(HttpCall.POST);
-            httpCall.setUrl(Constants.classesData);
-
-            httpCall.setParams(params);
-
-            new HttpRequest() {
-                @Override
-                public void onResponse(JSONArray response) {
-                    super.onResponse(response);
-                    fillAdapter(response);
-                }
-            }.execute(httpCall);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        }.execute(httpCall);
     }
 
     private void fillAdapter(JSONArray response) {
@@ -154,8 +135,8 @@ public class calender_Fragment extends Fragment {
             try {
                 for (int i = 0; i < response.length(); i++) {
                     classesEntity entity = new classesEntity( response.getJSONObject(i));
-                    if(!classesList.contains(entity))
-                        classesList.add(entity);
+                    //if(!classesList.contains(entity))
+                    classesList.add(entity);
                 }
                 fileEventsMap();
             } catch (JSONException e) {

@@ -37,7 +37,7 @@ import java.util.List;
 public class GroupDetailsActivity extends AppCompatActivity {
 
     ReportClassesAdapter adapter;
-    TextView GroupName ,Attendance ,CoachName ,AdminName ,PoolName;
+    TextView GroupName ,Attendance ,CoachName ,AdminName ,PoolName , Coach_Attend;
 
     myCustomListView customListView;
     SwipeRefreshLayout mSwipeRefreshLayout;
@@ -66,6 +66,7 @@ public class GroupDetailsActivity extends AppCompatActivity {
         GroupName = findViewById(R.id.GroupReviewName);
         Attendance = findViewById(R.id.GroupReviewAttendance);
         CoachName = findViewById(R.id.GroupReviewCoach);
+        Coach_Attend = findViewById(R.id.GroupReviewCoachAttend);
         AdminName = findViewById(R.id.GroupReviewAdmin);
         PoolName = findViewById(R.id.GroupReviewPool);
 
@@ -107,10 +108,11 @@ public class GroupDetailsActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(GroupDetailsActivity.this, ActivitySessionAttendance.class);
-                intent.putExtra(getString(R.string.Key_Course_name),MyGroup.getCourse_id());
+                intent.putExtra(getString(R.string.Key_Course_name),MyGroup.getCourseName());
                 intent.putExtra(getString(R.string.Key_Group_name),MyGroup.getName());
+                intent.putExtra(getString(R.string.Key_CoachID),MyGroup.getCoach_id());
                 intent.putExtra(getString(R.string.Key_Pool_name),MyGroup.getPoolName());
-                intent.putExtra("finishedClass",entityList.get(position));
+                intent.putExtra(getString(R.string.Key_FinishedClass),entityList.get(position));
                 startActivity(intent);
 
             }
@@ -210,6 +212,7 @@ public class GroupDetailsActivity extends AppCompatActivity {
         GroupName.setText(MyGroup.getName());
         Attendance.setText(MyGroup.getAttendacePrecentage());
         CoachName.setText(MyGroup.getCoachName());
+        Coach_Attend.setText(MyGroup.getCoachAttend());
         AdminName.setText(MyGroup.getAdminName());
         PoolName.setText(MyGroup.getPoolName());
         loadingView.success();

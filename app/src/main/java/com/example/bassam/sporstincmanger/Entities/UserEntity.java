@@ -3,11 +3,13 @@ package com.example.bassam.sporstincmanger.Entities;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
+
 /**
  * Created by Bassam on 1/11/2018.
  */
 
-public class UserEntity {
+public class UserEntity implements Serializable {
     String name, imgUrl , phone, mail,pass,date_of_birth;
 
     int id, type, gender; //TYPE 0 Trainee, 1 Coach, 2 Admin, 3 Manager, 4 Backend, 5 non_registered

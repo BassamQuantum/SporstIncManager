@@ -24,6 +24,8 @@
 
     </android.support.design.widget.AppBarLayout>
 
+
+
     <com.example.bassam.sporstincmanger.CustomView.CustomLoadingView
         android:id="@+id/LoadingView"
         android:layout_width="match_parent"
@@ -31,8 +33,7 @@
 
     </com.example.bassam.sporstincmanger.CustomView.CustomLoadingView>
 
-
-        <LinearLayout
+    <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
@@ -128,20 +129,16 @@
 
     </LinearLayout>
 
-                <LinearLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:padding="5dp">
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_weight="2"
-            android:layout_height="wrap_content">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Admin: "
+            android:text="@string/BackupCoach"
             android:textStyle="bold"
             android:textColor="@color/colorBlack"
             android:layout_marginStart="15dp"
@@ -155,18 +152,18 @@
             android:id="@+id/GroupReviewAdmin"
             android:layout_marginStart="15dp"
             android:layout_marginTop="10dp"/>
-        </LinearLayout>
+
+    </LinearLayout>
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_weight="1.5"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
+            android:padding="5dp"
             android:orientation="horizontal">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Pool: "
+                android:text="@string/pool"
                 android:textStyle="bold"
                 android:textColor="@color/colorBlack"
                 android:layout_marginStart="15dp"
@@ -182,8 +179,6 @@
                 android:layout_marginTop="10dp"/>
 
         </LinearLayout>
-
-    </LinearLayout>
 
 
         <com.example.bassam.sporstincmanger.CustomView.myCustomListView

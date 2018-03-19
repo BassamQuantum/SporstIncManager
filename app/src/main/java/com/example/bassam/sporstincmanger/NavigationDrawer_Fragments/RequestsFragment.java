@@ -7,6 +7,7 @@ import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,6 +51,9 @@ public class RequestsFragment extends Fragment {
     int limitValue,currentStart;
     private RequestsReceivedAdapter adapter;
     private List<requestsEntity> requestsList;
+
+    private int REQUEST_UPDATE = 7;
+    private int request_position = -1;
 
     @Nullable
     @Override
@@ -97,10 +101,11 @@ public class RequestsFragment extends Fragment {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 if (i>= requestsList.size())
                     return;
+                request_position = i ;
                 Intent intent = new Intent(getContext(), RequestDetailsActivity.class);
                 intent.putExtra("MyRequest", requestsList.get(i));
                 intent.putExtra("requestType",1);
-                startActivity(intent);
+                startActivityForResult(intent , REQUEST_UPDATE);
             }
         });
 
@@ -129,6 +134,15 @@ public class RequestsFragment extends Fragment {
         listView.onRestoreInstanceState(mListInstanceState);
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_UPDATE && resultCode == AppCompatActivity.RESULT_OK && data != null){
+            int new_status = data.getIntExtra("request_status", 2);
+            requestsList.get(request_position).setState(new_status);
+            adapter.notifyDataSetChanged();
+        }
+    }
 
     private void listLoadMore() {
         customListView.loadMore();

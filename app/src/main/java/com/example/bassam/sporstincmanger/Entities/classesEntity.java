@@ -16,7 +16,7 @@ import java.util.Date;
 public class classesEntity implements Serializable {
     String courseName, groupName, className, status, coachName, adminName, poolName;
     String startTime, endTime, reason, postpondStartTime, postpondEndTime , postpondDate ,classdate;
-    int class_id ,Group_id ,Course_id ,Admin_id ,Coach_id , state;
+    int class_id ,Group_id ,Course_id ,Admin_id ,Coach_id , state , classNum;
 
     public classesEntity() {
     }
@@ -24,7 +24,8 @@ public class classesEntity implements Serializable {
     public classesEntity(JSONObject jsonObject) {
         try {
             this.class_id = jsonObject.getInt("class_id");
-            this.className = "Session "+jsonObject.getInt("class_number");
+            this.classNum = jsonObject.getInt("class_number");
+            this.className = "Session "+ classNum;
             String dateFormated = jsonObject.getString("class_date");
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
             Date date = formatter.parse(dateFormated);
@@ -283,5 +284,9 @@ public class classesEntity implements Serializable {
                 break;
 
         }
+    }
+
+    public int getClassNum() {
+        return classNum;
     }
 }

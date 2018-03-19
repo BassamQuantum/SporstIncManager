@@ -12,7 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.bassam.sporstincmanger.Activities.NewRequestActivity;
+import com.example.bassam.sporstincmanger.Activities.AddNotificationActivity;
 import com.example.bassam.sporstincmanger.Adapters.SectionsPagerAdapter;
 import com.example.bassam.sporstincmanger.R;
 import com.example.bassam.sporstincmanger.TabsFragments.NotificationsReceivedFragment;
@@ -31,7 +31,7 @@ public class NotificationsFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_requests,container,false);
+        View root = inflater.inflate(R.layout.fragment_notifications,container,false);
         setHasOptionsMenu(true);
 
         mViewPager = (ViewPager) root.findViewById(R.id.requestscontainer);
@@ -44,7 +44,7 @@ public class NotificationsFragment extends Fragment {
         create.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getContext(), NewRequestActivity.class);
+                Intent intent = new Intent(getContext(), AddNotificationActivity.class);
                 intent.putExtra("CurrentItem",mViewPager.getCurrentItem());
                 startActivity(intent);
             }
@@ -65,6 +65,6 @@ public class NotificationsFragment extends Fragment {
     public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
         super.onViewStateRestored(savedInstanceState);
         if (getActivity() != null)
-            ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(R.string.request);
+            ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(R.string.notifi);
     }
 }

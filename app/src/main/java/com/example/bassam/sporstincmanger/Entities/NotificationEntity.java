@@ -15,9 +15,9 @@ import java.util.Date;
  */
 
 public class NotificationEntity implements Serializable {
-    String subject ,content ,date ,from_name ;
+    String subject ,content ,date ,from_name ,to_name ;
 
-    int from_id ,read , notify_type , updated , type_id , notification_id;
+    int from_id ,to_id ,read , notify_type , updated , type_id , notification_id;
 
     Date notification_date;
 
@@ -36,6 +36,8 @@ public class NotificationEntity implements Serializable {
             this.date = df.format(notification_date);
             this.from_name = jsonObject.getString("From_name");
             this.from_id = jsonObject.getInt("from_id");
+            this.to_name = jsonObject.getString("to_name");
+            this.to_id = jsonObject.getInt("to_id");
             this.notify_type = jsonObject.getInt("type");
             this.type_id = jsonObject.getInt("type_id");
             this.read = jsonObject.getInt("notify_read");
@@ -77,6 +79,30 @@ public class NotificationEntity implements Serializable {
 
     public void setFrom(String from) {
         this.from_name = from;
+    }
+
+    public String getTo_name() {
+        return to_name;
+    }
+
+    public void setTo_name(String to_name) {
+        this.to_name = to_name;
+    }
+
+    public int getTo_id() {
+        return to_id;
+    }
+
+    public void setTo_id(int to_id) {
+        this.to_id = to_id;
+    }
+
+    public int getNotification_id() {
+        return notification_id;
+    }
+
+    public void setNotification_id(int notification_id) {
+        this.notification_id = notification_id;
     }
 
     public int getRead() {

@@ -21,6 +21,8 @@ public class GroupEntity implements Serializable {
     int TraineeNum ,PaidNum , attend_count , no_classes;
 
     List<AttendanceEntity> classes;
+    private int coach_attend;
+    private String CoachAttendace;
 
     public GroupEntity() {
     }
@@ -75,7 +77,14 @@ public class GroupEntity implements Serializable {
             float totalAttend = (float) attend_count / (TraineeNum *no_classes);
             totalAttend*=100;
             AttendacePrecentage = ""+String.format("%.0f",totalAttend)+" %";
-            Log.d("Attend","ID : "+group_id+" count String:"+count+" counter:"+attend_count+" Trainees: "+TraineeNum+" no.classes: "+no_classes+" Precent: "+AttendacePrecentage+" , "+totalAttend);
+
+            count = jsonObject.getString("coach_attent");
+            if (count!=null && !count.equals("null"))
+                coach_attend = Integer.parseInt(count);
+            totalAttend = (float) coach_attend / no_classes;
+            totalAttend*=100;
+            CoachAttendace = ""+String.format("%.0f",totalAttend)+" %";
+            //Log.d("Attend","ID : "+group_id+" count String:"+count+" counter:"+attend_count+" Trainees: "+TraineeNum+" no.classes: "+no_classes+" Precent: "+AttendacePrecentage+" , "+totalAttend);
             classes = new ArrayList<>();
         } catch (JSONException e) {
             e.printStackTrace();
@@ -211,4 +220,11 @@ public class GroupEntity implements Serializable {
         PaidNum = paidNum;
     }
 
+    public String getCoachAttend() {
+        return CoachAttendace;
+    }
+
+    public String getCourseName() {
+        return courseName;
+    }
 }

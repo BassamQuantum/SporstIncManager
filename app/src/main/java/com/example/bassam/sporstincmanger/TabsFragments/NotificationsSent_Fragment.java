@@ -11,7 +11,6 @@ import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,14 +19,14 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.example.bassam.sporstincmanger.Aaa_data.GlobalVars;
-import com.example.bassam.sporstincmanger.Activities.NewRequestActivity;
-import com.example.bassam.sporstincmanger.Activities.RequestDetailsActivity;
-import com.example.bassam.sporstincmanger.Adapters.RequestsSentAdapter;
+import com.example.bassam.sporstincmanger.Activities.AddNotificationActivity;
+import com.example.bassam.sporstincmanger.Activities.NotificationDetailsActivity;
+import com.example.bassam.sporstincmanger.Adapters.NotificationSendAdapter;
 import com.example.bassam.sporstincmanger.Backend.HttpCall;
 import com.example.bassam.sporstincmanger.Backend.HttpRequest;
 import com.example.bassam.sporstincmanger.CustomView.myCustomListView;
 import com.example.bassam.sporstincmanger.CustomView.myCustomListViewListener;
-import com.example.bassam.sporstincmanger.Entities.requestsEntity;
+import com.example.bassam.sporstincmanger.Entities.NotificationEntity;
 import com.example.bassam.sporstincmanger.Interfaces.Constants;
 import com.example.bassam.sporstincmanger.R;
 import com.example.bassam.sporstincmanger.util.ConnectionUtilities;
@@ -58,8 +57,8 @@ public class NotificationsSent_Fragment extends Fragment {
     myCustomListViewListener listViewListener;
     int limitValue,currentStart;
 
-    private RequestsSentAdapter adapter;
-    private List<requestsEntity> requestsList;
+    private NotificationSendAdapter adapter;
+    private List<NotificationEntity> notificationEntityList;
 
 
     private FloatingActionMenu menuLabelsRight;
@@ -71,7 +70,7 @@ public class NotificationsSent_Fragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_requests_sent, container, false);
+        View root = inflater.inflate(R.layout.fragment_notifications_sent, container, false);
         setHasOptionsMenu(false);
 
         globalVars = (GlobalVars) getActivity().getApplication();
@@ -82,7 +81,7 @@ public class NotificationsSent_Fragment extends Fragment {
             @Override
             public void onRefresh() {
                 currentStart = 0;
-                initializeRequests(false);
+                initializeNotifications(false);
             }
         });
         customListView = root.findViewById(R.id.customListView);
@@ -92,35 +91,36 @@ public class NotificationsSent_Fragment extends Fragment {
             @Override
             public void onRetry() {
                 currentStart = 0;
-                initializeRequests(false);
+                initializeNotifications(false);
             }
         });
         listView = customListView.getListView();
         listViewListener = new myCustomListViewListener(listView , mSwipeRefreshLayout) {
             @Override
             public void loadMoreData() {
-                if (requestsList.size() >= limitValue)
+                if (notificationEntityList.size() >= limitValue)
                     listLoadMore();
             }
         };
         listView.setOnScrollListener(listViewListener);
 
-        requestsList = new ArrayList<>();
-        adapter = new RequestsSentAdapter(getContext(), R.layout.list_item_request_sent, requestsList);
+        notificationEntityList = new ArrayList<>();
+        adapter = new NotificationSendAdapter(getContext(), R.layout.list_item_notification_sent, notificationEntityList);
         listView.setAdapter(adapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                if (i>= requestsList.size())
+                if (i>= notificationEntityList.size())
                     return;
-                Intent intent = new Intent(getContext(), RequestDetailsActivity.class);
-                intent.putExtra("MyRequest", requestsList.get(i));
+                Intent intent = new Intent(getContext(), NotificationDetailsActivity.class);
+                intent.putExtra("MyNotification", notificationEntityList.get(i));
+                intent.putExtra("type", true);
                 startActivity(intent);
             }
         });
         if (savedInstanceState == null)
-            initializeRequests(false);
+            initializeNotifications(false);
         else
             fillBySavedState(savedInstanceState);
 
@@ -131,26 +131,26 @@ public class NotificationsSent_Fragment extends Fragment {
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putParcelable("ScrollPosition", listView.onSaveInstanceState());
-        outState.putSerializable("RequestsList", (Serializable) requestsList);
+        outState.putSerializable("NotificationList", (Serializable) notificationEntityList);
     }
 
 
     private void fillBySavedState(Bundle savedInstanceState) {
-        ArrayList<requestsEntity> list1 = (ArrayList<requestsEntity>) savedInstanceState.getSerializable("RequestsList");
-        requestsList.addAll(list1);
+        ArrayList<NotificationEntity> list1 = (ArrayList<NotificationEntity>) savedInstanceState.getSerializable("NotificationList");
+        notificationEntityList.addAll(list1);
         Parcelable mListInstanceState = savedInstanceState.getParcelable("ScrollPosition");
-        customListView.notifyChange(requestsList.size());
+        customListView.notifyChange(notificationEntityList.size());
         adapter.notifyDataSetChanged();
         listView.onRestoreInstanceState(mListInstanceState);
     }
 
     private void listLoadMore() {
         customListView.loadMore();
-        currentStart = requestsList.size();
+        currentStart = notificationEntityList.size();
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                initializeRequests(true);
+                initializeNotifications(true);
             }
         }, 1500);
 
@@ -217,43 +217,39 @@ public class NotificationsSent_Fragment extends Fragment {
 
     }
 
-    private void initializeRequests(final boolean loadMore) {
+    private void initializeNotifications(final boolean loadMore) {
         if (!isAdded()) {
             return;
         }
-        if (!checkConnection()) {
+        if (!checkConnection()){
             customListView.retry();
             return;
         }
         try {
-            HttpCall httpCall = new HttpCall();
-            httpCall.setMethodtype(HttpCall.POST);
-            httpCall.setUrl(Constants.join);
             JSONObject where_info = new JSONObject();
-            where_info.put("requests.from_id", globalVars.getId());
+            where_info.put("notification.from_id",globalVars.getId());
+
             JSONObject limit_info = new JSONObject();
             limit_info.put("start", currentStart);
             limit_info.put("limit", limitValue);
 
-            String OnCondition = "requests.to_id = users.id";
-
-            HashMap<String, String> params = new HashMap<>();
-            params.put("table1", "requests");
-            params.put("table2", "users");
-
-            Log.d(TAG, "Where Condition:" + where_info.toString());
-            params.put("where", where_info.toString());
+            HttpCall httpCall = new HttpCall();
+            httpCall.setMethodtype(HttpCall.POST);
+            httpCall.setUrl(Constants.notification);
+            HashMap<String,String> params = new HashMap<>();
+            params.put("where",where_info.toString());
             params.put("limit",limit_info.toString());
-            params.put("on", OnCondition);
 
             httpCall.setParams(params);
-            new HttpRequest() {
+
+            new HttpRequest(){
                 @Override
                 public void onResponse(JSONArray response) {
                     super.onResponse(response);
-                    fillAdapter(response ,loadMore);
+                    fillAdapter(response,loadMore);
                 }
             }.execute(httpCall);
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -262,17 +258,17 @@ public class NotificationsSent_Fragment extends Fragment {
     private void fillAdapter(JSONArray response,boolean loadMore) {
         mSwipeRefreshLayout.setRefreshing(false);
         if (!loadMore)
-            requestsList.clear();
+            notificationEntityList.clear();
         if (response != null) {
             try {
                 for (int i = 0; i < response.length(); i++) {
-                    requestsList.add(new requestsEntity(response.getJSONObject(i)));
+                    notificationEntityList.add(new NotificationEntity(response.getJSONObject(i)));
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
-        customListView.notifyChange(requestsList.size());
+        customListView.notifyChange(notificationEntityList.size());
         adapter.notifyDataSetChanged();
         listViewListener.setLoading(false);
     }
@@ -289,7 +285,7 @@ public class NotificationsSent_Fragment extends Fragment {
     private View.OnClickListener clickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Intent intent = new Intent(getContext(), NewRequestActivity.class);
+            Intent intent = new Intent(getContext(), AddNotificationActivity.class);
             int Type = 0;
             switch (v.getId()) {
                 case R.id.fab1:

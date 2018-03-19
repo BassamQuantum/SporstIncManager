@@ -1,11 +1,14 @@
 package com.example.bassam.sporstincmanger.Activities;
 
+import android.content.Intent;
 import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -97,8 +100,15 @@ public class PaymentDetailsActivity extends AppCompatActivity {
         listView.setOnScrollListener(listener);
         entityList = new ArrayList<>();
 
-        adapter = new PaymentGroupAdapter(getApplicationContext(),R.layout.report_list_items,entityList);
+        adapter = new PaymentGroupAdapter(getApplicationContext(),R.layout.list_items_report_class,entityList);
 
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(PaymentDetailsActivity.this, PaymentTraineesActivity.class);
+                startActivity(intent);
+            }
+        });
         listView.setAdapter(adapter);
 
         if (savedInstanceState == null)

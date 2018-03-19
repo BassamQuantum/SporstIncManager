@@ -45,22 +45,19 @@ public class PaymentGroupAdapter extends ArrayAdapter<GroupEntity> {
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         View view = convertView;
         if (view == null) {
-            view = LayoutInflater.from(getContext()).inflate(R.layout.report_list_items, null);
+            view = LayoutInflater.from(getContext()).inflate(R.layout.list_items_report_class, null);
         }
         GroupEntity group = getItem(position);
 
         TextView GroupName = view.findViewById(R.id.reportName);
-        TextView TraineeNum = view.findViewById(R.id.reportNumbers);
-        TextView Groups = view.findViewById(R.id.reportNumbersName);
-        TextView PaidNum = view.findViewById(R.id.reportPaied);
+        TextView TraineeNum = view.findViewById(R.id.TraineeNum);
+        TextView PaidNum = view.findViewById(R.id.PaidNum);
 
-        Groups.setVisibility(View.VISIBLE);
         TraineeNum.setVisibility(View.VISIBLE);
 
-        Groups.setText("Trainees");
         GroupName.setText(group.getName());
-        TraineeNum.setText(String.valueOf(group.getTraineeNum()));
-        PaidNum.setText(String.valueOf(group.getPaidNum()));
+        TraineeNum.setText(String.valueOf(group.getTraineeNum())+" trainees");
+        PaidNum.setText(String.valueOf(group.getPaidNum())+" trainees");
 
         return  view;
     }

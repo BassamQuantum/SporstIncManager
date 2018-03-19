@@ -9,4 +9,7 @@
     <dimen name="nav_header_height">130dp</dimen>
     <dimen name="padding_5">5dp</dimen>
     <dimen name="item_offset">2dp</dimen>
+    <dimen name="ten_dimens">10dp</dimen>
+    <dimen name="dimens_15">15dp</dimen>
+    <dimen name="twenty_demin">20dp</dimen>
 </resources>

@@ -11,7 +11,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
@@ -19,12 +18,9 @@ import com.example.bassam.sporstincmanger.Activities.PaymentDetailsActivity;
 import com.example.bassam.sporstincmanger.Adapters.PaymentCoursesAdapter;
 import com.example.bassam.sporstincmanger.Backend.HttpCall;
 import com.example.bassam.sporstincmanger.Backend.HttpRequest;
-import com.example.bassam.sporstincmanger.CustomView.myCustomExpandableListViewListener;
 import com.example.bassam.sporstincmanger.CustomView.myCustomListView;
 import com.example.bassam.sporstincmanger.CustomView.myCustomListViewListener;
 import com.example.bassam.sporstincmanger.Entities.CourseEntity;
-import com.example.bassam.sporstincmanger.Entities.EventEntity;
-import com.example.bassam.sporstincmanger.Entities.GroupEntity;
 import com.example.bassam.sporstincmanger.Interfaces.Constants;
 import com.example.bassam.sporstincmanger.R;
 import com.example.bassam.sporstincmanger.util.ConnectionUtilities;
@@ -86,7 +82,7 @@ public class PaymentReport_Fragment extends Fragment {
         listView.setOnScrollListener(listener);
 
         courseList = new ArrayList<>();
-        adapter = new PaymentCoursesAdapter(getContext(),R.layout.report_list_items,courseList);
+        adapter = new PaymentCoursesAdapter(getContext(),R.layout.list_items_report_level,courseList);
 
         listView.setAdapter(adapter);
 

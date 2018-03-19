@@ -152,6 +152,7 @@ public class courses_Fragment extends Fragment {
             limit_info.put("start", currentStart);
             limit_info.put("limit", limitValue);
             HashMap<String, String> params = new HashMap<>();
+            params.put("ordered","true");
             params.put("table", "courses");
             params.put("limit", limit_info.toString());
 

@@ -34,9 +34,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class NewRequestActivity extends AppCompatActivity {
+public class AddNotificationActivity extends AppCompatActivity {
 
-    static private String TAG = NewRequestActivity.class.getSimpleName();
+    static private String TAG = AddNotificationActivity.class.getSimpleName();
 
     GlobalVars globalVars;
     int currentType;
@@ -439,24 +439,28 @@ public class NewRequestActivity extends AppCompatActivity {
             String Message = Content.getText().toString();
 
             values.put("title",title);
-            values.put("content",Message);
-            values.put("from_id",globalVars.getId());
-            values.put("to_id",ReceiverID);
+            values.put("message",Message);
             values.put("course_name",SpinnerCourse.getText().toString());
             values.put("sub_course_name",SpinnerGroup.getText().toString());
             Calendar c = Calendar.getInstance();
             SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
             String Today = df.format(c.getTime());
-
             values.put("date_request",Today);
 
             HttpCall httpCall = new HttpCall();
             httpCall.setMethodtype(HttpCall.POST);
-            httpCall.setUrl(Constants.insertData);
+            httpCall.setUrl(Constants.insertNotify);
             HashMap<String,String> params = new HashMap<>();
-            params.put("table","requests");
-            params.put("notify","1");
-            params.put("manager","3");
+
+            params.put("from_id",String.valueOf(globalVars.getId()) );
+            /*params.put("multi","true");
+            ArrayList<Integer> ids = new ArrayList<>();
+            ids.add(1);
+            ids.add(4);
+            ids.add(2);
+            JSONArray array = new JSONArray(ids);
+            params.put("to_id",String.valueOf(array) );*/
+            params.put("to_id",String.valueOf(ReceiverID) );
             params.put("values",values.toString());
 
             httpCall.setParams(params);
@@ -465,14 +469,15 @@ public class NewRequestActivity extends AppCompatActivity {
                 @Override
                 public void onResponse(JSONArray response) {
                     super.onResponse(response);
-
                     try {
-                        String result = String.valueOf(response.get(0));
-                        Log.d(TAG,result);
-                        if(result.equals("ERROR"))
-                            show_toast("Failed to send");
-                        else
-                            show_toast("Successfully sent");
+                        if (response!=null) {
+                            String result = String.valueOf(response.get(0));
+                            Log.d(TAG, result);
+                            if (result.equals("ERROR"))
+                                show_toast("Failed to send");
+                            else
+                                show_toast("Successfully sent");
+                        }
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }

@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.bassam.sporstincmanger.Entities.CourseEntity;
@@ -55,18 +56,18 @@ public class CoursesAdapter extends ArrayAdapter<CourseEntity> {
         CourseEntity mycourse = getItem(position);
 
         TextView Title = view.findViewById(R.id.course_item_name);
-        TextView level = view.findViewById(R.id.course_item_level);
-        TextView price = view.findViewById(R.id.course_item_price);
+        TextView SessionDuration = view.findViewById(R.id.sessionDuration);
+        TextView SessionsNum = view.findViewById(R.id.sessionNum);
+        final ProgressBar progressBar = view.findViewById(R.id.progress_bar);
         ImageView icon = view.findViewById(R.id.Course_icon);
 
         String name = mycourse.getCourseName();
-       // fillImage(name , icon);
         String ImageUrl = mycourse.getImageUrl();
         if(!ImageUrl.equals("")) {
             Picasso.with(context).load(Constants.others_host + ImageUrl).into(icon, new com.squareup.picasso.Callback() {
                 @Override
                 public void onSuccess() {
-
+                    progressBar.setVisibility(View.GONE);
                 }
 
                 @Override
@@ -77,41 +78,10 @@ public class CoursesAdapter extends ArrayAdapter<CourseEntity> {
         }
 
         Title.setText(name);
-        level.setText(mycourse.getLevel());
-        price.setText("$ "+mycourse.getPrice());
+        SessionsNum.setText(mycourse.getClasses_Num());
+        SessionDuration.setText(mycourse.getSession_duration());
 
         return  view;
     }
 
-    public void fillImage(String name , ImageView levelImage){
-        switch (name){
-            case "Star fish":
-                levelImage.setImageResource(R.drawable.star);
-                break;
-            case "Dolphin":
-                levelImage.setImageResource(R.drawable.dolphin);
-                break;
-            case "Duck":
-                levelImage.setImageResource(R.drawable.duck);
-                break;
-            case "Frog":
-                levelImage.setImageResource(R.drawable.frog);
-                break;
-            case "Jelly fish":
-                levelImage.setImageResource(R.drawable.jellyfish);
-                break;
-            case "Nemo":
-                levelImage.setImageResource(R.drawable.nemo);
-                break;
-            case "Penguin":
-                levelImage.setImageResource(R.drawable.penguin);
-                break;
-            case "Seal":
-                levelImage.setImageResource(R.drawable.seal);
-                break;
-            case "Shark":
-                levelImage.setImageResource(R.drawable.shark);
-                break;
-        }
-    }
 }

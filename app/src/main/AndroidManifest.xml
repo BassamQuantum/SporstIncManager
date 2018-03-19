@@ -28,14 +28,14 @@
             android:label="@string/app_name" />
         <activity
             android:name=".Activities.ClassesDetailsActivity"
-            android:label="@string/class_details"></activity>
+            android:label="@string/class_details" />
         <activity
             android:name=".Activities.ProfileActivity"
             android:label="@string/app_name"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity android:name=".Activities.RequestDetailsActivity" />
         <activity
-            android:name=".Activities.NewRequestActivity"
+            android:name=".Activities.AddNotificationActivity"
             android:label="@string/compose" />
         <activity android:name=".Activities.ComplainDetailsActivity" />
         <activity android:name=".Activities.NotificationDetailsActivity" />
@@ -83,7 +83,8 @@
             </intent-filter>
             -->
         </activity>
-        <activity android:name=".Activities.ActivitySessionAttendance"></activity>
+        <activity android:name=".Activities.ActivitySessionAttendance" />
+        <activity android:name=".Activities.PaymentTraineesActivity"></activity>
     </application>
 
 </manifest>

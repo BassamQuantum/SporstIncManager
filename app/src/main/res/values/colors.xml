@@ -4,23 +4,9 @@
     <color name="colorItems">#CFD8F2</color>
     <color name="colorNotification">#ebf1fc</color>
 
-    <color name="colorPrimary">#ce2305</color>
-    <color name="colorPrimaryDark">#ac1b01</color>
-    <color name="colorAccent">#b12025</color>
-
-
     <color name="colorCalendarBack">#f1c1c1c1</color>
 
-    <color name="colorTextDark">#2393af</color>
-    <color name="colorText">#002a35</color>
-    <color name="colorTextLight">#ffffff</color>
-
-    <color name="colorTabIndicator">#932121</color>
-
-    <color name="colorWhite">#FFFFFF</color>
-    <color name="colorBlack">#000000</color>
-
-    <color name="colorGray">#ed4e4d4d</color>
+    <color name="colorDarkGray">#737373</color>
     <color name="colorBlue">#2393af</color>
     <color name="colorRed">#b12025</color>
     <color name="colorMaroon">#650000</color>
@@ -52,5 +38,33 @@
     <color name="white_transparent">#99FFFFFF</color>
     <color name="black">#000</color>
     <color name="colorTest">#DEF0f4</color>
+
+    <color name="colorPrimary">#df1b1c</color>
+    <color name="colorPrimaryDark">#c70001</color>
+    <color name="colorAccent">#b12025</color>
+
+    <color name="colorTextDark">#2393af</color>
+    <color name="colorText">#002a35</color>
+    <color name="colorTextLight">#ffffff</color>
+
+    <color name="colorTabIndicator">#b12025</color>
+
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="colorBlack">#000000</color>
+
+    <color name="colorGray">#f4898383</color>
+    <color name="colorLightGray">#efaeacac</color>
+
+    <color name="colorLogoBlue">#001b51</color>
+    <color name="colorLogoRed">#df1b1c</color>
+
+    <color name="colorRegisterGrayGender">#b7b7b7</color>
+    <color name="colorRegisterGraySteps">#838383</color>
+
+    <color name="colorTopTapsGraySelected">#616161</color>
+    <color name="colorTopTapsGray">#7a7a7a</color>
+
+    <color name="colorCoursesText">#111E3F</color>
+    <color name="colorDarkBlue">#0e019f</color>
 
 </resources>

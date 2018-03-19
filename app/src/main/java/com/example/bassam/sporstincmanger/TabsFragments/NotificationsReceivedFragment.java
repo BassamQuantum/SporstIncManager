@@ -58,7 +58,7 @@ public class NotificationsReceivedFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_notifications,container,false);
+        View root = inflater.inflate(R.layout.fragment_notifications_received,container,false);
         setHasOptionsMenu(true);
         globalVars = (GlobalVars) getActivity().getApplication();
         limitValue = getResources().getInteger(R.integer.selectLimit);
@@ -102,12 +102,13 @@ public class NotificationsReceivedFragment extends Fragment {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 if (i>= notificationList.size())
                     return;
+                notificationList.get(i).setRead(1);
+                adapter.notifyDataSetChanged();
                 Intent intent = new Intent(getContext(), NotificationDetailsActivity.class);
                 intent.putExtra("MyNotification",notificationList.get(i));
                 startActivity(intent);
             }
         });
-
         if (savedInstanceState == null)
             initializeNotifications(true);
         else

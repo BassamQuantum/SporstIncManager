@@ -87,7 +87,8 @@
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="From: "
                 android:paddingLeft="16dp"
-                android:textSize="18dp" />
+                android:textSize="18dp"
+                android:id="@+id/notificationReviewPersonLabel" />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

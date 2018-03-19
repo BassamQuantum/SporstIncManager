@@ -3,20 +3,27 @@ package com.example.bassam.sporstincmanger.Activities;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.bassam.sporstincmanger.Aaa_data.GlobalVars;
 import com.example.bassam.sporstincmanger.Backend.HttpCall;
 import com.example.bassam.sporstincmanger.Backend.HttpRequest;
 import com.example.bassam.sporstincmanger.CustomView.CustomLoadingView;
-import com.example.bassam.sporstincmanger.CustomView.myCustomListView;
 import com.example.bassam.sporstincmanger.Entities.requestsEntity;
 import com.example.bassam.sporstincmanger.Interfaces.Constants;
 import com.example.bassam.sporstincmanger.R;
@@ -34,6 +41,7 @@ public class RequestDetailsActivity extends AppCompatActivity {
     LinearLayout mybuttons ,statusLayout;
     TextView accept , reject;
     boolean received = false;
+    PopupWindow popupWindow;
     ProgressDialog progressDialog;
 
     CustomLoadingView loadingView;
@@ -41,6 +49,9 @@ public class RequestDetailsActivity extends AppCompatActivity {
     private int requestID;
     private int loadingTime = 1200;
     private requestsEntity myRequest;
+    private int requestStatus;
+
+    GlobalVars globalVars;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +64,8 @@ public class RequestDetailsActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+        globalVars = (GlobalVars) getApplication();
         loadingView = findViewById(R.id.LoadingView);
         loadingView.setOnRetryClick(new CustomLoadingView.OnRetryClick() {
             @Override
@@ -76,16 +89,14 @@ public class RequestDetailsActivity extends AppCompatActivity {
         accept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                progressDialog.show();
-                updateRequest(1);
+                writeNote(1);
             }
         });
 
         reject.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                progressDialog.show();
-                updateRequest(0);
+                writeNote(0);
             }
         });
 
@@ -101,19 +112,22 @@ public class RequestDetailsActivity extends AppCompatActivity {
         outState.putSerializable("Request",myRequest);
     }
 
-    private void updateRequest(int value){
+    private void updateRequest(int value , String note){
         try {
             JSONObject where_info = new JSONObject();
             where_info.put("id",requestID);
 
             JSONObject values = new JSONObject();
             values.put("status",value);
+            values.put("manager_note",note);
 
             HttpCall httpCall = new HttpCall();
             httpCall.setMethodtype(HttpCall.POST);
             httpCall.setUrl(Constants.updateData);
             HashMap<String,String> params = new HashMap<>();
             params.put("table","requests");
+            params.put("notify","true");
+            params.put("person_id",String.valueOf(globalVars.getId()));
             params.put("where",where_info.toString());
             params.put("values",values.toString());
 
@@ -170,11 +184,11 @@ public class RequestDetailsActivity extends AppCompatActivity {
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         final int notify_id = intent.getIntExtra("notify_id",-1);
+        loadingView.loading();
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 if (notify_id != -1) {
-                    loadingView.loading();
                     retrieveRequest(notify_id);
                 }
                 else {
@@ -221,7 +235,7 @@ public class RequestDetailsActivity extends AppCompatActivity {
             JSONObject where_info = new JSONObject();
             where_info.put("requests.id", notify_id);
 
-            String OnCondition = "requests.to_id = users.id";
+            String OnCondition = "requests.from_id = users.id";
 
             HashMap<String, String> params = new HashMap<>();
             params.put("table1", "requests");
@@ -240,6 +254,8 @@ public class RequestDetailsActivity extends AppCompatActivity {
                             myRequest = new requestsEntity(response.getJSONObject(0));
                             fillView(myRequest);
                         }
+                        else
+                            loadingView.fails();
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -288,9 +304,54 @@ public class RequestDetailsActivity extends AppCompatActivity {
         loadingView.success();
     }
 
+    private void writeNote(final int status){
+        requestStatus = status;
+        LayoutInflater inflater = (LayoutInflater) getApplicationContext().getSystemService(LAYOUT_INFLATER_SERVICE);
+        View customView = inflater.inflate(R.layout.window_write_note_layout,null);
+
+        popupWindow = new PopupWindow(
+                customView,
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+        );
+
+        if(Build.VERSION.SDK_INT>=21){
+            popupWindow.setElevation(5.0f);
+        }
+
+        final EditText note_edit_text =  customView.findViewById(R.id.noteEditText_notewindow);
+        Button done_button =  customView.findViewById(R.id.doneButton_notewindow);
+
+        done_button.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+               popupWindow.dismiss();
+               progressDialog.show();
+               String note = note_edit_text.getText().toString();
+               updateRequest(status,note);
+            }
+        } );
+
+        LinearLayout parentView = findViewById(R.id.request_view);
+        popupWindow.showAtLocation(parentView, Gravity.CENTER,0,0);
+        popupWindow.setFocusable(true);
+        note_edit_text.setFocusable(true);
+        popupWindow.setOutsideTouchable(false);
+        popupWindow.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+        popupWindow.update();
+    }
+
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent resultIntent = new Intent();
+        resultIntent.putExtra("request_status",requestStatus);
+        setResult(AppCompatActivity.RESULT_OK ,resultIntent);
+        finish();
     }
 }
