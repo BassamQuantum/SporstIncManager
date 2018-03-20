@@ -102,11 +102,11 @@ public class NotificationsReceivedFragment extends Fragment {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 if (i>= notificationList.size())
                     return;
-                notificationList.get(i).setRead(1);
-                adapter.notifyDataSetChanged();
                 Intent intent = new Intent(getContext(), NotificationDetailsActivity.class);
                 intent.putExtra("MyNotification",notificationList.get(i));
                 startActivity(intent);
+                notificationList.get(i).setRead(1);
+                adapter.notifyDataSetChanged();
             }
         });
         if (savedInstanceState == null)

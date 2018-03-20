@@ -1,5 +1,6 @@
 package com.example.bassam.sporstincmanger.CustomView;
 
+import android.graphics.Color;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.widget.AbsListView;
 import android.widget.ExpandableListView;
@@ -25,6 +26,8 @@ public abstract class myCustomExpandableListViewListener implements AbsListView.
     public myCustomExpandableListViewListener(ExpandableListView expandableListView , SwipeRefreshLayout mSwipeRefreshLayout){
         this.expandableListView = expandableListView;
         this.mSwipeRefreshLayout = mSwipeRefreshLayout;
+        this.mSwipeRefreshLayout.setProgressBackgroundColorSchemeColor(Color.parseColor("#df1b1c"));
+        this.mSwipeRefreshLayout.setColorSchemeColors(Color.parseColor("#FFFFFF"));
         isLoading = false;
     }
 

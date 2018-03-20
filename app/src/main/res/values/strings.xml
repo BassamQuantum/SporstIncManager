@@ -152,6 +152,7 @@
     <string name="descriptionLable">Description:</string>
     <string name="Sessions">Sessions:</string>
     <string name="notificationDetails">Notification Details</string>
+    <string name="contentLable">Content:</string>
 
     <integer name="selectLimit">10</integer>
     <integer name="sliderLimit">3</integer>

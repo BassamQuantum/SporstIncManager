@@ -1,5 +1,6 @@
 package com.example.bassam.sporstincmanger.CustomView;
 
+import android.graphics.Color;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.widget.AbsListView;
@@ -26,6 +27,8 @@ public abstract class myCustomListViewListener implements AbsListView.OnScrollLi
     public myCustomListViewListener(ListView listView , SwipeRefreshLayout mSwipeRefreshLayout){
         this.listView = listView;
         this.mSwipeRefreshLayout = mSwipeRefreshLayout;
+        this.mSwipeRefreshLayout.setProgressBackgroundColorSchemeColor(Color.parseColor("#df1b1c"));
+        this.mSwipeRefreshLayout.setColorSchemeColors(Color.parseColor("#FFFFFF"));
         isLoading = false;
     }
 
