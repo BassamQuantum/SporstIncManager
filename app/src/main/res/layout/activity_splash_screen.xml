@@ -6,6 +6,7 @@
     android:background="@drawable/splachscreenbackground">
 
     <ImageView
+        android:id="@+id/splashScreem_imageView"
         android:layout_width="170dp"
         android:layout_height="170dp"
         android:layout_gravity="center_horizontal"

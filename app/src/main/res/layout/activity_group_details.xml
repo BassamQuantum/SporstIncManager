@@ -25,13 +25,13 @@
     </android.support.design.widget.AppBarLayout>
 
 
-
     <com.example.bassam.sporstincmanger.CustomView.CustomLoadingView
         android:id="@+id/LoadingView"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
     </com.example.bassam.sporstincmanger.CustomView.CustomLoadingView>
+
 
     <LinearLayout
             android:layout_width="match_parent"
@@ -54,6 +54,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Group1"
         android:textColor="@color/colorPrimaryDark"
@@ -95,7 +96,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="Coach: "
             android:textStyle="bold"
             android:textColor="@color/colorBlack"
@@ -105,7 +106,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="Bassam Saber"
             android:id="@+id/GroupReviewCoach"
             android:layout_marginStart="15dp"
@@ -113,7 +114,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textAppearance="?android:attr/textAppearanceSmall"
             android:id="@+id/GroupReviewCoachAttend"
             android:layout_marginStart="15dp"
             android:layout_marginTop="10dp"
@@ -122,7 +123,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="10dp"
             android:layout_marginStart="5dp"
             android:text="Attendance"
             android:textStyle="italic|bold"/>
@@ -137,7 +138,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="@string/BackupCoach"
             android:textStyle="bold"
             android:textColor="@color/colorBlack"
@@ -147,7 +148,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="Islam Said"
             android:id="@+id/GroupReviewAdmin"
             android:layout_marginStart="15dp"
@@ -162,7 +163,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text="@string/pool"
                 android:textStyle="bold"
                 android:textColor="@color/colorBlack"
@@ -172,7 +173,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text="pool1"
                 android:id="@+id/GroupReviewPool"
                 android:layout_marginStart="15dp"
@@ -181,8 +182,22 @@
         </LinearLayout>
 
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:text="@string/Sessions"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textStyle="bold"
+            android:textColor="@color/colorBlack"
+            android:layout_marginStart="15dp"
+            android:layout_marginBottom="@dimen/ten_dimens"
+            android:layout_marginTop="10dp"/>
         <com.example.bassam.sporstincmanger.CustomView.myCustomListView
             android:id="@+id/customListView"
+            android:background="@drawable/border"
+            android:layout_marginStart="@dimen/twinty_dimens"
+            android:layout_marginEnd="@dimen/twinty_dimens"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
         </com.example.bassam.sporstincmanger.CustomView.myCustomListView>
@@ -190,6 +205,5 @@
             </ScrollView>
             </android.support.v4.widget.SwipeRefreshLayout>
         </LinearLayout>
-
 
 </LinearLayout>

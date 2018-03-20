@@ -66,5 +66,6 @@
 
     <color name="colorCoursesText">#111E3F</color>
     <color name="colorDarkBlue">#0e019f</color>
+    <color name="colorLogInBtn">#818181</color>
 
 </resources>

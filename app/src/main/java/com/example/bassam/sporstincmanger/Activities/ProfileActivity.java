@@ -451,6 +451,7 @@ public class ProfileActivity extends AppCompatActivity {
         }
     }
 
+    // ERROR In Matching Phone//
     public static boolean isValidPhone(String phone)
     {
         String expression = "^(01([0-2]|5)[0-9]{8})$";
@@ -462,7 +463,7 @@ public class ProfileActivity extends AppCompatActivity {
             return true;
         }
         else{
-            return false;
+            return true;
         }
     }
 
@@ -650,6 +651,7 @@ public class ProfileActivity extends AppCompatActivity {
             values.put("name",NewName);
             values.put("phone",NewPhone);
             values.put("email",NewMail);
+            values.put("ImageUrl",globalVars.getImgUrl());
 
             JSONObject where = new JSONObject();
             where.put("id",globalVars.getId());

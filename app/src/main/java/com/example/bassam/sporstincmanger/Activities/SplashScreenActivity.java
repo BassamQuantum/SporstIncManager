@@ -10,6 +10,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.bassam.sporstincmanger.Aaa_data.GlobalVars;
@@ -29,6 +32,9 @@ public class SplashScreenActivity extends AppCompatActivity {
     //Intent
     private Intent intent;
 
+    Animation anim;
+    ImageView image;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +44,9 @@ public class SplashScreenActivity extends AppCompatActivity {
         intent = new Intent(SplashScreenActivity.this,LoginActivity.class);
         checkConnection();
         initializeUser();
+        image = findViewById(R.id.splashScreem_imageView);
+        anim = AnimationUtils.loadAnimation(SplashScreenActivity.this, R.anim.splash_screen);
+        image.setAnimation(anim);
         new Handler().postDelayed(new Runnable() {
             /*
              * Showing splash screen with a timer. This will be useful when you

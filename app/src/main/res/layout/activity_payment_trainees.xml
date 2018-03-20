@@ -25,12 +25,19 @@
 
     </android.support.design.widget.AppBarLayout>
 
+    <com.example.bassam.sporstincmanger.CustomView.CustomLoadingView
+        android:id="@+id/LoadingView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </com.example.bassam.sporstincmanger.CustomView.CustomLoadingView>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="@dimen/ten_dimens"
         android:background="@color/colorTopTapsGray">
         <TextView
+            android:id="@+id/ClassName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -77,6 +84,7 @@
                 </LinearLayout>
 
                 <TextView
+                    android:id="@+id/reminderBtn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
@@ -98,26 +106,73 @@
                 android:background="@color/colorGray"/>
 
             <Spinner
+                android:id="@+id/paymentStatusFilter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:prompt="@string/status"
                 android:layout_margin="@dimen/ten_dimens">
             </Spinner>
 
-            <ListView
+            <LinearLayout
+                android:orientation="vertical"
                 android:background="@drawable/listview_border"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginStart="30dp"
                 android:layout_marginEnd="30dp"
                 android:layout_marginBottom="@dimen/twenty_demin">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-            </ListView>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginStart="@dimen/twenty_demin"
+                        android:textColor="@color/colorBlack"
+                        android:textStyle="italic"
+                        android:text="@string/trainees"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_toStartOf="@+id/checkBox_item"
+                        android:layout_marginEnd="@dimen/ten_dimens"
+                        android:text="@string/filter_all"
+                        android:textColor="@color/colorBlack"/>
+
+                    <CheckBox
+                        android:id="@+id/checkBox_item"
+                        android:layout_centerInParent="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:buttonTint="@color/colorLogoRed"
+                        android:layout_marginEnd="10dp" />
+                </RelativeLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/colorDarkBlue"/>
+                <ListView
+                    android:id="@+id/trainees_listView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/ten_dimens">
+
+                </ListView>
+            </LinearLayout>
+
 
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/belowlayout_navigation"
+            android:paddingStart="@dimen/ten_dimens"
+            android:paddingEnd="@dimen/ten_dimens"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
@@ -128,7 +183,8 @@
                 android:id="@+id/homeNavigation"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="@dimen/ten_dimens"
                 android:layout_weight="1"
                 android:drawableTop="@drawable/ic_home"
                 android:gravity="center"
@@ -147,7 +203,8 @@
                 android:id="@+id/coursesNavigation"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
+                android:layout_marginTop="@dimen/ten_dimens"
+                android:layout_marginBottom="@dimen/ten_dimens"
                 android:layout_weight="1"
                 android:drawableTop="@drawable/ic_course"
                 android:gravity="center"
@@ -165,8 +222,9 @@
             <TextView
                 android:id="@+id/emailTextView_contactus"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/ten_dimens"
+                android:layout_marginBottom="@dimen/ten_dimens"
                 android:layout_weight="1"
                 android:drawableTop="@drawable/ic_people"
                 android:gravity="center"
@@ -184,8 +242,9 @@
             <TextView
                 android:id="@+id/direcctionTextView_contactus"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/ten_dimens"
+                android:layout_marginBottom="@dimen/ten_dimens"
                 android:layout_weight="1"
                 android:drawableTop="@drawable/ic_person"
                 android:gravity="center"

@@ -52,6 +52,7 @@ public class classesListAdapter extends ArrayAdapter<classesEntity> {
 
         TextView Title = view.findViewById(R.id.class_name);
         TextView Time = view.findViewById(R.id.class_start_end);
+        TextView StartTime = view.findViewById(R.id.class_start_time);
         TextView status = view.findViewById(R.id.class_status);
 
         String classStatus = myclass.getStatus();
@@ -67,6 +68,7 @@ public class classesListAdapter extends ArrayAdapter<classesEntity> {
             status.setTextColor(Color.parseColor("#2a388f"));
 
         Title.setText(myclass.getCourseName()+" "+myclass.getClassName());
+        StartTime.setText(myclass.getStartTime());
         Time.setText(myclass.getStartTime()+" to "+myclass.getEndTime());
         status.setText(classStatus);
 

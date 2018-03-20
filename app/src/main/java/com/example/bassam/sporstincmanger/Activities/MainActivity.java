@@ -70,10 +70,9 @@ public class MainActivity extends AppCompatActivity
         if (savedInstanceState == null) {
             Fragment fragment = null;
             Class fragmentClass = homeFragment.class;
-            int Notifi = getIntent().getIntExtra("HomePosition",0);
+            int Position = getIntent().getIntExtra("HomePosition",0);
 
-            if(Notifi == Config.NOTIFICATION_ID)
-                fragmentClass = NotificationsReceivedFragment.class;
+            fragmentClass = navigationFragment(Position);
 
             try {
                 fragment = (Fragment) fragmentClass.newInstance();
@@ -140,6 +139,31 @@ public class MainActivity extends AppCompatActivity
        // set Unread Notification Counter
        // setMenuCounter(5);
 
+    }
+
+    private Class navigationFragment(int position) {
+        Class fragmentClass = homeFragment.class;
+        switch (position){
+            case 0:
+                fragmentClass = homeFragment.class;
+                break;
+            case 1:
+                fragmentClass = classesFragment.class;
+                break;
+            case 2:
+                actionBar.setTitle(R.string.notifi);
+                fragmentClass = NotificationsFragment.class;
+                break;
+            case 3:
+                actionBar.setTitle(R.string.request);
+                fragmentClass = RequestsFragment.class;
+                break;
+            case 4:
+                actionBar.setTitle(R.string.report);
+                fragmentClass = reportsFragment.class;
+                break;
+        }
+        return fragmentClass;
     }
 
     private void openProfile (){

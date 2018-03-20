@@ -111,6 +111,7 @@
                                 android:id="@+id/news_item"
                                 android:layout_width="0dp"
                                 android:layout_weight="9"
+                                android:background="@color/colorLogoBlue"
                                 android:layout_height="wrap_content"
                                 android:orientation="horizontal">
                                 <ImageView
@@ -185,6 +186,7 @@
                                 android:id="@+id/event_item"
                                 android:layout_width="0dp"
                                 android:layout_weight="9"
+                                android:background="@color/colorLogoBlue"
                                 android:layout_height="wrap_content"
                                 android:orientation="horizontal">
                                 <RelativeLayout

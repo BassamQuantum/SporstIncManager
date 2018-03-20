@@ -9,9 +9,11 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.bassam.sporstincmanger.Aaa_data.BottomNavigationAction;
 import com.example.bassam.sporstincmanger.Adapters.PaymentGroupAdapter;
 import com.example.bassam.sporstincmanger.Backend.HttpCall;
 import com.example.bassam.sporstincmanger.Backend.HttpRequest;
@@ -28,6 +30,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -35,6 +38,7 @@ import java.util.List;
 public class PaymentDetailsActivity extends AppCompatActivity {
 
     TextView StartDate ,EndDate;
+    LinearLayout navigationBlow;
     PaymentGroupAdapter adapter;
     myCustomListView customListView;
     SwipeRefreshLayout mSwipeRefreshLayout;
@@ -72,6 +76,9 @@ public class PaymentDetailsActivity extends AppCompatActivity {
         EndDate.setText(EDate);*/
 
         limitValue = getResources().getInteger(R.integer.selectLimit);
+        navigationBlow = findViewById(R.id.belowlayout_contactus);
+        BottomNavigationAction bottomNavigationAction = new BottomNavigationAction(getApplicationContext() ,navigationBlow);
+        bottomNavigationAction.createClickListener();
         mSwipeRefreshLayout = findViewById(R.id.swipeRefresh);
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -106,6 +113,12 @@ public class PaymentDetailsActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(PaymentDetailsActivity.this, PaymentTraineesActivity.class);
+                intent.putExtra("LevelName",entityList.get(i).getCourseName());
+                intent.putExtra("ClassName",entityList.get(i).getName());
+                intent.putExtra("ClassID",entityList.get(i).getGroup_id());
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                String ClassDate = dateFormat.format(entityList.get(i).getGroup_sdate());
+                intent.putExtra("ClassDate",ClassDate);
                 startActivity(intent);
             }
         });
@@ -116,7 +129,6 @@ public class PaymentDetailsActivity extends AppCompatActivity {
         else {
             List<GroupEntity> list = (List<GroupEntity>) savedInstanceState.getSerializable("entityList");
             entityList.addAll(list);
-            Log.d("LIST","Size on Restore: "+entityList.size());
             fillView();
         }
     }

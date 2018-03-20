@@ -146,10 +146,21 @@
     <string name="attend">Attendance</string>
     <string name="account">My Account</string>
     <string name="startDate">Start Date:-</string>
-    <string name="remaindar">Remindar</string>
+    <string name="remaindar">Reminder</string>
     <string name="status">Status</string>
+    <string name="trainees">Trainee Name</string>
+    <string name="descriptionLable">Description:</string>
+    <string name="Sessions">Sessions:</string>
+    <string name="notificationDetails">Notification Details</string>
 
     <integer name="selectLimit">10</integer>
     <integer name="sliderLimit">3</integer>
 
+
+    <string-array name="payment_status_array">
+        <item>Status</item>
+        <item>All</item>
+        <item>Booked</item>
+        <item>Paid</item>
+    </string-array>
 </resources>

@@ -7,7 +7,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -23,6 +26,8 @@ public class GroupEntity implements Serializable {
     List<AttendanceEntity> classes;
     private int coach_attend;
     private String CoachAttendace;
+
+    Date group_sdate ;
 
     public GroupEntity() {
     }
@@ -100,7 +105,12 @@ public class GroupEntity implements Serializable {
             TraineeNum = jsonObject.getInt("Trainee_count");
             PaidNum = jsonObject.getInt("payment_count");
             classes = new ArrayList<>();
+            String groupDate = jsonObject.getString("group_sdate");
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            group_sdate = dateFormat.parse(groupDate);
         } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
             e.printStackTrace();
         }
     }
@@ -226,5 +236,9 @@ public class GroupEntity implements Serializable {
 
     public String getCourseName() {
         return courseName;
+    }
+
+    public Date getGroup_sdate() {
+        return group_sdate;
     }
 }

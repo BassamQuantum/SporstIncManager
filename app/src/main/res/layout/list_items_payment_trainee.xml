@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/ten_dimens">
+
+    <TextView
+        android:id="@+id/TraineeName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="@dimen/twenty_demin"
+        android:textColor="@color/colorLogoBlue"
+        android:textStyle="italic"
+        android:text="@string/status"/>
+
+    <ImageView
+        android:id="@+id/paymentStatusIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="16dp"
+        android:layout_centerInParent="true"
+        android:layout_toStartOf="@+id/checkBox_item"
+        android:backgroundTint="@color/colorLogoBlue" />
+
+
+    <CheckBox
+        android:id="@+id/checkBox_item"
+        android:layout_centerInParent="true"
+        android:layout_alignParentEnd="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:buttonTint="@color/colorLogoRed"
+        android:layout_margin="10dp" />
+</RelativeLayout>

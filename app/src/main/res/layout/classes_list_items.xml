@@ -1,35 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:padding="10dp"
-    android:paddingBottom="25dp"
+    android:paddingStart="10dp"
+    android:paddingEnd="@dimen/ten_dimens"
+    android:paddingBottom="@dimen/ten_dimens"
     android:paddingTop="15dp"
     android:orientation="vertical"
     android:background="@color/colorWhite"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/class_name"
-        android:text="Course#1 Class#1"
-        android:textColor="@color/colorBlack"
-        android:paddingBottom="10dp"
-        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:orientation="horizontal">
 
+        <TextView
+            android:id="@+id/class_start_time"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorBlack"
+            android:background="@drawable/border_time"
+            android:layout_marginEnd="@dimen/ten_dimens"
+            android:paddingTop="@dimen/padding_3"
+            android:paddingBottom="@dimen/padding_3"
+            android:paddingStart="@dimen/ten_dimens"
+            android:paddingEnd="@dimen/ten_dimens"
+            android:text="12:00"/>
+        <TextView
+            android:id="@+id/class_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:text="Course#1 Class#1"
+            android:textStyle="bold"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+            android:textColor="@color/colorBlack" />
+
+
+    </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-    <TextView
-        android:id="@+id/class_start_end"
-        android:textColor="@color/colorDarkGray"
-        android:text="12:00pm to 2:00pm"
-        android:paddingBottom="10dp"
-        android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="3" />
+        <TextView
+            android:id="@+id/class_start_end"
+            android:textColor="@color/colorGray"
+            android:gravity="end"
+            android:layout_gravity="center_vertical"
+            android:text="12:00pm to 2:00pm"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
         <TextView
             android:id="@+id/class_status"

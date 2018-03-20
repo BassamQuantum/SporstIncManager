@@ -38,7 +38,8 @@
             android:name=".Activities.AddNotificationActivity"
             android:label="@string/compose" />
         <activity android:name=".Activities.ComplainDetailsActivity" />
-        <activity android:name=".Activities.NotificationDetailsActivity" />
+        <activity android:name=".Activities.NotificationDetailsActivity"
+            android:label="@string/notificationDetails"/>
         <activity android:name=".Activities.PaymentDetailsActivity" />
         <activity android:name=".Activities.GroupDetailsActivity" />
         <activity android:name=".Activities.CourseDetailsActivity" />

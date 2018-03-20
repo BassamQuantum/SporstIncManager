@@ -12,4 +12,6 @@
     <dimen name="ten_dimens">10dp</dimen>
     <dimen name="dimens_15">15dp</dimen>
     <dimen name="twenty_demin">20dp</dimen>
+    <dimen name="twinty_dimens">20dp</dimen>
+    <dimen name="padding_3">3dp</dimen>
 </resources>

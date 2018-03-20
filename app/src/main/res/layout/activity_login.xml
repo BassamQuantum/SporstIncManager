@@ -31,30 +31,41 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/phone"
+                android:padding="10dp"
+                android:background="@color/colorWhite"
+                android:textColor="@color/colorBlack"
                 android:ems="10"
-                android:inputType="phone" />
+                android:inputType="textEmailAddress" />
 
             <EditText
                 android:id="@+id/passEditText_login"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/password"
+                android:padding="10dp"
+                android:background="@color/colorWhite"
+                android:textColor="@color/colorBlack"
                 android:ems="10"
                 android:layout_marginTop="10dp"
                 android:inputType="textPassword" />
 
             <Button
                 android:id="@+id/loginButton_login"
-                android:layout_width="150dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAllCaps="false"
                 android:layout_gravity="center"
-                android:textSize="18sp"
-                android:textColor="@color/colorTextLight"
-                android:layout_marginTop="24dp"
-                android:background="@drawable/button_red_background"
+                android:gravity="center"
                 android:onClick="loginClicked"
-                android:text="@string/log_in" />
+                android:text="@string/log_in"
+                android:textAllCaps="false"
+                android:layout_marginTop="30dp"
+                android:paddingTop="0dp"
+                android:paddingBottom="0dp"
+                android:paddingStart="50dp"
+                android:paddingEnd="50dp"
+                android:backgroundTint="@color/colorGray"
+                android:textColor="@color/colorTextLight"
+                android:textSize="18sp" />
         </LinearLayout>
     </ScrollView>
 

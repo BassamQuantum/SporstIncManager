@@ -6,9 +6,9 @@ package com.example.bassam.sporstincmanger.Interfaces;
 
 public interface Constants {
 
-    String server = "http://192.168.1.29:8080/sport_inc/api/";
+   // String server = "http://192.168.1.29:8080/sport_inc/api/";
 
-   // String server = "http://173.212.198.28:8010/sports_inc/api/";
+    String server = "http://173.212.198.28:8010/sports_inc/api/";
     String upload_host = "http://173.212.198.28:8010/sports_inc/assets/uploads/";
     String UPLOAD_URL = "http://173.212.198.28:8010/sports_inc/academy/upload_Image";
 
@@ -16,6 +16,7 @@ public interface Constants {
     String selectMangerData = server + "selectMangerRequests";
     String insertData = server + "insertdata ";
     String insertNotify = server + "insertNotification";
+    String sendReminder = server + "sendRemind";
     String classesData = server + "class_Details";
     String attendanceReport = server + "courses_Details";
     String attendanceReportDetails = server + "Groups_details";
@@ -23,6 +24,7 @@ public interface Constants {
     String updateData = server + "updatedata";
     String deleteData = server + "deletedata";
     String ClassesTrainee = server + "trainee_attendance";
+    String TraineePayment = server + "trainee_payment";
     String join = server + "joindata";
     String sendSMS = server + "sendSMS";
     String notification = server + "selectNotification";
