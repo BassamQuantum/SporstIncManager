@@ -1,18 +1,29 @@
 package com.example.bassam.sporstincmanger.Activities;
 
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewGroupOverlay;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.PopupWindow;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,9 +34,6 @@ import com.example.bassam.sporstincmanger.Adapters.PaymentTraineesAdapter;
 import com.example.bassam.sporstincmanger.Backend.HttpCall;
 import com.example.bassam.sporstincmanger.Backend.HttpRequest;
 import com.example.bassam.sporstincmanger.CustomView.CustomLoadingView;
-import com.example.bassam.sporstincmanger.CustomView.myCustomListView;
-import com.example.bassam.sporstincmanger.Entities.CourseEntity;
-import com.example.bassam.sporstincmanger.Entities.GroupEntity;
 import com.example.bassam.sporstincmanger.Entities.TraineeEntity;
 import com.example.bassam.sporstincmanger.Interfaces.Constants;
 import com.example.bassam.sporstincmanger.R;
@@ -35,10 +43,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
@@ -58,6 +64,9 @@ public class PaymentTraineesActivity extends AppCompatActivity {
     GlobalVars globalVars;
     CustomLoadingView loadingView;
     LinearLayout navigationBlow;
+
+    PopupWindow popupWindow;
+    private CheckBox checkBox;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -143,7 +152,7 @@ public class PaymentTraineesActivity extends AppCompatActivity {
             }
         });
 
-        final CheckBox checkBox = findViewById(R.id.checkBox_item);
+        checkBox = findViewById(R.id.checkBox_item);
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
@@ -154,7 +163,9 @@ public class PaymentTraineesActivity extends AppCompatActivity {
         ReminderBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                RemindTraineesSelected();
+                ArrayList<Integer> TraineesIDs = checkSelectedTrainee();
+                if (TraineesIDs.size() > 0)
+                    reminderNoteWindow();
             }
         });
         traineeList = new ArrayList<>();
@@ -166,29 +177,113 @@ public class PaymentTraineesActivity extends AppCompatActivity {
         initializeTrainees();
     }
 
-    private void RemindTraineesSelected() {
+    private void reminderNoteWindow() {
+        LayoutInflater inflater = (LayoutInflater) getApplicationContext().getSystemService(LAYOUT_INFLATER_SERVICE);
+        View customView = inflater.inflate(R.layout.window_reminder_note,null);
+
+        popupWindow = new PopupWindow(
+                customView,
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+        );
+
+        if(Build.VERSION.SDK_INT>=21){
+            popupWindow.setElevation(5.0f);
+        }
+
+        final EditText note_edit_text =  customView.findViewById(R.id.noteEditText_notewindow);
+        Button done_button =  customView.findViewById(R.id.doneButton_notewindow);
+        Button cancel_button = customView.findViewById(R.id.cancelButton_notewindow);
+        ImageView close_button = customView.findViewById(R.id.noteClose);
+
+        done_button.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                String note = note_edit_text.getText().toString();
+                RemindTraineesSelected(note);
+            }
+        } );
+
+        cancel_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                cancelRemind();
+            }
+        });
+
+        close_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                cancelRemind();
+            }
+        });
+
+        final LinearLayout parentView = findViewById(R.id.paymentTraineeLayout);
+        popupWindow.showAtLocation(parentView, Gravity.CENTER,0,0);
+        popupWindow.setFocusable(true);
+        note_edit_text.setFocusable(true);
+        popupWindow.setOutsideTouchable(true);
+        popupWindow.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+
+        Drawable dim = new ColorDrawable(Color.BLACK);
+        dim.setBounds(0, 0, parentView.getWidth(), parentView.getHeight());
+        dim.setAlpha((int) (255 * 0.5f));
+
+        ViewGroupOverlay overlay = parentView.getOverlay();
+        overlay.add(dim);
+
+        popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+            @Override
+            public void onDismiss() {
+                ViewGroupOverlay overlay = parentView.getOverlay();
+                overlay.clear();
+            }
+        });
+        popupWindow.update();
+    }
+
+    private void cancelRemind() {
+        popupWindow.dismiss();
+    }
+
+    private ArrayList<Integer> checkSelectedTrainee()
+    {
         ArrayList<Integer> TraineesIDs = new ArrayList<>();
         for (TraineeEntity item : traineeList){
             if (item.isChecked()){
                 TraineesIDs.add(item.getTraineeID());
             }
         }
-        if (TraineesIDs.size() > 0)
-            SendNotification(TraineesIDs);
-        else
+        if (TraineesIDs.size() == 0)
             show_toast("No trainee was selected...");
+
+        return TraineesIDs;
+    }
+    private void RemindTraineesSelected(String Note) {
+        ArrayList<Integer> TraineesIDs = checkSelectedTrainee();
+
+        if (TraineesIDs.size() == 0)
+            return;
+
+        if (Note == null || Note.equals("")){
+            show_toast("Reminder Message is Required");
+            return;
+        }
+        SendNotification(TraineesIDs, Note);
+
     }
 
-    private void SendNotification(ArrayList<Integer> traineesIDs) {
+    private void SendNotification(ArrayList<Integer> traineesIDs ,String Note) {
         JSONArray array = new JSONArray(traineesIDs);
         JSONObject values = new JSONObject();
         try {
+            popupWindow.dismiss();
             show_toast("sending...");
             String title = "Payment Reminder";
-            String Message = "this is a reminder for you for Not paid for "+Levelname + " , "+ ClassName+"\n";
+            //String Message = "this is a reminder for you for Not paid for "+Levelname + " , "+ ClassName+"\n";
 
             values.put("title",title);
-            values.put("message",Message);
+            values.put("message",Note);
 
             HttpCall httpCall = new HttpCall();
             httpCall.setMethodtype(HttpCall.POST);
@@ -219,6 +314,7 @@ public class PaymentTraineesActivity extends AppCompatActivity {
                 }
             }.execute(httpCall);
 
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -237,7 +333,10 @@ public class PaymentTraineesActivity extends AppCompatActivity {
 
     private void filterTrainees(int selectedStatus) {
         traineeList.clear();
-        for (TraineeEntity item : allTraineeList){
+        checkBox.setChecked(false);
+        for (int i = 0 ; i< allTraineeList.size() ;i++){
+            allTraineeList.get(i).setChecked(false);
+            TraineeEntity item = allTraineeList.get(i);
             if (item.getPaidStatus() == selectedStatus || selectedStatus < 0){
                 traineeList.add(item);
             }

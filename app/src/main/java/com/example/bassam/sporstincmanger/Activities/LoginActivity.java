@@ -61,15 +61,15 @@ public class LoginActivity extends AppCompatActivity {
         all_good = true;
 
         if (phone.equals("") ){
-            show_toast("Phone is missing");
+            show_toast("Email is missing");
 
         } else if (pass.equals("")) {
-            show_toast("Password is missing");
+            show_toast("Email is missing");
 
         } else {
             JSONObject where_info = new JSONObject();
             try {
-                where_info.put("phone",phone);
+                where_info.put("email",phone);
                 where_info.put("pass",pass);
 
                 HttpCall httpCall = new HttpCall();
@@ -102,13 +102,13 @@ public class LoginActivity extends AppCompatActivity {
             try {
                 JSONObject result = response.getJSONObject(0);
                 received_type = result.getInt("type");
-                if (received_type == 3) {
+                if (received_type == 3 || received_type == 4) {
                     received_id = result.getInt("id");
                     received_name = result.getString("name");
                     received_imgUrl = result.getString("ImageUrl");
                     received_gender= result.getInt("gender");
                     received_type = result.getInt("type");
-                    received_mail = result.getString("email");
+                    received_mail = result.getString("phone");
                     received_pass = result.getString("pass");
                     received_date_of_birth = result.getString("date_of_birth");
                     ActiveUser(received_id);
@@ -122,7 +122,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         }else{
             progressDialog.dismiss();
-            show_toast("Wrong phone number or password");
+            show_toast("Wrong email address or password");
         }
     }
 
@@ -163,7 +163,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void go_to_home(){
-        globalVars.settAll(received_name, received_imgUrl , phone, pass, received_mail,
+        globalVars.settAll(received_name, received_imgUrl , received_mail, pass, phone,
                 received_id, received_type, received_gender,received_date_of_birth);
 
         UserEntity userEntity = new UserEntity(received_name, received_imgUrl ,phone,pass, received_mail,

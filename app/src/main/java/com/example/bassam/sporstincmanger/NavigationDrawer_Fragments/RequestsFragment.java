@@ -59,7 +59,7 @@ public class RequestsFragment extends Fragment {
     @Override
     public View onCreateView(final LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_requests_received, container, false);
-        setHasOptionsMenu(false);
+        setHasOptionsMenu(true);
 
         globalVars = (GlobalVars) getActivity().getApplication();
         limitValue = getResources().getInteger(R.integer.selectLimit);

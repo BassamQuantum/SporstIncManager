@@ -153,6 +153,7 @@
     <string name="Sessions">Sessions:</string>
     <string name="notificationDetails">Notification Details</string>
     <string name="contentLable">Content:</string>
+    <string name="RemindNote">Reminder Note</string>
 
     <integer name="selectLimit">10</integer>
     <integer name="sliderLimit">3</integer>

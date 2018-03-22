@@ -30,7 +30,7 @@
                 android:id="@+id/phoneEditText_login"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/phone"
+                android:hint="@string/email"
                 android:padding="10dp"
                 android:background="@color/colorWhite"
                 android:textColor="@color/colorBlack"

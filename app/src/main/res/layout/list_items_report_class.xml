@@ -35,6 +35,7 @@
                 android:id="@+id/TraineeNum"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/colorGray"
                 android:text=" 50 persons"/>
 
             <ImageView
@@ -43,6 +44,7 @@
                 android:src="@drawable/ic_paid_24dp"/>
             <TextView
                 android:id="@+id/PaidNum"
+                android:textColor="@color/colorGray"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=" 25 persons"/>

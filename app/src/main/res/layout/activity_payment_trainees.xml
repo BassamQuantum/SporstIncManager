@@ -32,6 +32,11 @@
     </com.example.bassam.sporstincmanger.CustomView.CustomLoadingView>
 
     <LinearLayout
+        android:id="@+id/paymentTraineeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="@dimen/ten_dimens"
@@ -254,5 +259,5 @@
                 android:textSize="14sp" />
         </LinearLayout>
     </RelativeLayout>
-
+    </LinearLayout>
 </LinearLayout>
