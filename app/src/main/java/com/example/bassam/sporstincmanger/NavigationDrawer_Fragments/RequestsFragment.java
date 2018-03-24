@@ -138,9 +138,11 @@ public class RequestsFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_UPDATE && resultCode == AppCompatActivity.RESULT_OK && data != null){
-            int new_status = data.getIntExtra("request_status", 2);
-            requestsList.get(request_position).setState(new_status);
-            adapter.notifyDataSetChanged();
+            int new_status = data.getIntExtra("request_status", -1);
+            if (new_status != -1) {
+                requestsList.get(request_position).setState(new_status);
+                adapter.notifyDataSetChanged();
+            }
         }
     }
 

@@ -20,7 +20,7 @@ import java.util.Locale;
 
 public class EventsDetailsActivity extends AppCompatActivity {
 
-    TextView date ,time ,description;
+    TextView title ,date ,time ,description;
 
     CustomLoadingView loadingView;
     private ImageView eventImage;

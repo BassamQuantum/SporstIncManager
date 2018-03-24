@@ -43,5 +43,7 @@ dependencies {
 
     def uploadServiceVersion = "3.4.2"
     compile "net.gotev:uploadservice:$uploadServiceVersion"
+
+    compile 'com.github.pratikbutani:MultiSelectSpinner:08d324c987'
 }
 apply plugin: 'com.google.gms.google-services'

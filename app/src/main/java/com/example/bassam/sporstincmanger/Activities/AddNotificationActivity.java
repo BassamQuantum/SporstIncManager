@@ -6,15 +6,19 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.androidbuts.multispinnerfilter.MultiSpinnerListener;
 import com.example.bassam.sporstincmanger.Aaa_data.GlobalVars;
 import com.example.bassam.sporstincmanger.Backend.HttpCall;
 import com.example.bassam.sporstincmanger.Backend.HttpRequest;
+import com.example.bassam.sporstincmanger.CustomView.MultiSelectSpinner;
+import com.example.bassam.sporstincmanger.CustomView.MultiSelectionSpinner;
 import com.example.bassam.sporstincmanger.Entities.CourseEntity;
 import com.example.bassam.sporstincmanger.Entities.GroupEntity;
 import com.example.bassam.sporstincmanger.Entities.UserEntity;
@@ -28,13 +32,16 @@ import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class AddNotificationActivity extends AppCompatActivity {
+import com.androidbuts.multispinnerfilter.MultiSpinnerSearch;
+
+public class AddNotificationActivity extends AppCompatActivity  implements MultiSelectionSpinner.OnMultipleItemsSelectedListener{
 
     static private String TAG = AddNotificationActivity.class.getSimpleName();
 
@@ -44,7 +51,8 @@ public class AddNotificationActivity extends AppCompatActivity {
     MaterialBetterSpinner SpinnerTo  ,SpinnerCourse ,SpinnerGroup;
     EditText Subject ,Content;
 
-    ArrayList<String> CoursesList, GroupList ,ToList ;
+    ArrayList<String> CoursesList, GroupList ;
+    List<String> ToList ;
 
     // Entities for filtering selections...
     ArrayList<CourseEntity> courseEntities;
@@ -52,8 +60,12 @@ public class AddNotificationActivity extends AppCompatActivity {
     ArrayList<GroupEntity> groupEntities;
 
     int ReceiverID = 0 ;
+    ArrayList<Integer> To_IDs ;
     List<Integer> GroupPositions ,UsersPostions;
     HashMap<Integer,List<Integer> > CoursePerson , CourseGroup ,GroupTrainee;
+    private MultiSelectionSpinner SpinnerToAction;
+
+    ArrayAdapter<String> ToAdapter;
 
 
     @Override
@@ -93,14 +105,28 @@ public class AddNotificationActivity extends AppCompatActivity {
         CoursesList = new ArrayList<>();
         GroupList = new ArrayList<>();
 
+        To_IDs = new ArrayList<>();
+
         ArrayAdapter<String> CoursesAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line,CoursesList);
         ArrayAdapter<String> GroupAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line,GroupList);
-        ArrayAdapter<String> ToAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line,ToList);
+         ToAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line,ToList);
 
         SpinnerCourse.setAdapter(CoursesAdapter);
         SpinnerTo.setAdapter(ToAdapter);
         SpinnerGroup.setAdapter(GroupAdapter);
+        SpinnerToAction = findViewById(R.id.NewRequest_ToAction);
+        SpinnerToAction.setItems(ToList);
+        SpinnerToAction.setListener(this);
 
+
+        SpinnerTo.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN)
+                    SpinnerToAction.performClick();
+                return false;
+            }
+        });
         initilizeToSpinner();
         initilizeCoursesSpinner();
         initilizeGroupSpinner();
@@ -203,11 +229,12 @@ public class AddNotificationActivity extends AppCompatActivity {
                 }
             }
         }
-        if(ToList.size() == 0){
+        /*if(ToList.size() == 0){
             ToList.add("");
         }
         ArrayAdapter<String> UserAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line,ToList);
-        SpinnerTo.setAdapter(UserAdapter);
+        SpinnerTo.setAdapter(UserAdapter);*/
+        SpinnerToAction.setItems(ToList);
     }
 
     private void initilizeCoursesSpinner(){
@@ -283,7 +310,6 @@ public class AddNotificationActivity extends AppCompatActivity {
                 CourseGroup.clear();
                 groupEntities = new ArrayList<>();
 
-                Log.d(TAG,"\n\n");
                 for(int i=0;i<response.length();i++){
                     GroupEntity entity =new GroupEntity(response.getJSONObject(i));
 
@@ -311,7 +337,6 @@ public class AddNotificationActivity extends AppCompatActivity {
                     CoursePerson.put(entity.getCourse_id(),Persons);
                     CourseGroup.put(entity.getCourse_id(),Groups);
 
-                    Log.d(TAG,"ID of "+i+"=>"+String.valueOf(entity.getGroup_id()));
                     groupEntities.add(entity);
                     GroupPositions.add(entity.getGroup_id());
                     GroupList.add(entity.getName());
@@ -320,8 +345,8 @@ public class AddNotificationActivity extends AppCompatActivity {
                 if(GroupList.size() == 0){
                     GroupList.add("");
                 }
-                ArrayAdapter<String> UserAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line,ToList);
-                SpinnerTo.setAdapter(UserAdapter);
+                ArrayAdapter<String> UserAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line,GroupList);
+                SpinnerGroup.setAdapter(UserAdapter);
 
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -372,11 +397,13 @@ public class AddNotificationActivity extends AppCompatActivity {
                     ToList.add(entity.getName());
                 }
 
-                if(ToList.size() == 0){
+                /*if(ToList.size() == 0){
                     ToList.add("");
                 }
-                ArrayAdapter<String> UserAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line,ToList);
-                SpinnerTo.setAdapter(UserAdapter);
+                *///ArrayAdapter<String> UserAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line,ToList);
+                //SpinnerTo.setAdapter(UserAdapter);
+
+                SpinnerToAction.setItems(ToList);
 
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -453,14 +480,9 @@ public class AddNotificationActivity extends AppCompatActivity {
             HashMap<String,String> params = new HashMap<>();
 
             params.put("from_id",String.valueOf(globalVars.getId()) );
-            /*params.put("multi","true");
-            ArrayList<Integer> ids = new ArrayList<>();
-            ids.add(1);
-            ids.add(4);
-            ids.add(2);
-            JSONArray array = new JSONArray(ids);
-            params.put("to_id",String.valueOf(array) );*/
-            params.put("to_id",String.valueOf(ReceiverID) );
+            params.put("multi","true");
+            params.put("to_id",String.valueOf(To_IDs) );
+            //params.put("to_id",String.valueOf(ReceiverID) );
             params.put("values",values.toString());
 
             httpCall.setParams(params);
@@ -491,5 +513,21 @@ public class AddNotificationActivity extends AppCompatActivity {
 
     private void show_toast(String msg) {
         Toast.makeText(getApplicationContext(),msg,Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void selectedIndices(List<Integer> indices) {
+        To_IDs.clear();
+        for (int i =0 ;i < indices.size() ;i++){
+            To_IDs.add(UsersPostions.get(indices.get(i)) );
+        }
+    }
+
+    @Override
+    public void selectedStrings(List<String> strings) {
+        String selectedTo = String.valueOf(strings);
+        selectedTo = selectedTo.substring(1,selectedTo.length()-1);
+        selectedTo =" "+selectedTo+" ";
+        SpinnerTo.setText(selectedTo);
     }
 }

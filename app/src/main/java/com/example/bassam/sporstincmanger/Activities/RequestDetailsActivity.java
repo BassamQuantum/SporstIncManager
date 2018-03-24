@@ -49,7 +49,7 @@ public class RequestDetailsActivity extends AppCompatActivity {
     private int requestID;
     private int loadingTime = 1200;
     private requestsEntity myRequest;
-    private int requestStatus;
+    private int requestStatus = -1;
 
     GlobalVars globalVars;
 

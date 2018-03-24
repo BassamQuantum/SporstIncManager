@@ -165,4 +165,10 @@
         <item>Booked</item>
         <item>Paid</item>
     </string-array>
+    
+    <string-array name="sports_array">
+        <item>List 1</item>
+        <item>List 2</item>
+        <item>List 3</item>
+    </string-array>
 </resources>
