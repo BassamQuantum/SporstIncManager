@@ -33,6 +33,7 @@
         android:layout_height="match_parent">
 
     </com.example.bassam.sporstincmanger.CustomView.CustomLoadingView>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -68,6 +69,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:visibility="gone"
             android:paddingTop="10dp">
             <TextView
                 android:layout_width="0dp"
@@ -97,6 +99,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:visibility="gone"
             android:paddingBottom="10dp">
         <TextView
             android:layout_width="0dp"

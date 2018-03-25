@@ -8,6 +8,7 @@ public interface Constants {
 
     String server = "http://173.212.198.28:8010/sports_inc/api/";
     String upload_host = "http://173.212.198.28:8010/sports_inc/assets/uploads/";
+    String upload_files_host = "http://173.212.198.28:8010/sports_inc/assets/uploads/files/";
     String UPLOAD_URL = "http://173.212.198.28:8010/sports_inc/academy/upload_Image";
 
     String selectData = server + "selectdata";

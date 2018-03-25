@@ -1,5 +1,9 @@
 package com.example.bassam.sporstincmanger.Activities;
 
+import android.app.DownloadManager;
+import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,12 +24,15 @@ import java.util.Locale;
 
 public class EventsDetailsActivity extends AppCompatActivity {
 
-    TextView title ,date ,time ,description;
+    TextView  title ,date, time, description , event_link ,eventFile;
 
     CustomLoadingView loadingView;
     private ImageView eventImage;
     private ProgressBar progressBar;
     int loadingTime = 1200;
+
+    DownloadManager downloadManager;
+    private EventEntity eventEntity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,13 +48,32 @@ public class EventsDetailsActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         loadingView = findViewById(R.id.LoadingView);
+        title = findViewById(R.id.event_title);
         time = findViewById(R.id.eventDetailTime);
         date = findViewById(R.id.event_date);
         description = findViewById(R.id.event_description);
+        event_link =findViewById(R.id.event_link);
+        eventFile =findViewById(R.id.event_file);
         eventImage = findViewById(R.id.event_Image);
-        progressBar = findViewById(R.id.progress_bar);
+        progressBar = findViewById(R.id.progress_bar2);
 
-        final EventEntity eventEntity = (EventEntity) getIntent().getSerializableExtra("MyEvent");
+        eventEntity = (EventEntity) getIntent().getSerializableExtra("MyEvent");
+
+        event_link.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(eventEntity.getEventUrl()));
+                startActivity(browserIntent);
+            }
+        });
+
+        eventFile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                downloadEventFile();
+            }
+        });
+
 
         if (savedInstanceState != null)
             loadingTime = 0;
@@ -63,12 +89,30 @@ public class EventsDetailsActivity extends AppCompatActivity {
         }, loadingTime);
     }
 
+    private void downloadEventFile() {
+        downloadManager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
+        Uri uri = Uri.parse(Constants.upload_files_host+eventEntity.getEventFileUrl());
+        DownloadManager.Request request = new DownloadManager.Request(uri);
+        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+        Long reference = downloadManager.enqueue(request);
+    }
+
     private void fillView(EventEntity eventEntity) {
         SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
         String formattedDate = df.format(eventEntity.getDate());
-        getSupportActionBar().setTitle(eventEntity.getTitle());
+        title.setText(eventEntity.getTitle());
         time.setText(eventEntity.getTime());
         date.setText(formattedDate);
+        if (eventEntity.getEventUrl() == null || eventEntity.getEventUrl().equals("") )
+            event_link.setVisibility(View.GONE);
+        else
+            event_link.setText(eventEntity.getEventUrl());
+
+        if (eventEntity.getEventFileUrl() == null || eventEntity.getEventFileUrl().equals("") )
+            eventFile.setVisibility(View.GONE);
+        else
+            eventFile.setText(eventEntity.getEventFileUrl());
+
         description.setText(eventEntity.getDescription());
         String ImageUrl = eventEntity.getImgUrl();
 
@@ -81,7 +125,7 @@ public class EventsDetailsActivity extends AppCompatActivity {
 
                 @Override
                 public void onError() {
-
+                    progressBar.setVisibility(View.GONE);
                 }
             });
         }else {

@@ -13,7 +13,7 @@ import java.util.Date;
  */
 
 public class EventEntity implements Serializable {
-    String title,time,description, imgUrl , eventUrl;
+    String title,time,description, imgUrl , eventUrl,eventFileUrl;
     Date date;
 
     EventEntity(){}
@@ -36,11 +36,17 @@ public class EventEntity implements Serializable {
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
             date = formatter.parse(dateFormated);
             this.description = object.getString("description");
+            this.eventFileUrl = object.getString("event_fileUrl");
         } catch (JSONException e) {
             e.printStackTrace();
         } catch (ParseException e) {
             e.printStackTrace();
         }
+    }
+
+
+    public String getEventFileUrl() {
+        return eventFileUrl;
     }
 
     public String getTitle() {
