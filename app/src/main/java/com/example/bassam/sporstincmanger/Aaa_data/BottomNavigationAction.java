@@ -53,6 +53,7 @@ public class BottomNavigationAction implements View.OnClickListener {
                 break;
         }
         intent.putExtra("HomePosition",navigationPos);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
     }
 }

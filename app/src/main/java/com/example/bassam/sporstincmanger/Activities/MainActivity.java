@@ -142,6 +142,8 @@ public class MainActivity extends AppCompatActivity
     }
 
     private Class navigationFragment(int position) {
+        actionBar = getSupportActionBar();
+        actionBar.setTitle(R.string.app_name_label);
         Class fragmentClass = homeFragment.class;
         switch (position){
             case 0:
@@ -226,7 +228,7 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        actionBar.setTitle(R.string.app_name);
+        actionBar.setTitle(R.string.app_name_label);
 
         Fragment fragment = null;
         Class fragmentClass = homeFragment.class;

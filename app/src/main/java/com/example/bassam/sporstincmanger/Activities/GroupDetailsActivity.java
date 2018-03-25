@@ -9,9 +9,11 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.bassam.sporstincmanger.Aaa_data.BottomNavigationAction;
 import com.example.bassam.sporstincmanger.Adapters.ReportClassesAdapter;
 import com.example.bassam.sporstincmanger.Backend.HttpCall;
 import com.example.bassam.sporstincmanger.Backend.HttpRequest;
@@ -48,6 +50,9 @@ public class GroupDetailsActivity extends AppCompatActivity {
     GroupEntity MyGroup;
     CustomLoadingView loadingView;
     int loadingTime = 1200;
+
+    LinearLayout navigationBlow;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,6 +67,11 @@ public class GroupDetailsActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+
+        navigationBlow = findViewById(R.id.belowlayout_navigation);
+        BottomNavigationAction bottomNavigationAction = new BottomNavigationAction(getApplicationContext() ,navigationBlow);
+        bottomNavigationAction.createClickListener();
 
         GroupName = findViewById(R.id.GroupReviewName);
         Attendance = findViewById(R.id.GroupReviewAttendance);
@@ -117,6 +127,9 @@ public class GroupDetailsActivity extends AppCompatActivity {
 
             }
         });
+
+        if (MyGroup != null)
+            getSupportActionBar().setTitle(MyGroup.getName());
 
         if (savedInstanceState!= null) {
             List<AttendanceEntity> list = (List<AttendanceEntity>) savedInstanceState.getSerializable("entityList");
@@ -195,7 +208,7 @@ public class GroupDetailsActivity extends AppCompatActivity {
             try {
                 for (int i = 0; i < response.length(); i++) {
                     JSONObject jsonObject = response.getJSONObject(i);
-                    AttendanceEntity attendanceEntity = new AttendanceEntity(jsonObject , MyGroup.getTraineeNum());
+                    AttendanceEntity attendanceEntity = new AttendanceEntity(jsonObject , MyGroup.getTraineeNum()+1);
                     entityList.add(attendanceEntity);
                 }
 
@@ -208,7 +221,6 @@ public class GroupDetailsActivity extends AppCompatActivity {
 
     private void fillView(){
         mSwipeRefreshLayout.setRefreshing(false);
-        getSupportActionBar().setTitle(MyGroup.getName());
         GroupName.setText(MyGroup.getName());
         Attendance.setText(MyGroup.getAttendacePrecentage());
         CoachName.setText(MyGroup.getCoachName());

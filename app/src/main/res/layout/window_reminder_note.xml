@@ -32,7 +32,7 @@
     <EditText
         android:id="@+id/noteEditText_notewindow"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="150dp"
         android:hint="@string/write_a_note"
         android:gravity="top"
         android:layout_margin="20dp"

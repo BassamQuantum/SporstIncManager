@@ -320,33 +320,38 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:gravity="center"
+                            android:layout_marginBottom="@dimen/ten_dimens"
+                            android:layout_marginStart="@dimen/ten_dimens"
+                            android:layout_marginEnd="@dimen/ten_dimens"
                             android:orientation="horizontal">
+
                             <ImageView
-                                android:layout_width="130dp"
+                                android:id="@+id/sponsorLink1"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="40dp"
+                                android:layout_marginEnd="5dp"
+                                android:padding="5dp"
+                                android:src="@drawable/vasa_white"/>
+                            <ImageView
+                                android:id="@+id/sponsorLink2"
+                                android:layout_width="0dp"
+                                android:layout_weight="2"
                                 android:layout_height="40dp"
                                 android:scaleType="fitXY"
                                 android:layout_marginStart="5dp"
                                 android:src="@drawable/dolfin"
-                                android:layout_marginEnd="@dimen/ten_dimens"
                                 android:padding="5dp"/>
-
                             <ImageView
-                                android:layout_width="130dp"
+                                android:id="@+id/sponsorLink3"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
                                 android:layout_height="40dp"
-                                android:scaleType="fitCenter"
+                                android:scaleType="fitXY"
                                 android:layout_marginStart="5dp"
                                 android:src="@drawable/sh_logo"
-                                android:layout_marginEnd="@dimen/ten_dimens"
                                 android:padding="5dp"/>
 
-                            <ImageView
-                                android:layout_width="90dp"
-                                android:layout_height="40dp"
-                                android:layout_marginEnd="5dp"
-                                android:padding="5dp"
-                                android:layout_marginTop="5dp"
-                                android:layout_marginStart="@dimen/ten_dimens"
-                                android:src="@drawable/vasa_white"/>
                         </LinearLayout>
 
                     </LinearLayout>

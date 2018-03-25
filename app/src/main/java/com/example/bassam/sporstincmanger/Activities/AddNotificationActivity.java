@@ -48,8 +48,9 @@ public class AddNotificationActivity extends AppCompatActivity  implements Multi
     GlobalVars globalVars;
     int currentType;
 
-    MaterialBetterSpinner SpinnerTo  ,SpinnerCourse ,SpinnerGroup;
+    MaterialBetterSpinner  SpinnerCourse ,SpinnerGroup;
     EditText Subject ,Content;
+    EditText NotifyTo;
 
     ArrayList<String> CoursesList, GroupList ;
     List<String> ToList ;
@@ -59,13 +60,10 @@ public class AddNotificationActivity extends AppCompatActivity  implements Multi
     ArrayList<UserEntity> userEntities;
     ArrayList<GroupEntity> groupEntities;
 
-    int ReceiverID = 0 ;
     ArrayList<Integer> To_IDs ;
     List<Integer> GroupPositions ,UsersPostions;
     HashMap<Integer,List<Integer> > CoursePerson , CourseGroup ,GroupTrainee;
     private MultiSelectionSpinner SpinnerToAction;
-
-    ArrayAdapter<String> ToAdapter;
 
 
     @Override
@@ -90,7 +88,7 @@ public class AddNotificationActivity extends AppCompatActivity  implements Multi
 
         SpinnerCourse = findViewById(R.id.NewRequest_Course);
         SpinnerGroup = findViewById(R.id.NewRequest_Group);
-        SpinnerTo = findViewById(R.id.NewRequest_To);
+        NotifyTo = findViewById(R.id.NewNotify_To);
         Subject = findViewById(R.id.inputRequest_subject);
         Content = findViewById(R.id.inputRequest_Message);
 
@@ -109,17 +107,14 @@ public class AddNotificationActivity extends AppCompatActivity  implements Multi
 
         ArrayAdapter<String> CoursesAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line,CoursesList);
         ArrayAdapter<String> GroupAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line,GroupList);
-         ToAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line,ToList);
 
         SpinnerCourse.setAdapter(CoursesAdapter);
-        SpinnerTo.setAdapter(ToAdapter);
         SpinnerGroup.setAdapter(GroupAdapter);
         SpinnerToAction = findViewById(R.id.NewRequest_ToAction);
         SpinnerToAction.setItems(ToList);
         SpinnerToAction.setListener(this);
 
-
-        SpinnerTo.setOnTouchListener(new View.OnTouchListener() {
+        NotifyTo.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 if (motionEvent.getAction() == MotionEvent.ACTION_DOWN)
@@ -144,7 +139,7 @@ public class AddNotificationActivity extends AppCompatActivity  implements Multi
                     groupFilter(CourseGroup.get(courseEntities.get(position).getId()));
                 }
                 else {
-                    SpinnerTo.setText("");
+                    NotifyTo.setText("");
                     usersFilter(CoursePerson.get(courseEntities.get(position).getId()));
                 }
             }
@@ -153,17 +148,13 @@ public class AddNotificationActivity extends AppCompatActivity  implements Multi
         SpinnerGroup.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                SpinnerTo.setText("");
+                if (GroupPositions.size() == 0)
+                    return;
+                NotifyTo.setText("");
                 usersFilter(GroupTrainee.get(GroupPositions.get(position)));
             }
         });
 
-        SpinnerTo.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                ReceiverID = UsersPostions.get(position);
-            }
-        });
     }
 
     @Override
@@ -229,11 +220,6 @@ public class AddNotificationActivity extends AppCompatActivity  implements Multi
                 }
             }
         }
-        /*if(ToList.size() == 0){
-            ToList.add("");
-        }
-        ArrayAdapter<String> UserAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line,ToList);
-        SpinnerTo.setAdapter(UserAdapter);*/
         SpinnerToAction.setItems(ToList);
     }
 
@@ -397,12 +383,6 @@ public class AddNotificationActivity extends AppCompatActivity  implements Multi
                     ToList.add(entity.getName());
                 }
 
-                /*if(ToList.size() == 0){
-                    ToList.add("");
-                }
-                *///ArrayAdapter<String> UserAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line,ToList);
-                //SpinnerTo.setAdapter(UserAdapter);
-
                 SpinnerToAction.setItems(ToList);
 
             } catch (JSONException e) {
@@ -482,7 +462,6 @@ public class AddNotificationActivity extends AppCompatActivity  implements Multi
             params.put("from_id",String.valueOf(globalVars.getId()) );
             params.put("multi","true");
             params.put("to_id",String.valueOf(To_IDs) );
-            //params.put("to_id",String.valueOf(ReceiverID) );
             params.put("values",values.toString());
 
             httpCall.setParams(params);
@@ -527,7 +506,6 @@ public class AddNotificationActivity extends AppCompatActivity  implements Multi
     public void selectedStrings(List<String> strings) {
         String selectedTo = String.valueOf(strings);
         selectedTo = selectedTo.substring(1,selectedTo.length()-1);
-        selectedTo =" "+selectedTo+" ";
-        SpinnerTo.setText(selectedTo);
+        NotifyTo.setText(selectedTo);
     }
 }

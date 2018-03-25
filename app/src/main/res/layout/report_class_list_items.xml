@@ -21,12 +21,14 @@
         android:layout_weight="2"
         android:layout_height="match_parent"
         android:gravity="end"
+        android:layout_gravity="center_vertical"
         android:orientation="horizontal">
             <TextView
                 android:id="@+id/reportClassDate"
                 android:paddingRight="15dp"
                 android:paddingLeft="8dp"
                 android:text="10/11/2017"
+                android:layout_gravity="center_vertical"
                 android:textColor="@color/cardview_dark_background"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
                 android:textStyle="italic"
@@ -35,6 +37,7 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:orientation="horizontal">
             <TextView
                 android:text="Attendance:"

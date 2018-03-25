@@ -220,4 +220,5 @@ public class CourseEntity implements Serializable {
     public String getSession_duration() {
         return Session_duration;
     }
+
 }

@@ -69,5 +69,6 @@
     <color name="colorLogInBtn">#818181</color>
     <color name="colorNote">#d7d7d7</color>
     <color name="colorGreen">#11be5f</color>
+    <color name="colorHomeGray">#e3e3e3</color>
 
 </resources>

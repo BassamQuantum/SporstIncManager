@@ -85,7 +85,7 @@ public class NotificationsSent_Fragment extends Fragment {
             }
         });
         customListView = root.findViewById(R.id.customListView);
-        customListView.setmEmptyView(R.drawable.ic_assignment, R.string.no_Requests);
+        customListView.setmEmptyView(R.drawable.ic_assignment, R.string.no_notifications);
 
         customListView.setOnRetryClick(new myCustomListView.OnRetryClick() {
             @Override

@@ -3,11 +3,13 @@ package com.example.bassam.sporstincmanger.Entities;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
+
 /**
  * Created by Bassam on 12/3/2018.
  */
 
-public class item_trainee_attendance {
+public class item_trainee_attendance implements Serializable{
     String name;
     int trainee_id;
     boolean attended;

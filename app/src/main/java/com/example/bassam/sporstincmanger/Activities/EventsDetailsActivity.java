@@ -10,9 +10,12 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.bassam.sporstincmanger.Aaa_data.BottomNavigationAction;
 import com.example.bassam.sporstincmanger.CustomView.CustomLoadingView;
 import com.example.bassam.sporstincmanger.Entities.EventEntity;
 import com.example.bassam.sporstincmanger.Interfaces.Constants;
@@ -27,6 +30,7 @@ public class EventsDetailsActivity extends AppCompatActivity {
     TextView  title ,date, time, description , event_link ,eventFile;
 
     CustomLoadingView loadingView;
+    LinearLayout navigationBlow;
     private ImageView eventImage;
     private ProgressBar progressBar;
     int loadingTime = 1200;
@@ -48,6 +52,9 @@ public class EventsDetailsActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         loadingView = findViewById(R.id.LoadingView);
+        navigationBlow = findViewById(R.id.belowlayout_navigation);
+        BottomNavigationAction bottomNavigationAction = new BottomNavigationAction(getApplicationContext() ,navigationBlow);
+        bottomNavigationAction.createClickListener();
         title = findViewById(R.id.event_title);
         time = findViewById(R.id.eventDetailTime);
         date = findViewById(R.id.event_date);
@@ -90,6 +97,7 @@ public class EventsDetailsActivity extends AppCompatActivity {
     }
 
     private void downloadEventFile() {
+        Toast.makeText(getApplicationContext(),"Download...",Toast.LENGTH_SHORT).show();
         downloadManager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
         Uri uri = Uri.parse(Constants.upload_files_host+eventEntity.getEventFileUrl());
         DownloadManager.Request request = new DownloadManager.Request(uri);

@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/colorWhite"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     tools:context="com.example.bassam.sporstincmanger.Activities.RequestDetailsActivity">
 
@@ -26,6 +25,7 @@
         </android.support.v7.widget.Toolbar>
 
     </android.support.design.widget.AppBarLayout>
+
     <com.example.bassam.sporstincmanger.CustomView.CustomLoadingView
         android:id="@+id/LoadingView"
         android:layout_width="match_parent"
@@ -33,13 +33,19 @@
 
     </com.example.bassam.sporstincmanger.CustomView.CustomLoadingView>
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_above="@+id/belowlayout_navigation"
+                android:fillViewport="true">
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             card_view:contentPadding="5dp"
             card_view:cardUseCompatPadding="true"
             card_view:cardElevation="5sp"
@@ -54,17 +60,16 @@
             android:layout_height="0dip"
             android:layout_weight="6"
             android:orientation="vertical"
-            android:padding="16dp">
+            android:padding="10dp">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="Hello From Request one from manger "
                 android:gravity="center"
-                android:textStyle="italic"
+                android:textStyle="bold"
                 android:paddingBottom="10dp"
-                android:textSize="24dp"
                 android:id="@+id/requestReviewSubject"
                 />
             <View
@@ -88,16 +93,16 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="From: "
-                    android:paddingStart="12dp"
-                    android:textSize="18dp" />
+                    android:textStyle="bold"
+                    android:textColor="@color/colorBlack"
+                    android:paddingStart="12dp"/>
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="Ahmed Ali"
-                    android:textSize="18dp"
                     android:paddingTop="10dp"
                     android:paddingStart="12dp"
                     android:id="@+id/requestReviewPerson"/>
@@ -112,10 +117,11 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="Course: "
                     android:paddingLeft="12dp"
-                    android:textSize="18dp" />
+                    android:textColor="@color/colorBlack"
+                    android:textStyle="bold"/>
                     <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -123,7 +129,6 @@
                     android:gravity="center"
                     android:text="Course#1"
                     android:paddingStart="12dp"
-                    android:textSize="18dp"
                     android:id="@+id/requestReviewCourse" />
 
             </LinearLayout>
@@ -138,18 +143,18 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="Group: "
                     android:paddingEnd="12dp"
                     android:paddingStart="12dp"
-                    android:textSize="18dp" />
+                    android:textStyle="bold"
+                    android:textColor="@color/colorBlack"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="Group#2"
                     android:paddingStart="12dp"
-                    android:textSize="18dp"
                     android:id="@+id/requestReviewGroup"/>
                 />
             </LinearLayout>
@@ -162,17 +167,17 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="Status: "
                     android:paddingLeft="12dp"
-                    android:textSize="18dp"/>
+                    android:textColor="@color/colorBlack"
+                    android:textStyle="bold"/>
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="Accpted"
                     android:paddingLeft="12dp"
-                    android:textSize="18dp"
                     android:paddingTop="10dp"
                     android:id="@+id/requestReviewStatus"/>
             </LinearLayout>
@@ -186,7 +191,6 @@
                 android:layout_height="match_parent"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="Hello From Request one from manger dasdsanjnfkadsc\ndkaskdasl\ndlsakdaskda"
-                android:textSize="20dp"
                 android:padding="15dp"
                 android:id="@+id/requestReviewContent"/>
             </android.support.v7.widget.CardView>
@@ -236,6 +240,91 @@
         </LinearLayout>
     </LinearLayout>
         </android.support.v7.widget.CardView>
-    </ScrollView>
+            </ScrollView>
+        <LinearLayout
+            android:id="@+id/belowlayout_navigation"
+            android:paddingStart="@dimen/ten_dimens"
+            android:paddingEnd="@dimen/ten_dimens"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@color/colorLogoBlue"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/homeNavigation"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="@dimen/ten_dimens"
+                android:layout_weight="1"
+                android:drawableTop="@drawable/ic_home"
+                android:gravity="center"
+                android:text="@string/home"
+                android:textColor="@color/colorWhite"
+                android:background="?attr/selectableItemBackground"
+                android:textSize="14sp" />
+
+            <View
+                android:layout_width="1dp"
+                android:visibility="gone"
+                android:layout_height="match_parent"
+                android:background="@color/colorWhite"/>
+
+            <TextView
+                android:id="@+id/coursesNavigation"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/ten_dimens"
+                android:layout_marginBottom="@dimen/ten_dimens"
+                android:layout_weight="1"
+                android:drawableTop="@drawable/ic_course"
+                android:gravity="center"
+                android:text="@string/courses"
+                android:textColor="@color/colorWhite"
+                android:background="?attr/selectableItemBackground"
+                android:textSize="14sp" />
+
+            <View
+                android:layout_width="1dp"
+                android:visibility="gone"
+                android:layout_height="match_parent"
+                android:background="@color/colorWhite"/>
+
+            <TextView
+                android:id="@+id/emailTextView_contactus"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/ten_dimens"
+                android:layout_marginBottom="@dimen/ten_dimens"
+                android:layout_weight="1"
+                android:drawableTop="@drawable/ic_people"
+                android:gravity="center"
+                android:text="@string/attend"
+                android:textColor="@color/colorWhite"
+                android:background="?attr/selectableItemBackground"
+                android:textSize="14sp" />
+
+            <View
+                android:layout_width="1dp"
+                android:visibility="gone"
+                android:layout_height="match_parent"
+                android:background="@color/colorWhite"/>
+
+            <TextView
+                android:id="@+id/direcctionTextView_contactus"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/ten_dimens"
+                android:layout_marginBottom="@dimen/ten_dimens"
+                android:layout_weight="1"
+                android:drawableTop="@drawable/ic_person"
+                android:gravity="center"
+                android:text="@string/account"
+                android:textColor="@color/colorWhite"
+                android:background="?attr/selectableItemBackground"
+                android:textSize="14sp" />
+        </LinearLayout>
+        </RelativeLayout>
 
 </LinearLayout>

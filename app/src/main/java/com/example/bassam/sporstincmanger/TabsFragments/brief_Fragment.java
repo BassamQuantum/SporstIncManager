@@ -2,6 +2,7 @@ package com.example.bassam.sporstincmanger.TabsFragments;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -57,13 +58,8 @@ public class brief_Fragment extends Fragment {
 
     TextView AboutAcademy;
     ImageView Logo;
-    //RecyclerView newsRecyclerView , eventsRecyclerView;
-    // NewsRecyclerAdapter newsAdapter ;
-    // EventsRecyclerAdapter eventsAdapter;
     LinearLayout newsLayout , eventsLayout;
     ImageView newsMore, eventMore;
-    //ArrayList<NewsEntity> NewsList = new ArrayList<>();
-    //ArrayList<EventEntity> eventsList = new ArrayList<>();
     NewsEntity newsEntity;
     EventEntity eventEntity;
     String logo ,brief;
@@ -78,7 +74,12 @@ public class brief_Fragment extends Fragment {
     ImageView newsImage , eventImage;
     TextView newsDesc , eventDesc , eventDay , eventMonth ;
 
+    ImageView linkSponsor1 , linkSponsor2 , linkSponsor3;
+
     int limitValue , Counter = 0;
+
+    List<String> sponsorsLinks = new ArrayList<>();
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -86,6 +87,9 @@ public class brief_Fragment extends Fragment {
         setHasOptionsMenu(false);
 
         limitValue = getResources().getInteger(R.integer.sliderLimit);
+
+        sponsorsLinks.add("https://vasatrainer.com/");
+        sponsorsLinks.add("https://dolfinswimwear.com/");
 
         scrollView = root.findViewById(R.id.layoutScrollView);
         mSwipeRefreshLayout = root.findViewById(R.id.swiperefresh);
@@ -99,26 +103,13 @@ public class brief_Fragment extends Fragment {
                 getContent();
             }
         });
-
-        // NewsList = new ArrayList<>();
-        // eventsList = new ArrayList<>();
         newsLayout = root.findViewById(R.id.homeNewsSection);
         eventsLayout = root.findViewById(R.id.homeNewsSection);
-        //newsRecyclerView = root.findViewById(R.id.NewsList);
-        // eventsRecyclerView = root.findViewById(R.id.EventsList);
         progressBar = root.findViewById(R.id.progress_bar);
         loading = root.findViewById(R.id.LoadingData);
 
         retry = root.findViewById(R.id.layout_retry);
         LinearLayoutManager newsLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL , false);
-        /*newsAdapter = new NewsRecyclerAdapter(getContext(),NewsList);
-        newsRecyclerView.setLayoutManager(newsLayoutManager);
-        newsRecyclerView.setAdapter(newsAdapter);
-
-        LinearLayoutManager eventsLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL , false);
-        eventsAdapter = new EventsRecyclerAdapter(getContext(),eventsList);
-        eventsRecyclerView.setLayoutManager(eventsLayoutManager);
-        eventsRecyclerView.setAdapter(eventsAdapter);*/
 
         newsItem = root.findViewById(R.id.news_item);
         eventItem = root.findViewById(R.id.event_item);
@@ -165,6 +156,31 @@ public class brief_Fragment extends Fragment {
         AboutAcademy = root.findViewById(R.id.AboutAcademy);
         Logo = root.findViewById(R.id.AcademyLogo);
 
+        linkSponsor1 = root.findViewById(R.id.sponsorLink1);
+        linkSponsor2 = root.findViewById(R.id.sponsorLink2);
+        linkSponsor3 = root.findViewById(R.id.sponsorLink3);
+
+        linkSponsor1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openSponsorPage(sponsorsLinks.get(0));
+            }
+        });
+
+        linkSponsor2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openSponsorPage(sponsorsLinks.get(1));
+            }
+        });
+
+        linkSponsor3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //openSponsorPage(sponsorsLinks.get(2));
+            }
+        });
+
         if (savedInstanceState!=null)
             fillBySavedState(savedInstanceState);
 
@@ -174,12 +190,16 @@ public class brief_Fragment extends Fragment {
         return root;
     }
 
+    private void openSponsorPage(String link) {
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
+        startActivity(browserIntent);
+    }
+
+
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putIntArray("ScrollPosition", new int[]{scrollView.getScrollX() , scrollView.getScrollY()});
-        /*outState.putSerializable("NewsList", NewsList);
-        outState.putSerializable("EventsList", eventsList);*/
         outState.putSerializable("NewsEntity", newsEntity);
         outState.putSerializable("EventsEntity", eventEntity);
         outState.putString("About",brief);
@@ -189,15 +209,7 @@ public class brief_Fragment extends Fragment {
 
     private void fillBySavedState(Bundle savedInstanceState) {
         loading.setVisibility(View.GONE);
-        /*ArrayList<NewsEntity> list1 = (ArrayList<NewsEntity>) savedInstanceState.getSerializable("NewsList");
-        NewsList.addAll(list1);
-        ArrayList<EventEntity> list2 = (ArrayList<EventEntity>) savedInstanceState.getSerializable("EventsList");
-        eventsList.addAll(list2);
-        brief = savedInstanceState.getString("About");
-        logo = savedInstanceState.getString("logo");
 
-        newsAdapter.notifyDataSetChanged();
-        eventsAdapter.notifyDataSetChanged();*/
         newsEntity = (NewsEntity) savedInstanceState.getSerializable("NewsEntity");
         eventEntity = (EventEntity) savedInstanceState.getSerializable("EventsEntity");
 
@@ -329,21 +341,6 @@ public class brief_Fragment extends Fragment {
         eventDay.setText(event_date);
         countFinished();
     }
-   /* private void fillNewsAdapter(JSONArray response) {
-        NewsList.clear();
-        newsAdapter.notifyDataSetChanged();
-        if (response != null) {
-            try {
-                for (int i = 0; i < response.length()&& i<4; i++) {
-                    NewsList.add(new NewsEntity( response.getJSONObject(i)));
-                }
-                newsAdapter.notifyDataSetChanged();
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-        countFinished();
-    }*/
 
     private void initilizeEvents() {
         try {
@@ -377,21 +374,6 @@ public class brief_Fragment extends Fragment {
         }
     }
 
-    /*private void fillEventAdapter(JSONArray response) {
-        eventsList.clear();
-        if (response != null) {
-            try {
-                for (int i = 0; i < response.length() && i<4; i++) {
-                    eventsList.add(new EventEntity(response.getJSONObject(i)));
-                }
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-        eventsAdapter.notifyDataSetChanged();
-
-        countFinished();
-    }*/
 
     private boolean checkConnection() {
         // first, check connectivity

@@ -7,9 +7,11 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.bassam.sporstincmanger.Aaa_data.BottomNavigationAction;
 import com.example.bassam.sporstincmanger.CustomView.CustomLoadingView;
 import com.example.bassam.sporstincmanger.Entities.NewsEntity;
 import com.example.bassam.sporstincmanger.Interfaces.Constants;
@@ -22,6 +24,7 @@ public class NewsDetailsActivity extends AppCompatActivity {
     TextView Content;
 
     CustomLoadingView loadingView;
+    LinearLayout navigationBlow;
     int loadingTime = 1200;
 
     @Override
@@ -29,6 +32,7 @@ public class NewsDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news_details);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle("News Details");
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -37,6 +41,9 @@ public class NewsDetailsActivity extends AppCompatActivity {
         imageView = findViewById(R.id.newsDetailsImage);
         Content = findViewById(R.id.newsDetailsContent);
         loadingView = findViewById(R.id.LoadingView);
+        navigationBlow = findViewById(R.id.belowlayout_navigation);
+        BottomNavigationAction bottomNavigationAction = new BottomNavigationAction(getApplicationContext() ,navigationBlow);
+        bottomNavigationAction.createClickListener();
 
         final NewsEntity myNews = (NewsEntity) getIntent().getSerializableExtra("MyNews");
 

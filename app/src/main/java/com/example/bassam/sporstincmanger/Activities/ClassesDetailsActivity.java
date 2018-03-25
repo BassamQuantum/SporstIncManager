@@ -24,6 +24,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.example.bassam.sporstincmanger.Aaa_data.BottomNavigationAction;
 import com.example.bassam.sporstincmanger.Aaa_data.GlobalVars;
 import com.example.bassam.sporstincmanger.Backend.HttpCall;
 import com.example.bassam.sporstincmanger.Backend.HttpRequest;
@@ -58,6 +59,9 @@ public class ClassesDetailsActivity extends AppCompatActivity {
     private int result = -1;
 
     GlobalVars globalVars;
+
+    LinearLayout navigationBlow;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,6 +75,9 @@ public class ClassesDetailsActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         globalVars = (GlobalVars) getApplication();
 
+        navigationBlow = findViewById(R.id.belowlayout_navigation);
+        BottomNavigationAction bottomNavigationAction = new BottomNavigationAction(getApplicationContext() ,navigationBlow);
+        bottomNavigationAction.createClickListener();
         progressDialog = new ProgressDialog(ClassesDetailsActivity.this);
         progressDialog.setCancelable(false);
         progressDialog.setCanceledOnTouchOutside(false);

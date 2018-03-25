@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.bassam.sporstincmanger.Aaa_data.BottomNavigationAction;
 import com.example.bassam.sporstincmanger.Aaa_data.GlobalVars;
 import com.example.bassam.sporstincmanger.Backend.HttpCall;
 import com.example.bassam.sporstincmanger.Backend.HttpRequest;
@@ -45,6 +46,7 @@ public class NotificationDetailsActivity extends AppCompatActivity {
     int Notification_id ,requestID;
 
     CustomLoadingView loadingView;
+    LinearLayout navigationBlow;
     private int ID , loadingTime = 1200;
     private NotificationEntity notification;
     private boolean sent = false;
@@ -60,6 +62,9 @@ public class NotificationDetailsActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         globalVars = (GlobalVars) getApplication();
+        navigationBlow = findViewById(R.id.belowlayout_navigation);
+        BottomNavigationAction bottomNavigationAction = new BottomNavigationAction(getApplicationContext() ,navigationBlow);
+        bottomNavigationAction.createClickListener();
         loadingView = findViewById(R.id.LoadingView);
         loadingView.setOnRetryClick(new CustomLoadingView.OnRetryClick() {
             @Override

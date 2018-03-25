@@ -44,13 +44,17 @@
         android:layout_height="wrap_content">
 
     </com.example.bassam.sporstincmanger.CustomView.MultiSelectionSpinner>
-    <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
-        android:id="@+id/NewRequest_To"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="To"
-        android:textColorHint="@color/colorAccent"
-        app:met_floatingLabel="normal" />
+     <EditText
+         android:id="@+id/NewNotify_To"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:hint="To"
+         android:paddingTop="15dp"
+         android:paddingEnd="3dp"
+         android:paddingStart="3dp"
+         android:paddingBottom="@dimen/dimens_15"
+         android:drawableRight="@drawable/ic_down"
+         android:editable="false"/>
 
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
