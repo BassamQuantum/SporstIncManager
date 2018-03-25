@@ -206,7 +206,8 @@ public class MainActivity extends AppCompatActivity
             drawer.closeDrawer(GravityCompat.START);
         } else {
             if (doubleBackToExitPressedOnce) {
-                super.onBackPressed();
+                //super.onBackPressed();
+                finishAffinity();
                 return;
             }
 
