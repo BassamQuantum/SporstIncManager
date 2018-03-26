@@ -30,10 +30,12 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.bassam.sporstincmanger.Aaa_data.Bitmap_functions;
+import com.example.bassam.sporstincmanger.Aaa_data.Functions;
 import com.example.bassam.sporstincmanger.Aaa_data.GlobalVars;
 import com.example.bassam.sporstincmanger.Backend.HttpCall;
 import com.example.bassam.sporstincmanger.Backend.HttpRequest;
@@ -70,7 +72,7 @@ public class ProfileActivity extends AppCompatActivity {
     EditText Name ,Phone ,Mail;
     String NewName ,NewPhone ,NewMail;
     TextView ChangePassword,Gender , DateOfBirth;
-    CircleImageView Image;
+    ImageView Image;
     ImageView Upload_Image;
     Button Edit, Save ,Cancel;
     LinearLayout EditButtons;
@@ -93,7 +95,11 @@ public class ProfileActivity extends AppCompatActivity {
 
     PopupWindow verfication_popup_window;
     private Context profile_Context;
-    private LinearLayout profile_ll;
+    private RelativeLayout profile_ll;
+
+
+    Functions functions;
+    private boolean noChange;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,6 +113,7 @@ public class ProfileActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         globalVars = (GlobalVars) getApplication();
+        functions = new Functions(getApplicationContext());
         progressDialog = new ProgressDialog(ProfileActivity.this);
         progressDialog.setMessage("Saving...");
         progressDialog.setCancelable(false);
@@ -172,93 +179,6 @@ public class ProfileActivity extends AppCompatActivity {
         fillProfileData();
     }
 
-    private void saveUpdateToPref() {
-        SharedPreferences.Editor preferences = getSharedPreferences("UserFile", MODE_PRIVATE).edit();
-        Gson gson = new Gson();
-        String json = gson.toJson(globalVars.getUser());
-        preferences.putString("CurrentUser", json);
-        preferences.apply();
-    }
-
-    //method to show file chooser
-    private void showFileChooser() {
-        Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
-            filePath = data.getData();
-            try {
-                bitmap = Bitmap_functions.getThumbnail(filePath,this,THUMBNAIL_SIZE);
-                Image.setImageBitmap(bitmap);
-                photoChanged = true;
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-
-
-    private void uploadImageToServer() {
-        filePath = Bitmap_functions.getImageUri(getApplicationContext() , bitmap);
-        String ImagePath = Bitmap_functions.getPath(filePath, this);
-        //Uploading code
-        try {
-            String uploadId = UUID.randomUUID().toString();
-            //Creating a multi part request
-            new MultipartUploadRequest(this, uploadId, Constants.UPLOAD_URL)
-                    .addFileToUpload(ImagePath, "image_upload_file") //Adding file
-                    .addParameter("type",Constants.profile)//Adding text parameter to the request
-                    .setDelegate(new UploadStatusDelegate() {
-                        @Override
-                        public void onProgress(Context context, UploadInfo uploadInfo) {
-                            Log.e("gotev", "onProgress eltstr=" + uploadInfo.getElapsedTimeString() + " elt=" + uploadInfo.getElapsedTime() + " ratestr=" +
-                                    uploadInfo.getUploadRateString() + " prc=" + uploadInfo.getProgressPercent() + " tb=" + uploadInfo.getTotalBytes() + " ub=" + uploadInfo.getUploadedBytes());
-                        }
-
-                        @Override
-                        public void onError(Context context, UploadInfo uploadInfo, ServerResponse serverResponse, Exception exception) {
-                            Toast.makeText(getApplicationContext(),"Error while uploading",Toast.LENGTH_LONG).show();
-                            dismissProgress();
-                        }
-
-                        @Override
-                        public void onCompleted(Context context, UploadInfo uploadInfo, ServerResponse serverResponse) {
-                            String response = serverResponse.getBodyAsString();
-                            try {
-                                JSONObject object = new JSONObject(response);
-                                JSONObject data = object.getJSONObject("data");
-                                JSONObject upload_data = data.getJSONObject("upload_data");
-                                String ImageName = upload_data.getString("file_name");
-                                globalVars.setImgUrl(ImageName);
-                                saveUpdateToPref();
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                            dismissProgress();
-                        }
-
-                        @Override
-                        public void onCancelled(Context context, UploadInfo uploadInfo) {
-                            Toast.makeText(getApplicationContext(),"Uploading has been canceled",Toast.LENGTH_LONG).show();
-                            dismissProgress();
-                        }
-                    })
-                    .setMaxRetries(2)
-                    .startUpload(); //Starting the upload
-
-        } catch (Exception exc) {
-            Toast.makeText(this, exc.getMessage(), Toast.LENGTH_SHORT).show();
-        }
-    }
-
     //Requesting permission
     private void requestStoragePermission() {
 
@@ -295,6 +215,92 @@ public class ProfileActivity extends AppCompatActivity {
         }
     }
 
+    //method to show file chooser
+    private void showFileChooser() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
+            filePath = data.getData();
+            try {
+                bitmap = Bitmap_functions.getThumbnail(filePath,this,THUMBNAIL_SIZE);
+                Image.setImageBitmap(bitmap);
+
+                photoChanged = true;
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private void saveUpdateToPref() {
+        SharedPreferences.Editor preferences = getSharedPreferences("UserFile", MODE_PRIVATE).edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(globalVars.getUser());
+        preferences.putString("CurrentUser", json);
+        preferences.apply();
+    }
+
+    private void uploadImageToServer() {
+        filePath = Bitmap_functions.getImageUri(getApplicationContext() , bitmap);
+        String ImagePath = Bitmap_functions.getPath(filePath, this);
+        //Uploading code
+        try {
+            String uploadId = UUID.randomUUID().toString();
+            //Creating a multi part request
+            new MultipartUploadRequest(this, uploadId, Constants.UPLOAD_URL)
+                    .addFileToUpload(ImagePath, "image_upload_file") //Adding file
+                    .addParameter("type",Constants.profile)//Adding text parameter to the request
+                    .setDelegate(new UploadStatusDelegate() {
+                        @Override
+                        public void onProgress(Context context, UploadInfo uploadInfo) {
+                            Log.e("gotev", "onProgress eltstr=" + uploadInfo.getElapsedTimeString() + " elt=" + uploadInfo.getElapsedTime() + " ratestr=" +
+                                    uploadInfo.getUploadRateString() + " prc=" + uploadInfo.getProgressPercent() + " tb=" + uploadInfo.getTotalBytes() + " ub=" + uploadInfo.getUploadedBytes());
+                        }
+
+                        @Override
+                        public void onError(Context context, UploadInfo uploadInfo, ServerResponse serverResponse, Exception exception) {
+                            Toast.makeText(getApplicationContext(),"Error while uploading",Toast.LENGTH_LONG).show();
+                            dismissProgress();
+                        }
+
+                        @Override
+                        public void onCompleted(Context context, UploadInfo uploadInfo, ServerResponse serverResponse) {
+                            String response = serverResponse.getBodyAsString();
+                            try {
+                                JSONObject object = new JSONObject(response);
+                                JSONObject data = object.getJSONObject("data");
+                                JSONObject upload_data = data.getJSONObject("upload_data");
+                                String ImageName = upload_data.getString("file_name");
+                                globalVars.setImgUrl(ImageName);
+                                saveUpdateToPref();
+                                updateUserImage(ImageName);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                            dismissProgress();
+                        }
+
+                        @Override
+                        public void onCancelled(Context context, UploadInfo uploadInfo) {
+                            Toast.makeText(getApplicationContext(),"Uploading has been canceled",Toast.LENGTH_LONG).show();
+                            dismissProgress();
+                        }
+                    })
+                    .setMaxRetries(2)
+                    .startUpload(); //Starting the upload
+
+        } catch (Exception exc) {
+            Toast.makeText(this, exc.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+    }
 
     private void editableProfile(boolean editable){
         Log.d("ProfileStatus",String.valueOf(profileStatus));
@@ -335,7 +341,7 @@ public class ProfileActivity extends AppCompatActivity {
             // progressBar.setVisibility(View.GONE);
         }
         //Gender.setText(globalVars.getPersonGender());
-        DateOfBirth.setText(globalVars.getDate_of_birth());
+        //DateOfBirth.setText(globalVars.getDate_of_birth());
     }
 
     private void changeProfilePassword() {
@@ -374,7 +380,6 @@ public class ProfileActivity extends AppCompatActivity {
         alertdialog.show();
     }
 
-
     private void updateProfile() {
         if (photoChanged)
             uploadImageToServer();
@@ -383,12 +388,7 @@ public class ProfileActivity extends AppCompatActivity {
         NewMail = Mail.getText().toString();
         NewPhone = Phone.getText().toString();
 
-        if (!isValidMail(NewMail)){
-            progressDialog.dismiss();
-            Mail.setError("Invalid e-mail format");
-            return;
-        }
-
+        boolean mailChange = false;
 
         if (!NewPhone.equals(globalVars.getPhone())) {
             if (!isValidPhone(NewPhone)){
@@ -396,17 +396,110 @@ public class ProfileActivity extends AppCompatActivity {
                 Phone.setError("Invalid Phone Number...");
                 return;
             }
-            checkPhone(NewPhone);
             return;
         }
 
-        insertToDb();
+        if (!NewMail.equals(globalVars.getMail())) {
+            if (!functions.isValidMail(NewMail)) {
+                progressDialog.dismiss();
+                Mail.setError("Invalid e-mail format");
+                return;
+            }
+            mailChange = true;
+        }
+        if (!NewName.equals(globalVars.getName())) {
+            noChange = true;
+            if (mailChange)
+                checkMail(NewMail);
+            else
+                insertToDb();
+        }
+        else {
+            editableProfile(false);
+            fillProfileData();
+        }
     }
 
+    private void updateUserImage(String imageName) {
+        try {
+            JSONObject values = new JSONObject();
+            values.put("ImageUrl",imageName);
+
+            JSONObject where = new JSONObject();
+            where.put("id",globalVars.getId());
+
+            HttpCall httpCall = new HttpCall();
+            httpCall.setMethodtype(HttpCall.POST);
+            httpCall.setUrl(Constants.updateData);
+            final HashMap<String,String> params = new HashMap<>();
+            params.put("table","users");
+            params.put("where",where.toString());
+            params.put("values",values.toString());
+
+            httpCall.setParams(params);
+
+            new HttpRequest(){
+                @Override
+                public void onResponse(JSONArray response) {
+                    super.onResponse(response);
+                    Log.d(TAG,String.valueOf(response));
+                }
+            }.execute(httpCall);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void insertToDb() {
+        progressDialog.show();
+
+        try {
+            JSONObject values = new JSONObject();
+            values.put("name",NewName);
+            values.put("phone",NewPhone);
+            values.put("email",NewMail);
+            //values.put("ImageUrl",globalVars.getImgUrl());
+
+            JSONObject where = new JSONObject();
+            where.put("id",globalVars.getId());
+
+            HttpCall httpCall = new HttpCall();
+            httpCall.setMethodtype(HttpCall.POST);
+            httpCall.setUrl(Constants.updateData);
+            final HashMap<String,String> params = new HashMap<>();
+            params.put("table","users");
+            params.put("where",where.toString());
+            params.put("values",values.toString());
+
+            httpCall.setParams(params);
+
+            new HttpRequest(){
+                @Override
+                public void onResponse(JSONArray response) {
+                    super.onResponse(response);
+                    if (checkResponse(response)){
+                        globalVars.setName(NewName);
+                        globalVars.setMail(NewMail);
+                        globalVars.setPhone(NewPhone);
+                        saveUpdateToPref();
+                        editableProfile(false);
+                        Toast.makeText(ProfileActivity.this,"Changing saved",Toast.LENGTH_SHORT).show();
+                    }else {
+                        Toast.makeText(ProfileActivity.this,"Edit Fail",Toast.LENGTH_SHORT).show();
+                    }
+                    progressDialog.dismiss();
+                }
+            }.execute(httpCall);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
 
     private synchronized void dismissProgress() {
         Counter++;
-        if (Counter >= 2 || photoChanged == false)
+        if (Counter >= 2 || photoChanged == false || noChange == false)
             progressDialog.dismiss();
     }
 
@@ -451,7 +544,7 @@ public class ProfileActivity extends AppCompatActivity {
         }
     }
 
-    // ERROR In Matching Phone//
+    // ERROR In Matching Phone //
     public static boolean isValidPhone(String phone)
     {
         String expression = "^(01([0-2]|5)[0-9]{8})$";
@@ -464,21 +557,6 @@ public class ProfileActivity extends AppCompatActivity {
         }
         else{
             return true;
-        }
-    }
-
-    public static boolean isValidMail(String mail)
-    {
-        String expression = "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$";
-        CharSequence inputString = mail;
-        Pattern pattern = Pattern.compile(expression);
-        Matcher matcher = pattern.matcher(inputString);
-        if (matcher.matches())
-        {
-            return true;
-        }
-        else{
-            return false;
         }
     }
 
@@ -536,11 +614,11 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     @SuppressLint("StaticFieldLeak")
-    private void checkPhone(final String phone) {
+    private void checkMail(final String mail) {
 
         JSONObject where_info = new JSONObject();
         try {
-            where_info.put("phone",phone);
+            where_info.put("email",mail);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -559,10 +637,10 @@ public class ProfileActivity extends AppCompatActivity {
                 super.onResponse(response);
 
                 if(response != null){
-                    show_toast("Phone already exists");
+                    show_toast("Email already exists");
 
                 } else {
-                    verfication(phone);
+                    verfication(mail);
                 }
 
             }
@@ -570,12 +648,13 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     @SuppressLint("StaticFieldLeak")
-    private void verfication(String phone){
+    private void verfication(String mail){
 
         String verification_msg;
         Random random_num = new Random();
         final int verfication_num = random_num.nextInt(9999 - 1000) + 1000;
-        verification_msg = "Your verfication code: " + verfication_num;
+        Log.d("Verification","Code: "+verfication_num);
+        // verification_msg = "Your verfication code: " + verfication_num;
 
 
         LayoutInflater inflater = (LayoutInflater) profile_Context.getSystemService(LAYOUT_INFLATER_SERVICE);
@@ -606,7 +685,7 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View view){
                 String verifcation = verify_edit_text.getText().toString().trim();
-                insertToDb();
+
                 if (verifcation.equals(String.valueOf(verfication_num))){
                     verfication_popup_window.dismiss();
                     insertToDb();
@@ -620,10 +699,10 @@ public class ProfileActivity extends AppCompatActivity {
 
         HttpCall httpCall = new HttpCall();
         httpCall.setMethodtype(HttpCall.POST);
-        httpCall.setUrl(Constants.sendSMS);
+        httpCall.setUrl(Constants.sendMail);
         HashMap<String,String> params = new HashMap<>();
-        params.put("phone",phone);
-        params.put("message",verification_msg);
+        params.put("email",mail);
+        params.put("code",String.valueOf(verfication_num));
         httpCall.setParams(params);
 
         new HttpRequest(){
@@ -631,62 +710,16 @@ public class ProfileActivity extends AppCompatActivity {
             public void onResponse(JSONArray response) {
                 super.onResponse(response);
 
-                if(response != null){
+              /*  if(response != null){
                     show_toast("Success");
 
                 } else {
                     verfication_popup_window.dismiss();
                     show_toast("An error occurred");
-                }
+                }*/
 
             }
         }.execute(httpCall);
-    }
-
-    private void insertToDb() {
-        progressDialog.show();
-
-        try {
-            JSONObject values = new JSONObject();
-            values.put("name",NewName);
-            values.put("phone",NewPhone);
-            values.put("email",NewMail);
-            values.put("ImageUrl",globalVars.getImgUrl());
-
-            JSONObject where = new JSONObject();
-            where.put("id",globalVars.getId());
-
-            HttpCall httpCall = new HttpCall();
-            httpCall.setMethodtype(HttpCall.POST);
-            httpCall.setUrl(Constants.updateData);
-            final HashMap<String,String> params = new HashMap<>();
-            params.put("table","users");
-            params.put("where",where.toString());
-            params.put("values",values.toString());
-
-            httpCall.setParams(params);
-
-            new HttpRequest(){
-                @Override
-                public void onResponse(JSONArray response) {
-                    super.onResponse(response);
-                    if (checkResponse(response)){
-                        globalVars.setName(NewName);
-                        globalVars.setMail(NewMail);
-                        globalVars.setPhone(NewPhone);
-                        saveUpdateToPref();
-                        editableProfile(false);
-                        Toast.makeText(ProfileActivity.this,"Changing saved",Toast.LENGTH_SHORT).show();
-                    }else {
-                        Toast.makeText(ProfileActivity.this,"Edit Fail",Toast.LENGTH_SHORT).show();
-                    }
-                    progressDialog.dismiss();
-                }
-            }.execute(httpCall);
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
     }
 
     private void show_toast(String msg) {

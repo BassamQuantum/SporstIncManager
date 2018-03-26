@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -32,9 +31,9 @@ public class LoginActivity extends AppCompatActivity {
     ProgressDialog progressDialog;
 
     EditText phone_edittext, pass_edittext;
-    String phone, pass;
+    String email, pass;
 
-    String received_pass, received_mail, received_name, received_imgUrl,received_date_of_birth;
+    String received_pass, received_phone, received_name, received_imgUrl,received_date_of_birth;
     int received_id, received_gender, received_type;
 
     boolean all_good;
@@ -56,11 +55,11 @@ public class LoginActivity extends AppCompatActivity {
     @SuppressLint("StaticFieldLeak")
     public void loginClicked(View view) {
 
-        phone = phone_edittext.getText().toString();
+        email = phone_edittext.getText().toString();
         pass = pass_edittext.getText().toString();
         all_good = true;
 
-        if (phone.equals("") ){
+        if (email.equals("") ){
             show_toast("Email is missing");
 
         } else if (pass.equals("")) {
@@ -69,7 +68,7 @@ public class LoginActivity extends AppCompatActivity {
         } else {
             JSONObject where_info = new JSONObject();
             try {
-                where_info.put("email",phone);
+                where_info.put("email", email);
                 where_info.put("pass",pass);
 
                 HttpCall httpCall = new HttpCall();
@@ -108,7 +107,7 @@ public class LoginActivity extends AppCompatActivity {
                     received_imgUrl = result.getString("ImageUrl");
                     received_gender= result.getInt("gender");
                     received_type = result.getInt("type");
-                    received_mail = result.getString("phone");
+                    received_phone = result.getString("phone");
                     received_pass = result.getString("pass");
                     received_date_of_birth = result.getString("date_of_birth");
                     ActiveUser(received_id);
@@ -163,10 +162,10 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void go_to_home(){
-        globalVars.settAll(received_name, received_imgUrl , received_mail, pass, phone,
+        globalVars.settAll(received_name, received_imgUrl , received_phone , pass, email,
                 received_id, received_type, received_gender,received_date_of_birth);
 
-        UserEntity userEntity = new UserEntity(received_name, received_imgUrl ,phone,pass, received_mail,
+        UserEntity userEntity = new UserEntity(received_name, received_imgUrl , received_phone,pass, email,
                 received_id, received_type, received_gender,received_date_of_birth);
 
         SharedPreferences.Editor preferences = getSharedPreferences("UserFile", MODE_PRIVATE).edit();

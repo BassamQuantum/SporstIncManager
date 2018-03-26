@@ -71,7 +71,7 @@ public class calender_Fragment extends Fragment {
         }
         else {
             if (getActivity() != null)
-                getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR);
+                getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_USER);
         }
     }
 

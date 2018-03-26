@@ -26,6 +26,7 @@ public interface Constants {
     String TraineePayment = server + "trainee_payment";
     String join = server + "joindata";
     String sendSMS = server + "sendSMS";
+    String sendMail = server + "sendMail";
     String notification = server + "selectNotification";
     String profile = "profile_img";
     String profile_host = upload_host + profile +"/";

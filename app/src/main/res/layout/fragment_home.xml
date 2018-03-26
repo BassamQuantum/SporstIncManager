@@ -14,6 +14,7 @@
             android:orientation="vertical">
             <RelativeLayout
                 android:id="@+id/LoadingData"
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
                 <ProgressBar
@@ -336,7 +337,7 @@
                             <ImageView
                                 android:id="@+id/sponsorLink2"
                                 android:layout_width="0dp"
-                                android:layout_weight="2"
+                                android:layout_weight="1"
                                 android:layout_height="40dp"
                                 android:scaleType="fitXY"
                                 android:layout_marginStart="5dp"

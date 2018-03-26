@@ -39,6 +39,8 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     compile 'com.google.code.gson:gson:2.7'
     compile 'com.googlecode.libphonenumber:libphonenumber:7.2.2'
+    compile 'com.makeramen:roundedimageview:2.3.0'
+    compile 'com.googlecode.libphonenumber:libphonenumber:7.2.2'
 
     compile 'com.github.clans:fab:1.6.4'
 

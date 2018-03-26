@@ -439,11 +439,15 @@ public class AddNotificationActivity extends AppCompatActivity  implements Multi
     }
 
     private void sendRequest() {
+        String title = Subject.getText().toString();
+        String Message = Content.getText().toString();
+        if (Message.equals("")) {
+            show_toast("Please Enter a message first..");
+            return;
+        }
         JSONObject values = new JSONObject();
         try {
             show_toast("sending...");
-            String title = Subject.getText().toString();
-            String Message = Content.getText().toString();
 
             values.put("title",title);
             values.put("message",Message);
