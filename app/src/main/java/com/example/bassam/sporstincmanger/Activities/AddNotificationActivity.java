@@ -174,7 +174,6 @@ public class AddNotificationActivity extends AppCompatActivity  implements Multi
         int id = item.getItemId();
         if (id == R.id.send_message){
             sendRequest();
-            onBackPressed();
             return true;
         }
 
@@ -229,6 +228,7 @@ public class AddNotificationActivity extends AppCompatActivity  implements Multi
         httpCall.setUrl(Constants.selectData);
         HashMap<String,String> params = new HashMap<>();
         params.put("table","courses");
+        params.put("ordered","true");
 
         httpCall.setParams(params);
 
@@ -488,7 +488,8 @@ public class AddNotificationActivity extends AppCompatActivity  implements Multi
                     }
                 }
             }.execute(httpCall);
-
+            onBackPressed();
+            finish();
         } catch (JSONException e) {
             e.printStackTrace();
         }

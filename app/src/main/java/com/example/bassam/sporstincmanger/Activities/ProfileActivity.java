@@ -116,7 +116,7 @@ public class ProfileActivity extends AppCompatActivity {
         functions = new Functions(getApplicationContext());
         progressDialog = new ProgressDialog(ProfileActivity.this);
         progressDialog.setMessage("Saving...");
-        progressDialog.setCancelable(false);
+        progressDialog.setCancelable(true);
         progressDialog.setCanceledOnTouchOutside(false);
 
         profile_Context = getApplicationContext();
@@ -280,6 +280,7 @@ public class ProfileActivity extends AppCompatActivity {
                                 JSONObject upload_data = data.getJSONObject("upload_data");
                                 String ImageName = upload_data.getString("file_name");
                                 globalVars.setImgUrl(ImageName);
+                                Image.setImageBitmap(bitmap);
                                 saveUpdateToPref();
                                 updateUserImage(ImageName);
                             } catch (JSONException e) {
@@ -396,7 +397,7 @@ public class ProfileActivity extends AppCompatActivity {
                 Phone.setError("Invalid Phone Number...");
                 return;
             }
-            return;
+            noChange = true;
         }
 
         if (!NewMail.equals(globalVars.getMail())) {
@@ -405,9 +406,10 @@ public class ProfileActivity extends AppCompatActivity {
                 Mail.setError("Invalid e-mail format");
                 return;
             }
+            noChange = true;
             mailChange = true;
         }
-        if (!NewName.equals(globalVars.getName())) {
+        if (!NewName.equals(globalVars.getName()) || noChange) {
             noChange = true;
             if (mailChange)
                 checkMail(NewMail);
@@ -499,7 +501,8 @@ public class ProfileActivity extends AppCompatActivity {
 
     private synchronized void dismissProgress() {
         Counter++;
-        if (Counter >= 2 || photoChanged == false || noChange == false)
+        Log.d(TAG,"Values: "+photoChanged+" ,"+noChange+" ,"+Counter);
+        if (photoChanged == false || noChange == false || Counter >= 2)
             progressDialog.dismiss();
     }
 
@@ -729,7 +732,9 @@ public class ProfileActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        Intent intent = new Intent(ProfileActivity.this , MainActivity.class);
         setResult(AppCompatActivity.RESULT_OK, null);
+        startActivity(intent);
         finish();
     }
 }

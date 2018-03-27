@@ -112,6 +112,12 @@ public class MainActivity extends AppCompatActivity
         userPhone = header.findViewById(R.id.user_phone);
         userName.setText(globalVars.getName());
         userPhone.setText(globalVars.getPhone());
+        String ImageUrl = globalVars.getImgUrl();
+        if (ImageUrl != null && !ImageUrl.equals("")){
+            Picasso.with(getApplicationContext()).load(Constants.profile_host + ImageUrl).into(profileImage);
+        }
+        else
+            profileImage.setImageResource(R.mipmap.ic_profile_round);
 
         profileImage.setOnClickListener(new View.OnClickListener() {
             @Override

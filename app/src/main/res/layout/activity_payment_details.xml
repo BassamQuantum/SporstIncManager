@@ -28,15 +28,14 @@
         android:id="@+id/swipeRefresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="match_parent">
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="7">
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_above="@+id/belowlayout_contactus">
                 <com.example.bassam.sporstincmanger.CustomView.myCustomListView
                     android:id="@+id/customListView"
                     android:layout_width="match_parent"
@@ -45,9 +44,10 @@
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/belowlayout_contactus"
+                android:paddingStart="@dimen/ten_dimens"
+                android:paddingEnd="@dimen/ten_dimens"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
+                android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:background="@color/colorLogoBlue"
                 android:orientation="horizontal">
@@ -56,7 +56,8 @@
                     android:id="@+id/homeNavigation"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="@dimen/ten_dimens"
                     android:layout_weight="1"
                     android:drawableTop="@drawable/ic_home"
                     android:gravity="center"
@@ -75,7 +76,8 @@
                     android:id="@+id/coursesNavigation"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
+                    android:layout_marginTop="@dimen/ten_dimens"
+                    android:layout_marginBottom="@dimen/ten_dimens"
                     android:layout_weight="1"
                     android:drawableTop="@drawable/ic_course"
                     android:gravity="center"
@@ -93,8 +95,9 @@
                 <TextView
                     android:id="@+id/emailTextView_contactus"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/ten_dimens"
+                    android:layout_marginBottom="@dimen/ten_dimens"
                     android:layout_weight="1"
                     android:drawableTop="@drawable/ic_people"
                     android:gravity="center"
@@ -112,8 +115,9 @@
                 <TextView
                     android:id="@+id/direcctionTextView_contactus"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/ten_dimens"
+                    android:layout_marginBottom="@dimen/ten_dimens"
                     android:layout_weight="1"
                     android:drawableTop="@drawable/ic_person"
                     android:gravity="center"
@@ -122,8 +126,7 @@
                     android:background="?attr/selectableItemBackground"
                     android:textSize="14sp" />
             </LinearLayout>
-
-        </LinearLayout>
+        </RelativeLayout>
     </android.support.v4.widget.SwipeRefreshLayout>
 
 </LinearLayout>

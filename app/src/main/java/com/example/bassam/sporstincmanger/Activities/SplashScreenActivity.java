@@ -71,13 +71,6 @@ public class SplashScreenActivity extends AppCompatActivity {
         SharedPreferences mPrefs = getSharedPreferences("UserFile", MODE_PRIVATE);
         String Key = "CurrentUser";
         String json = mPrefs.getString(Key, "");
-        SharedPreferences.OnSharedPreferenceChangeListener listener = new SharedPreferences.OnSharedPreferenceChangeListener() {
-            @Override
-            public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-                Toast.makeText(getApplicationContext(),"KEY "+key,Toast.LENGTH_LONG).show();
-            }
-        };
-        mPrefs.registerOnSharedPreferenceChangeListener(listener);
         UserEntity userEntity = gson.fromJson(json, UserEntity.class);
         if (userEntity != null) {
             GlobalVars globalVars = (GlobalVars) getApplication();
