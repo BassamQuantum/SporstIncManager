@@ -52,7 +52,7 @@ public class Functions {
 
         params.put("where", where.toString());
         params.put("on", on);
-        params.put("Select", select);
+        params.put("select", select);
 
         httpCall.setParams(params);
         return httpCall;

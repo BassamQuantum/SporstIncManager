@@ -62,6 +62,8 @@ public class CoursesReport_Fragment extends Fragment {
         limitValue = getResources().getInteger(R.integer.selectLimit);
 
         mSwipeRefreshLayout = root.findViewById(R.id.swipeRefresh);
+        mSwipeRefreshLayout.setProgressBackgroundColorSchemeColor(getResources().getColor(R.color.colorPrimary));
+        mSwipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorWhite));
         customExpandableListView = root.findViewById(R.id.customExpandableListView);
         customExpandableListView.setmEmptyView(R.drawable.ic_assignment,R.string.no_Report);
 

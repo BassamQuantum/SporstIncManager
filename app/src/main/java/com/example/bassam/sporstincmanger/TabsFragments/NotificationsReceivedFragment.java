@@ -66,6 +66,8 @@ public class NotificationsReceivedFragment extends Fragment {
 
         notificationList = new ArrayList<>();
         mSwipeRefreshLayout = root.findViewById(R.id.swipeRefresh);
+        mSwipeRefreshLayout.setProgressBackgroundColorSchemeColor(getResources().getColor(R.color.colorPrimary));
+        mSwipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorWhite));
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {

@@ -22,7 +22,7 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:hint="Course"
+            android:hint="Level"
             android:textColorHint="@color/colorAccent"
             app:met_floatingLabel="normal"/>
         <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
@@ -31,7 +31,7 @@
             android:layout_marginStart="7dp"
             android:layout_weight="1"
             android:layout_height="match_parent"
-            android:hint="Group"
+            android:hint="Class"
             android:visibility="gone"
             android:textColorHint="@color/colorAccent"
             app:met_floatingLabel="normal"/>

@@ -12,13 +12,14 @@
         android:text="class#1"
         android:textColor="@color/cardview_dark_background"
         android:gravity="center"
+        android:layout_marginStart="@dimen/padding_3"
+        android:layout_marginEnd="@dimen/ten_dimens"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-        android:layout_width="0dp"
-        android:layout_weight="1"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
     <LinearLayout
         android:layout_width="0dp"
-        android:layout_weight="2"
+        android:layout_weight="1"
         android:layout_height="match_parent"
         android:gravity="end"
         android:layout_gravity="center_vertical"
@@ -40,21 +41,20 @@
             android:layout_gravity="center_vertical"
             android:orientation="horizontal">
             <TextView
-                android:text="Attendance:"
-                android:textColor="@color/cardview_dark_background"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
-                android:textStyle="italic"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            <TextView
                 android:id="@+id/reportClassAttend"
-                android:paddingStart="3dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="20%"
                 android:textColor="@color/cardview_dark_background"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"/>
-
+            <TextView
+                android:text="Attend"
+                android:paddingStart="5dp"
+                android:textColor="@color/cardview_dark_background"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+                android:textStyle="italic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
         </LinearLayout>
     </LinearLayout>
 

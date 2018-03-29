@@ -82,6 +82,8 @@ public class GroupDetailsActivity extends AppCompatActivity {
 
         limitValue = getResources().getInteger(R.integer.selectLimit);
         mSwipeRefreshLayout = findViewById(R.id.swipeRefresh);
+        mSwipeRefreshLayout.setProgressBackgroundColorSchemeColor(getResources().getColor(R.color.colorPrimary));
+        mSwipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorWhite));
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {

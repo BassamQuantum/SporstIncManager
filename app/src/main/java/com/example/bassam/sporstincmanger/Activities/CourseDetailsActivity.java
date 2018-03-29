@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.example.bassam.sporstincmanger.Aaa_data.BottomNavigationAction;
@@ -56,6 +57,10 @@ public class CourseDetailsActivity extends AppCompatActivity {
 
     String[] weekDays = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
 
+    ScrollView scrollView;
+
+    int itemMeasure = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,6 +79,7 @@ public class CourseDetailsActivity extends AppCompatActivity {
         //CourseName = findViewById(R.id.course_details_name);
         functions = new Functions(CourseDetailsActivity.this);
 
+        scrollView = findViewById(R.id.scrollView);
         loadingView = findViewById(R.id.LoadingView);
         levelImage = findViewById(R.id.Course_icon);
         SessionsNum = findViewById(R.id.course_details_no_classes);
@@ -121,24 +127,14 @@ public class CourseDetailsActivity extends AppCompatActivity {
 
         // progressDialog.show();
         adapter_coursesDetails = new ListViewExpandable_Adapter_CoursesDetails(CourseDetailsActivity.this, header_list, child_list, myCourse);
-        fill_list_view(myCourse);
 
         LinearLayout ll = findViewById(R.id.ll_coursesdetails);
         adapter_coursesDetails.setLl(ll);
 
-        /*if (savedInstanceState!=null)
-            loadingTime = 0;
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if(myCourse != null){
-                    //fillView(myCourse);
-                    progressDialog.show();
-                    fill_list_view(myCourse);
-                }
-                else
-                    loadingView.fails(); }
-        }, loadingTime);*/
+        if (savedInstanceState!=null)
+            fillViewBySavedInstanceState(savedInstanceState,myCourse);
+        else
+            fill_list_view(myCourse);
 
     }
 
@@ -152,7 +148,8 @@ public class CourseDetailsActivity extends AppCompatActivity {
             View groupItem = listAdapter.getGroupView(i, false, null, listView);
             groupItem.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
 
-            totalHeight += groupItem.getMeasuredHeight();
+            itemMeasure = groupItem.getMeasuredHeight();
+            totalHeight += itemMeasure;
 
             if (((listView.isGroupExpanded(i)) && (i != group))
                     || ((!listView.isGroupExpanded(i)) && (i == group))) {
@@ -176,7 +173,27 @@ public class CourseDetailsActivity extends AppCompatActivity {
 
     }
 
+    private void setListViewHeight(int itemMeasure ,ExpandableListView listView) {
+        ListViewExpandable_Adapter_CoursesDetails listAdapter = (ListViewExpandable_Adapter_CoursesDetails) listView.getExpandableListAdapter();
+        int totalHeight = 0;
+
+        for (int i = 0; i < listAdapter.getGroupCount(); i++)
+            totalHeight += itemMeasure;
+
+        ViewGroup.LayoutParams params = listView.getLayoutParams();
+        int height = totalHeight
+                + (listView.getDividerHeight() * (listAdapter.getGroupCount() - 1));
+        if (height < 10)
+            height = 200;
+
+        params.height = height;
+        listView.setLayoutParams(params);
+        listView.requestLayout();
+
+    }
+
     private void fillView(CourseEntity courseEntity) {
+        scrollView.scrollTo(0,0);
         // CourseName.setText(courseEntity.getCourseName());
         getSupportActionBar().setTitle(courseEntity.getCourseName());
         String ImageUrl = courseEntity.getImageUrl();
@@ -205,7 +222,7 @@ public class CourseDetailsActivity extends AppCompatActivity {
         loadingView.success();
     }
 
-    public void fill_list_view(CourseEntity myCourse) {
+    public void fill_list_view(final CourseEntity myCourse) {
         header_list.clear();
         child_list.clear();
         JSONObject where_info = new JSONObject();
@@ -216,7 +233,7 @@ public class CourseDetailsActivity extends AppCompatActivity {
         }
 
         String OnCondition = "groups.coach_id = users.id";
-        String select = "groups.id, groups.name, users.name, groups.start_date," +
+        String select = "groups.id AS group_id, groups.name AS group_name, users.name AS coach_name, groups.group_sdate," +
                 "groups.days, groups.daystime";
 
         HttpCall httpCall = functions.joinDB("groups", "users", where_info, OnCondition, select);
@@ -232,9 +249,9 @@ public class CourseDetailsActivity extends AppCompatActivity {
                         for (int i=0; i<response.length(); i++){
 
                             JSONObject result = response.getJSONObject(i);
-                            int class_id = result.getInt("groups_id");
-                            String class_name = result.getString("name");
-                            String coach_name = result.getString("name");
+                            int class_id = result.getInt("group_id");
+                            String class_name = result.getString("group_name");
+                            String coach_name = result.getString("coach_name");
                             String start_date = result.getString("group_sdate");
                             String[] days = get_days(result.getString("days"));
                             String[] daystime = result.getString("daystime").split("@");
@@ -245,6 +262,7 @@ public class CourseDetailsActivity extends AppCompatActivity {
                         expandableListView.setVisibility(View.VISIBLE);
                         adapter_coursesDetails.notifyDataSetChanged();
                         expandableListView.setAdapter(adapter_coursesDetails);
+                        setListViewHeight(expandableListView, -1);
                         // progressDialog.dismiss();
 
                     } catch (JSONException e) {
@@ -261,7 +279,7 @@ public class CourseDetailsActivity extends AppCompatActivity {
                     //checkMail();
                     //verfication();
                 }
-                loadingView.success();
+                fillView(myCourse);
 
             }
         }.execute(httpCall);
@@ -272,7 +290,7 @@ public class CourseDetailsActivity extends AppCompatActivity {
     private String[] get_days(String dayss) {
         String[] dayss_split;
 
-        if(dayss != null) {
+        if(dayss != null && !dayss.equals("")) {
             dayss_split = dayss.split("@");
             for (int i=0; i<dayss_split.length; i++) {
                 dayss_split[i] = weekDays[Integer.valueOf(dayss_split[i])];
@@ -297,7 +315,32 @@ public class CourseDetailsActivity extends AppCompatActivity {
         finish();
     }
 
-    public void checkBooking(){
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putSerializable("header_list",header_list);
+        outState.putSerializable("child_list",child_list);
+        outState.putInt("itemMeasure",itemMeasure);
+    }
+
+    private void  fillViewBySavedInstanceState(Bundle savedInstanceState , CourseEntity myCourse){
+        ArrayList<item1_courses_details> new_header_list = (ArrayList<item1_courses_details>) savedInstanceState.getSerializable("header_list");
+        HashMap<Integer, item2_courses_details> new_child_list = (HashMap<Integer, item2_courses_details>) savedInstanceState.getSerializable("child_list");
+        itemMeasure = savedInstanceState.getInt("itemMeasure");
+        header_list.addAll(new_header_list);
+        child_list.putAll(new_child_list);
+        adapter_coursesDetails.notifyDataSetChanged();
+        expandableListView.setAdapter(adapter_coursesDetails);
+        if (header_list.size() > 0) {
+            noClsses.setVisibility(View.GONE);
+            expandableListView.setVisibility(View.VISIBLE);
+            setListViewHeight(itemMeasure,expandableListView);
+        }
+        else {
+            noClsses.setVisibility(View.VISIBLE);
+            expandableListView.setVisibility(View.GONE);
+        }
+        fillView(myCourse);
     }
 }

@@ -80,6 +80,8 @@ public class PaymentDetailsActivity extends AppCompatActivity {
         BottomNavigationAction bottomNavigationAction = new BottomNavigationAction(getApplicationContext() ,navigationBlow);
         bottomNavigationAction.createClickListener();
         mSwipeRefreshLayout = findViewById(R.id.swipeRefresh);
+        mSwipeRefreshLayout.setProgressBackgroundColorSchemeColor(getResources().getColor(R.color.colorPrimary));
+        mSwipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorWhite));
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
