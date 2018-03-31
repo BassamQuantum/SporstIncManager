@@ -1,10 +1,12 @@
 package com.example.bassam.sporstincmanger.Entities;
 
+import java.io.Serializable;
+
 /**
  * Created by Bassam on 25/3/2018.
  */
 
-public class item2_courses_details {
+public class item2_courses_details implements Serializable {
     String coach_name;
     String[] day, time;
 

@@ -24,7 +24,8 @@
             <TextView
                 android:id="@+id/notificationSubject"
                 android:text="Play football with your frinds"
-                android:gravity="center"
+                android:gravity="start"
+                android:layout_marginStart="@dimen/padding_5"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                 android:textColor="@color/colorBlack"
                 android:layout_width="0dp"
@@ -46,7 +47,8 @@
             <TextView
                 android:id="@+id/notificationPerson"
                 android:text="Ahmed Ali Hassan"
-                android:gravity="center"
+                android:gravity="start"
+                android:layout_marginStart="@dimen/ten_dimens"
                 android:paddingBottom="10dp"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                 android:layout_width="0dp"
@@ -59,7 +61,7 @@
                 android:paddingRight="7dp"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="1.5"
                 android:text="Accepted"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                 android:textStyle="bold|italic" />
