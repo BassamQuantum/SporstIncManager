@@ -43,8 +43,8 @@ public class HttpRequest extends AsyncTask<HttpCall, String, JSONArray>{
             Log.d(TAG,"URL :: "+String.valueOf(url));
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setRequestMethod(httpCall.getMethodtype() == HttpCall.GET ? "GET":"POST");
-          //  urlConnection.setReadTimeout(10000 /* milliseconds */);
-           // urlConnection.setConnectTimeout(15000 /* milliseconds */);
+            urlConnection.setReadTimeout(10000 /* milliseconds */);
+            urlConnection.setConnectTimeout(15000 /* milliseconds */);
             if(httpCall.getParams() != null && httpCall.getMethodtype() == HttpCall.POST){
 
                 OutputStream os = urlConnection.getOutputStream();
