@@ -45,6 +45,7 @@ public class ActivitySessionAttendance extends AppCompatActivity {
     private int ID , coach_id;
     private ImageView attended;
     private TextView trainee_name;
+    private boolean connectionStatus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -165,6 +166,7 @@ public class ActivitySessionAttendance extends AppCompatActivity {
                 @Override
                 public void onResponse(JSONArray response) {
                     super.onResponse(response);
+                    connectionStatus = connectionTimeOut;
                     fillAdapter(response);
                 }
             }.execute(httpCall);
@@ -184,6 +186,10 @@ public class ActivitySessionAttendance extends AppCompatActivity {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+        }
+        if (connectionStatus){
+            loadingView.timeOut();
+            return;
         }
         adapter_listView.notifyDataSetChanged();
         loadingView.success();

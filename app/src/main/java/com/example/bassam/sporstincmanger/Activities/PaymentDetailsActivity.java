@@ -48,6 +48,7 @@ public class PaymentDetailsActivity extends AppCompatActivity {
     int limitValue , loadingTime = 1200;
 
     CourseEntity MyCourse;
+    private boolean connectionStatus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -187,6 +188,7 @@ public class PaymentDetailsActivity extends AppCompatActivity {
                 @Override
                 public void onResponse(JSONArray response) {
                     super.onResponse(response);
+                    connectionStatus = connectionTimeOut;
                     fillAdapter(response);
                 }
             }.execute(httpCall);
@@ -206,6 +208,11 @@ public class PaymentDetailsActivity extends AppCompatActivity {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+        }
+        if (connectionStatus){
+            mSwipeRefreshLayout.setRefreshing(false);
+            customListView.timeOut();
+            return;
         }
         fillView();
     }

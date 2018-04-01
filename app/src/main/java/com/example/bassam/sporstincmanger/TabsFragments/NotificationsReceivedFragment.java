@@ -54,6 +54,7 @@ public class NotificationsReceivedFragment extends Fragment {
     ListView listView;
 
     int limitValue,currentStart;
+    private boolean connectionStatus;
 
     @Nullable
     @Override
@@ -187,6 +188,7 @@ public class NotificationsReceivedFragment extends Fragment {
                 @Override
                 public void onResponse(JSONArray response) {
                     super.onResponse(response);
+                    connectionStatus = connectionTimeOut;
                     fillAdapter(response,loadMore);
                 }
             }.execute(httpCall);
@@ -211,6 +213,10 @@ public class NotificationsReceivedFragment extends Fragment {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+        }
+        if (connectionStatus){
+            customListView.timeOut();
+            return;
         }
         customListView.notifyChange(notificationList.size());
         adapter.notifyDataSetChanged();

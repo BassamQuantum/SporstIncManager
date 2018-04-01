@@ -47,6 +47,8 @@ public class PaymentReport_Fragment extends Fragment {
     ListView listView;
     myCustomListViewListener listener;
     int limitValue;
+    private boolean connectionStatus;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -169,6 +171,7 @@ public class PaymentReport_Fragment extends Fragment {
                 @Override
                 public void onResponse(JSONArray response) {
                     super.onResponse(response);
+                    connectionStatus = connectionTimeOut;
                     fillAdapter(response);
                 }
             }.execute(httpCall);
@@ -190,6 +193,10 @@ public class PaymentReport_Fragment extends Fragment {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+        }
+        if (connectionStatus){
+            customListView.timeOut();
+            return;
         }
         customListView.notifyChange(courseList.size());
         adapter.notifyDataSetChanged();

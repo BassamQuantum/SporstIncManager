@@ -66,6 +66,7 @@ public class NotificationsSent_Fragment extends Fragment {
     private FloatingActionButton fab2;
 
     private Handler mUiHandler = new Handler();
+    private boolean connectionStatus;
 
     @Nullable
     @Override
@@ -248,6 +249,7 @@ public class NotificationsSent_Fragment extends Fragment {
                 @Override
                 public void onResponse(JSONArray response) {
                     super.onResponse(response);
+                    connectionStatus = connectionTimeOut;
                     fillAdapter(response,loadMore);
                 }
             }.execute(httpCall);
@@ -269,6 +271,10 @@ public class NotificationsSent_Fragment extends Fragment {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+        }
+        if (connectionStatus){
+            customListView.timeOut();
+            return;
         }
         customListView.notifyChange(notificationEntityList.size());
         adapter.notifyDataSetChanged();

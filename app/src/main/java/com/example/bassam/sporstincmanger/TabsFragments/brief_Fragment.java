@@ -66,6 +66,7 @@ public class brief_Fragment extends Fragment {
 
     ProgressBar progressBar;
     LinearLayout retry;
+    LinearLayout timeOut;
     RelativeLayout loading;
     NestedScrollView scrollView;
 
@@ -109,6 +110,7 @@ public class brief_Fragment extends Fragment {
         loading = root.findViewById(R.id.LoadingData);
 
         retry = root.findViewById(R.id.layout_retry);
+        timeOut = root.findViewById(R.id.layout_timeOut);
         LinearLayoutManager newsLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL , false);
 
         newsItem = root.findViewById(R.id.news_item);
@@ -320,6 +322,11 @@ public class brief_Fragment extends Fragment {
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
+                    }
+                    else if (connectionTimeOut){
+                        timeOut.setVisibility(View.VISIBLE);
+                        progressBar.setVisibility(View.GONE);
+                        return;
                     }
                 }
             }.execute(httpCall);

@@ -163,6 +163,8 @@
     <string name="time_">Times:</string>
     <string name="days_">Days:</string>
     <string name="coach_">Coach:</string>
+    <string name="TimeOutLabel">Poor Internet Connection...</string>
+    <string name="retry_btn">tap to Retry</string>
 
     <integer name="selectLimit">10</integer>
     <integer name="sliderLimit">1</integer>

@@ -54,6 +54,40 @@
                         android:text=" tap to Retry"/>
                 </LinearLayout>
 
+
+                <LinearLayout
+                    android:id="@+id/layout_timeOut"
+                    android:visibility="gone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:orientation="vertical">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginBottom="40dp"
+                        android:src="@drawable/ic_cloud_off"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:textColor="@color/colorBlack"
+                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                        android:text="@string/TimeOutLabel"/>
+                    <TextView
+                        android:visibility="gone"
+                        android:id="@+id/layout_timeOut_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="20dp"
+                        android:layout_gravity="center_horizontal"
+                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textStyle="bold|italic"
+                        android:drawableStart="@drawable/ic_reload"
+                        android:text="@string/retry_btn"/>
+                </LinearLayout>
+
             </RelativeLayout>
             <android.support.v4.widget.NestedScrollView
                 android:id="@+id/layoutScrollView"

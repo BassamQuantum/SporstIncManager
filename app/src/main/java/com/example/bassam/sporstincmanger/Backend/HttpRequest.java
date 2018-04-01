@@ -31,6 +31,8 @@ public class HttpRequest extends AsyncTask<HttpCall, String, JSONArray>{
 
     private static final String UTF_8 = "UTF-8";
 
+    public boolean connectionTimeOut = false;
+
     @Override
     protected JSONArray doInBackground(HttpCall... params) {
         HttpURLConnection urlConnection = null;
@@ -40,7 +42,6 @@ public class HttpRequest extends AsyncTask<HttpCall, String, JSONArray>{
         try{
             String dataParams = getDataString(httpCall.getParams(), httpCall.getMethodtype());
             URL url = new URL(httpCall.getMethodtype() == HttpCall.GET ? httpCall.getUrl() + dataParams : httpCall.getUrl());
-            Log.d(TAG,"URL :: "+String.valueOf(url));
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setRequestMethod(httpCall.getMethodtype() == HttpCall.GET ? "GET":"POST");
             urlConnection.setReadTimeout(10000 /* milliseconds */);
@@ -61,19 +62,19 @@ public class HttpRequest extends AsyncTask<HttpCall, String, JSONArray>{
                 while ((line = br.readLine()) != null){
                     response.append(line);
                 }
-                Log.d(TAG,String.valueOf(response));
+
                 JSONTokener tokener = new JSONTokener(response.toString());
                 JSONObject data = new JSONObject(tokener);
-                Log.d(TAG,String.valueOf(data));
+
                 object = data.getJSONArray("data");
 
-                Log.d(TAG,"DSDSADASDA:  "+String.valueOf(object));
             }
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (IOException e) {
+            connectionTimeOut = true;
             e.printStackTrace();
         } catch (JSONException e) {
             e.printStackTrace();

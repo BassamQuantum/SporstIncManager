@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.bassam.sporstincmanger.Activities.CourseDetailsActivity;
 import com.example.bassam.sporstincmanger.Adapters.CoursesAdapter;
@@ -49,6 +50,7 @@ public class courses_Fragment extends Fragment {
     ListView listView;
     myCustomListViewListener listViewListener;
     int limitValue,currentStart;
+    private boolean connectionStatus;
 
     @Nullable
     @Override
@@ -163,6 +165,7 @@ public class courses_Fragment extends Fragment {
                 @Override
                 public void onResponse(JSONArray response) {
                     super.onResponse(response);
+                    connectionStatus = connectionTimeOut;
                     fillAdapter(response, loadMore);
                 }
             }.execute(httpCall);
@@ -183,6 +186,10 @@ public class courses_Fragment extends Fragment {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+        }
+        if (connectionStatus){
+            customListView.timeOut();
+            return;
         }
         customListView.notifyChange(courseList.size());
         adapter.notifyDataSetChanged();

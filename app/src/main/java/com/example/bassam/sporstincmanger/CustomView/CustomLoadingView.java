@@ -17,9 +17,11 @@ import com.example.bassam.sporstincmanger.R;
 public class CustomLoadingView  extends RelativeLayout {
     private Context context;
     private View mRetryView;
+    private View mTimeOutView;
     private ProgressBar mProgressBar;
     private OnRetryClick mOnRetryClick;
     private TextView mRetryView_Button;
+    private TextView mTimOut_Button;
 
     public CustomLoadingView(Context context) {
         this(context, null);
@@ -41,6 +43,20 @@ public class CustomLoadingView  extends RelativeLayout {
         View mView = inflater.inflate(R.layout.custom_loading_view, this);
         mRetryView = mView.findViewById(R.id.layout_retry);
         mRetryView_Button = mView.findViewById(R.id.layout_retry_button);
+        mTimeOutView = mView.findViewById(R.id.layout_timeOut);
+        mTimOut_Button = mView.findViewById(R.id.layout_timeOut_button);
+        mTimOut_Button.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loading();
+                new android.os.Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        mOnRetryClick.onRetry();
+                    }
+                }, 1500);
+            }
+        });
         mRetryView_Button.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -59,12 +75,20 @@ public class CustomLoadingView  extends RelativeLayout {
     public void loading() {
         this.setVisibility(View.VISIBLE);
         mRetryView.setVisibility(View.GONE);
+        mTimOut_Button.setVisibility(View.GONE);
         mProgressBar.setVisibility(View.VISIBLE);
         dismissRetry();
     }
 
     public void fails() {
         mRetryView.setVisibility(View.VISIBLE);
+        mTimOut_Button.setVisibility(View.GONE);
+        mProgressBar.setVisibility(View.GONE);
+    }
+
+    public void timeOut(){
+        mTimOut_Button.setVisibility(View.VISIBLE);
+        mRetryView.setVisibility(View.GONE);
         mProgressBar.setVisibility(View.GONE);
     }
 

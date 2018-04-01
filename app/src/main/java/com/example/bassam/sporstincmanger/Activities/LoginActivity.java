@@ -37,6 +37,8 @@ public class LoginActivity extends AppCompatActivity {
     int received_id, received_gender, received_type;
 
     boolean all_good;
+    private boolean connectionStatus;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,6 +87,7 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONArray response) {
                         super.onResponse(response);
+                        connectionStatus = connectionTimeOut;
                         checkUserLogin(response);
                     }
                 }.execute(httpCall);
@@ -120,6 +123,11 @@ public class LoginActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }else{
+            if (connectionStatus){
+                progressDialog.dismiss();
+                show_toast("Poor Connection Try again Later..");
+                return;
+            }
             progressDialog.dismiss();
             show_toast("Wrong email address or password");
         }

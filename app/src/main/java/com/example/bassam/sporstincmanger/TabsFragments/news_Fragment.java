@@ -49,6 +49,8 @@ public class news_Fragment extends Fragment {
     ListView listView;
     myCustomListViewListener listViewListener;
     int limitValue,currentStart;
+    private boolean connectionStatus;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -168,6 +170,7 @@ public class news_Fragment extends Fragment {
                 @Override
                 public void onResponse(JSONArray response) {
                     super.onResponse(response);
+                    connectionStatus = connectionTimeOut;
                     fillAdapter(response, loadMore);
                 }
             }.execute(httpCall);
@@ -189,6 +192,10 @@ public class news_Fragment extends Fragment {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+        }
+        if (connectionStatus){
+            customListView.timeOut();
+            return;
         }
         customListView.notifyChange(NewsList.size());
         adapter.notifyDataSetChanged();

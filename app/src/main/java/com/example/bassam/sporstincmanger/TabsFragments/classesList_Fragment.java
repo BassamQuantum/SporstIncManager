@@ -65,6 +65,7 @@ public class classesList_Fragment extends Fragment {
     private int selectedPostion = -1;
     private int REQUEST_CODE = 1;
     private int SelectedClass = 0;
+    private boolean connectionStatus;
 
     @Nullable
     @Override
@@ -200,6 +201,7 @@ public class classesList_Fragment extends Fragment {
                 @Override
                 public void onResponse(JSONArray response) {
                     super.onResponse(response);
+                    connectionStatus = connectionTimeOut;
                     fillAdapter(response ,loadMore);
                 }
             }.execute(httpCall);
@@ -225,6 +227,10 @@ public class classesList_Fragment extends Fragment {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+        }
+        if (connectionStatus){
+            customListView.timeOut();
+            return;
         }
         filterData(selectedPostion);
         listViewListener.setLoading(false);
