@@ -1,17 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:orientation="vertical"
     android:background="#ffff">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:textSize="16sp"
-        android:layout_centerHorizontal="true"
-        android:text="@string/enter_verfication_code" />
+        android:background="@color/colorNote"
+        android:padding="@dimen/ten_dimens">
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+            android:text="@string/enter_verfication_code" />
+
+
+    </RelativeLayout>
 
     <EditText
         android:id="@+id/verficationEditText_verify"
@@ -19,7 +27,7 @@
         android:layout_height="wrap_content"
         android:ems="4"
         android:maxLength="4"
-        android:gravity="center"
+        android:layout_gravity="center"
         android:textSize="20sp"
         android:layout_below="@+id/textView"
         android:layout_margin="16dp"
@@ -28,19 +36,22 @@
         android:editable="true"
         android:textColor="@color/colorPrimary"
         android:inputType="number" />
-
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/padding_3"
+        android:background="@color/colorLogoBlue">
     <Button
         android:id="@+id/doneButton_verify"
-        android:layout_width="130dp"
+        android:layout_width="wrap_content"
+        android:layout_marginEnd="@dimen/ten_dimens"
         android:layout_height="40dp"
         android:textAllCaps="false"
         android:textStyle="bold"
-        android:layout_margin="16dp"
-        android:background="@drawable/button_red_background"
         android:textColor="@color/colorTextLight"
         android:textSize="16sp"
         android:layout_alignParentEnd="true"
-        android:layout_below="@id/verficationEditText_verify"
         android:text="@string/done" />
-
-</RelativeLayout>
+    </RelativeLayout>
+</LinearLayout>
