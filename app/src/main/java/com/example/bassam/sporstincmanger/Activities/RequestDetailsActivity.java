@@ -1,5 +1,6 @@
 package com.example.bassam.sporstincmanger.Activities;
 
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
@@ -12,6 +13,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -42,7 +44,7 @@ public class RequestDetailsActivity extends AppCompatActivity {
     LinearLayout mybuttons ,statusLayout;
     TextView accept , reject;
     boolean received = false;
-    PopupWindow popupWindow;
+    Dialog customView;
     ProgressDialog progressDialog;
 
     CustomLoadingView loadingView;
@@ -311,18 +313,10 @@ public class RequestDetailsActivity extends AppCompatActivity {
 
     private void writeNote(final int status){
         requestStatus = status;
-        LayoutInflater inflater = (LayoutInflater) getApplicationContext().getSystemService(LAYOUT_INFLATER_SERVICE);
-        View customView = inflater.inflate(R.layout.window_write_note_layout,null);
-
-        popupWindow = new PopupWindow(
-                customView,
-                ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
-        );
-
-        if(Build.VERSION.SDK_INT>=21){
-            popupWindow.setElevation(5.0f);
-        }
+        customView = new Dialog(RequestDetailsActivity.this);
+        customView.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        customView.setContentView(R.layout.window_write_note_layout);
+        customView.setCanceledOnTouchOutside(false);
 
         final EditText note_edit_text =  customView.findViewById(R.id.noteEditText_notewindow);
         Button done_button =  customView.findViewById(R.id.doneButton_notewindow);
@@ -330,20 +324,14 @@ public class RequestDetailsActivity extends AppCompatActivity {
         done_button.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-               popupWindow.dismiss();
+               customView.dismiss();
                progressDialog.show();
                String note = note_edit_text.getText().toString();
                updateRequest(status,note);
             }
         } );
 
-        LinearLayout parentView = findViewById(R.id.request_view);
-        popupWindow.showAtLocation(parentView, Gravity.CENTER,0,0);
-        popupWindow.setFocusable(true);
-        note_edit_text.setFocusable(true);
-        popupWindow.setOutsideTouchable(false);
-        popupWindow.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
-        popupWindow.update();
+       customView.show();
     }
 
     @Override

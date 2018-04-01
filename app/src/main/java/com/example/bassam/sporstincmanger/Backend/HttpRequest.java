@@ -42,6 +42,7 @@ public class HttpRequest extends AsyncTask<HttpCall, String, JSONArray>{
         try{
             String dataParams = getDataString(httpCall.getParams(), httpCall.getMethodtype());
             URL url = new URL(httpCall.getMethodtype() == HttpCall.GET ? httpCall.getUrl() + dataParams : httpCall.getUrl());
+            Log.d(TAG,"URL :: "+String.valueOf(url));
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setRequestMethod(httpCall.getMethodtype() == HttpCall.GET ? "GET":"POST");
             urlConnection.setReadTimeout(10000 /* milliseconds */);
@@ -63,9 +64,10 @@ public class HttpRequest extends AsyncTask<HttpCall, String, JSONArray>{
                     response.append(line);
                 }
 
+                Log.d(TAG,"Response:"+String.valueOf(response));
                 JSONTokener tokener = new JSONTokener(response.toString());
                 JSONObject data = new JSONObject(tokener);
-
+                Log.d(TAG,String.valueOf(data));
                 object = data.getJSONArray("data");
 
             }

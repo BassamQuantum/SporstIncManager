@@ -228,7 +228,9 @@ public class brief_Fragment extends Fragment {
             initializeHome();
 
         else {
+            mSwipeRefreshLayout.setRefreshing(false);
             progressBar.setVisibility(View.GONE);
+            timeOut.setVisibility(View.GONE);
             retry.setVisibility(View.VISIBLE);
         }
     }

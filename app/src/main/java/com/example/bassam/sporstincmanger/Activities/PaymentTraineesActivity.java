@@ -1,5 +1,6 @@
 package com.example.bassam.sporstincmanger.Activities;
 
+import android.app.Dialog;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
@@ -13,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroupOverlay;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -65,8 +67,8 @@ public class PaymentTraineesActivity extends AppCompatActivity {
     CustomLoadingView loadingView;
     LinearLayout navigationBlow;
 
-    PopupWindow popupWindow;
     private CheckBox checkBox;
+    private Dialog customView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -178,18 +180,10 @@ public class PaymentTraineesActivity extends AppCompatActivity {
     }
 
     private void reminderNoteWindow() {
-        LayoutInflater inflater = (LayoutInflater) getApplicationContext().getSystemService(LAYOUT_INFLATER_SERVICE);
-        View customView = inflater.inflate(R.layout.window_reminder_note,null);
-
-        popupWindow = new PopupWindow(
-                customView,
-                ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
-        );
-
-        if(Build.VERSION.SDK_INT>=21){
-            popupWindow.setElevation(5.0f);
-        }
+        customView = new Dialog(PaymentTraineesActivity.this);
+        customView.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        customView.setContentView(R.layout.window_reminder_note);
+        customView.setCanceledOnTouchOutside(false);
 
         final EditText note_edit_text =  customView.findViewById(R.id.noteEditText_notewindow);
         Button done_button =  customView.findViewById(R.id.doneButton_notewindow);
@@ -218,32 +212,11 @@ public class PaymentTraineesActivity extends AppCompatActivity {
             }
         });
 
-        final LinearLayout parentView = findViewById(R.id.paymentTraineeLayout);
-        popupWindow.showAtLocation(parentView, Gravity.CENTER,0,0);
-        popupWindow.setFocusable(true);
-        note_edit_text.setFocusable(true);
-        popupWindow.setOutsideTouchable(true);
-        popupWindow.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
-
-        Drawable dim = new ColorDrawable(Color.BLACK);
-        dim.setBounds(0, 0, parentView.getWidth(), parentView.getHeight());
-        dim.setAlpha((int) (255 * 0.5f));
-
-        ViewGroupOverlay overlay = parentView.getOverlay();
-        overlay.add(dim);
-
-        popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
-            @Override
-            public void onDismiss() {
-                ViewGroupOverlay overlay = parentView.getOverlay();
-                overlay.clear();
-            }
-        });
-        popupWindow.update();
+        customView.show();
     }
 
     private void cancelRemind() {
-        popupWindow.dismiss();
+        customView.dismiss();
     }
 
     private ArrayList<Integer> checkSelectedTrainee()
@@ -277,7 +250,7 @@ public class PaymentTraineesActivity extends AppCompatActivity {
         JSONArray array = new JSONArray(traineesIDs);
         JSONObject values = new JSONObject();
         try {
-            popupWindow.dismiss();
+            customView.dismiss();
             show_toast("sending...");
             String title = "Payment Reminder";
             //String Message = "this is a reminder for you for Not paid for "+Levelname + " , "+ ClassName+"\n";

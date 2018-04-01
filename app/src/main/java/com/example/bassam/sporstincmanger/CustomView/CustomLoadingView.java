@@ -75,19 +75,19 @@ public class CustomLoadingView  extends RelativeLayout {
     public void loading() {
         this.setVisibility(View.VISIBLE);
         mRetryView.setVisibility(View.GONE);
-        mTimOut_Button.setVisibility(View.GONE);
+        mTimeOutView.setVisibility(View.GONE);
         mProgressBar.setVisibility(View.VISIBLE);
         dismissRetry();
     }
 
     public void fails() {
         mRetryView.setVisibility(View.VISIBLE);
-        mTimOut_Button.setVisibility(View.GONE);
+        mTimeOutView.setVisibility(View.GONE);
         mProgressBar.setVisibility(View.GONE);
     }
 
     public void timeOut(){
-        mTimOut_Button.setVisibility(View.VISIBLE);
+        mTimeOutView.setVisibility(View.VISIBLE);
         mRetryView.setVisibility(View.GONE);
         mProgressBar.setVisibility(View.GONE);
     }

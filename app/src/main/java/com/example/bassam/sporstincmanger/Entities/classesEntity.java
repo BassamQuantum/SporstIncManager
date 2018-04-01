@@ -32,6 +32,7 @@ public class classesEntity implements Serializable {
             formatter = new SimpleDateFormat("dd/MM/yyyy");
             this.classdate = formatter.format(date);
             this.courseName = jsonObject.getString("Courses_name");
+            this.Group_id = jsonObject.getInt("group_id");
             this.groupName = jsonObject.getString("Groups_Name");
             state = jsonObject.getInt("status");
             switch (state) {
