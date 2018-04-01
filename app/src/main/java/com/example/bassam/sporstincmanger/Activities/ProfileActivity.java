@@ -2,6 +2,7 @@ package com.example.bassam.sporstincmanger.Activities;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -24,6 +25,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -100,6 +102,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     Functions functions;
     private boolean noChange;
+    private Dialog customView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -654,25 +657,17 @@ public class ProfileActivity extends AppCompatActivity {
     @SuppressLint("StaticFieldLeak")
     private void verfication(String mail){
 
+        progressDialog.dismiss();
         String verification_msg;
         Random random_num = new Random();
         final int verfication_num = random_num.nextInt(9999 - 1000) + 1000;
         Log.d("Verification","Code: "+verfication_num);
         // verification_msg = "Your verfication code: " + verfication_num;
 
-
-        LayoutInflater inflater = (LayoutInflater) profile_Context.getSystemService(LAYOUT_INFLATER_SERVICE);
-        View customView = inflater.inflate(R.layout.window_verficationcode_layout,null);
-
-        verfication_popup_window = new PopupWindow(
-                customView,
-                ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
-        );
-
-        if(Build.VERSION.SDK_INT>=21){
-            verfication_popup_window.setElevation(5.0f);
-        }
+        customView = new Dialog(ProfileActivity.this);
+        customView.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        customView.setContentView(R.layout.window_verficationcode_layout);
+        customView.setCanceledOnTouchOutside(false);
 
         final EditText verify_edit_text =  customView.findViewById(R.id.verficationEditText_verify);
         Button done_button =  customView.findViewById(R.id.doneButton_verify);
@@ -691,7 +686,7 @@ public class ProfileActivity extends AppCompatActivity {
                 String verifcation = verify_edit_text.getText().toString().trim();
 
                 if (verifcation.equals(String.valueOf(verfication_num))){
-                    verfication_popup_window.dismiss();
+                    customView.dismiss();
                     insertToDb();
                 } else {
                     show_toast("Wrong code");
@@ -724,6 +719,7 @@ public class ProfileActivity extends AppCompatActivity {
 
             }
         }.execute(httpCall);
+        customView.show();
     }
 
     private void show_toast(String msg) {
