@@ -1,5 +1,6 @@
 package com.example.bassam.sporstincmanger.Activities;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -57,6 +58,7 @@ public class MainActivity extends AppCompatActivity
     private TextView userName , userPhone;
     private ImageView profileImage;
     private int PROFILE_CODE = 7;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -261,6 +263,11 @@ public class MainActivity extends AppCompatActivity
         else if (id == R.id.nav_signout) {
             // LogOut From the System
             unActiveUser(globalVars.getId());
+            progressDialog = new ProgressDialog(MainActivity.this);
+            progressDialog.setMessage("Logging Out...");
+            progressDialog.setCanceledOnTouchOutside(false);
+            progressDialog.show();
+            return true;
         }
 
         try {
@@ -323,9 +330,9 @@ public class MainActivity extends AppCompatActivity
             SharedPreferences.Editor preferences = getSharedPreferences("UserFile", MODE_PRIVATE).edit();
             preferences.clear();
             preferences.apply();
-
-            finish();
+            finishAffinity();
             startActivity(new Intent(MainActivity.this, LoginActivity.class));
+            progressDialog.dismiss();
         } catch (JSONException e) {
             e.printStackTrace();
         }
