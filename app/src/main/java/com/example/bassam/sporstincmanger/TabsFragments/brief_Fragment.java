@@ -235,27 +235,6 @@ public class brief_Fragment extends Fragment {
         }
     }
 
-    private void fillView(JSONArray response) {
-        mSwipeRefreshLayout.setRefreshing(false);
-        if (response != null) {
-            try {
-                JSONObject object = response.getJSONObject(0);
-
-                logo ="";// object.getString("logo");
-                brief = object.getString("about");
-
-                if (!logo.equals("")) {
-                    Picasso.with(getContext()).load(logo).into(Logo);
-                }
-
-                AboutAcademy.setText(brief);
-
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
     private void fillNewsView() {
         if (newsEntity == null){
             newsItem.setVisibility(View.GONE);
@@ -326,6 +305,7 @@ public class brief_Fragment extends Fragment {
                         }
                     }
                     else if (connectionTimeOut){
+                        mSwipeRefreshLayout.setRefreshing(false);
                         timeOut.setVisibility(View.VISIBLE);
                         progressBar.setVisibility(View.GONE);
                         return;
