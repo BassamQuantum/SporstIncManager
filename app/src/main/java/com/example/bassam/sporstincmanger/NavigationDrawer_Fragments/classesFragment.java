@@ -42,8 +42,8 @@ public class classesFragment extends Fragment {
 
     public void setupViewPager(ViewPager mViewPager){
         mSectionsPagerAdapter = new SectionsPagerAdapter(getChildFragmentManager());
-        mSectionsPagerAdapter.addFragment(new classesList_Fragment(),"Classes");
-        mSectionsPagerAdapter.addFragment(new calender_Fragment(),"Calender");
+        mSectionsPagerAdapter.addFragment(new classesList_Fragment(),getString(R.string.courses));
+        mSectionsPagerAdapter.addFragment(new calender_Fragment(),getString(R.string.calendarTab));
 
         mViewPager.setAdapter(mSectionsPagerAdapter);
     }

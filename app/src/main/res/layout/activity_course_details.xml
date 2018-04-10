@@ -150,7 +150,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Classes:"
+                            android:text="@string/groupsLabel"
                             android:paddingEnd="2dp"
                             android:paddingStart="16dp"
                             android:textColor="@color/colorCoursesText"
@@ -167,7 +167,7 @@
                             android:gravity="start|center_vertical"
                             android:layout_gravity="center"
                             android:visibility="gone"
-                            android:text="@string/no_classes_available" />
+                            android:text="@string/no_groups_available" />
 
                         <ExpandableListView
                             android:id="@+id/course_details_expandableListView"

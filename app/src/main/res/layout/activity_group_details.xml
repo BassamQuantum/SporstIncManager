@@ -195,6 +195,7 @@
                             android:background="@drawable/border"
                             android:layout_marginStart="@dimen/twinty_dimens"
                             android:layout_marginEnd="@dimen/twinty_dimens"
+                            android:layout_marginBottom="@dimen/twenty_demin"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent">
                         </com.example.bassam.sporstincmanger.CustomView.myCustomListView>

@@ -10,7 +10,7 @@
 
     <string name="press_again">Press again to exit</string>
     <string name="home">Home</string>
-    <string name="classes">Sessions</string>
+    <string name="classes">Courses</string>
     <string name="notifi">Notifications</string>
     <string name="complain">Complains</string>
     <string name="request">Requests</string>
@@ -21,7 +21,7 @@
     <string name="filter_postponed">postponed</string>
     <string name="filter_canceled">canceled</string>
     <string name="filter_all">all</string>
-    <string name="no_classes">No Classes today</string>
+    <string name="no_classes">No Courses today</string>
     <string name="title_activity_main2">Main2Activity</string>
     <string name="No_Class">There is No Classes</string>
     <string name="Link">\"http://thesportsinc.com/\"</string>
@@ -140,10 +140,9 @@
     <string name="about">About academy</string>
     <string name="To_Label">To: </string>
     <string name="From_Lable">From:</string>
-    <string name="classesNum">Number of classes:</string>
+    <string name="classesNum">Number of Courses:</string>
     <string name="SessionNum">Number of Sessions:</string>
     <string name="duration">Session Duration:</string>
-    <string name="courses">Courses</string>
     <string name="attend">Attendance</string>
     <string name="account">My Account</string>
     <string name="startDate">Start Date:-</string>
@@ -158,13 +157,19 @@
     <string name="no_of_sessions">Number of Sessions:</string>
     <string name="duration_of_session">Duration of Session:</string>
     <string name="description_">Description:</string>
-    <string name="no_classes_available">No classes available</string>
+    <string name="no_groups_available">No Courses available</string>
     <string name="date">Date</string>
     <string name="time_">Times:</string>
     <string name="days_">Days:</string>
     <string name="coach_">Coach:</string>
     <string name="TimeOutLabel">Poor Internet Connection...</string>
     <string name="retry_btn">tap to Retry</string>
+    <string name="groupsLabel">Courses:</string>
+    <string name="coursesLabel">Classes</string>
+    <string name="homeLabel">Home</string>
+    <string name="levelDetails">Class Details</string>
+    <string name="courses">Courses</string>
+    <string name="calendarTab">Calender</string>
 
     <integer name="selectLimit">10</integer>
     <integer name="sliderLimit">1</integer>
