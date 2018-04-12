@@ -181,10 +181,23 @@
         <item>Booked</item>
         <item>Paid</item>
     </string-array>
-    
+
     <string-array name="sports_array">
         <item>List 1</item>
         <item>List 2</item>
         <item>List 3</item>
     </string-array>
+    <string name="title_activity_levels">LevelsActivity</string>
+    <string name="classesActivity">Classes</string>
+    <string name="levelTab">Services</string>
+    <string name="no_programs">No programs available</string>
+    <string name="select_start">start</string>
+    <string name="select_limit">limit</string>
+    <string name="parameter_table">table</string>
+    <string name="parameter_order">ordered</string>
+    <string name="parameter_limit">limit</string>
+    <string name="value_true">true</string>
+    <string name="table_program">classes_category</string>
+    <string name="DefaultName">Kids Lessons</string>
+    <string name="Key_programID">classcat_id</string>
 </resources>

@@ -11,8 +11,8 @@ import android.view.ViewGroup;
 
 import com.example.bassam.sporstincmanger.Adapters.SectionsPagerAdapter;
 import com.example.bassam.sporstincmanger.R;
+import com.example.bassam.sporstincmanger.TabsFragments.ProgramsFragment;
 import com.example.bassam.sporstincmanger.TabsFragments.brief_Fragment;
-import com.example.bassam.sporstincmanger.TabsFragments.courses_Fragment;
 
 /**
  * Created by Bassam on 12/10/2017.
@@ -41,7 +41,7 @@ public class homeFragment extends Fragment {
     public void setupViewPager(ViewPager mViewPager){
         mSectionsPagerAdapter = new SectionsPagerAdapter(getChildFragmentManager());
         mSectionsPagerAdapter.addFragment(new brief_Fragment(),getString(R.string.homeLabel));
-        mSectionsPagerAdapter.addFragment(new courses_Fragment(),getString(R.string.coursesLabel));
+        mSectionsPagerAdapter.addFragment(new ProgramsFragment(),getString(R.string.levelTab));
 
         mViewPager.setAdapter(mSectionsPagerAdapter);
     }

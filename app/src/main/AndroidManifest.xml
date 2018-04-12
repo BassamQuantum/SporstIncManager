@@ -17,12 +17,12 @@
     <application
         android:name=".Aaa_data.GlobalVars"
         android:allowBackup="true"
+        android:hardwareAccelerated="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:largeHeap="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="false"
-        android:hardwareAccelerated="false"
-        android:largeHeap="true"
         android:theme="@style/AppTheme.NoActionBar">
         <activity
             android:name=".Activities.MainActivity"
@@ -40,17 +40,23 @@
             android:name=".Activities.AddNotificationActivity"
             android:label="@string/compose" />
         <activity android:name=".Activities.ComplainDetailsActivity" />
-        <activity android:name=".Activities.NotificationDetailsActivity"
-            android:label="@string/notificationDetails"/>
-        <activity android:name=".Activities.PaymentDetailsActivity"
-            android:label="@string/app_name_label"  />
-        <activity android:name=".Activities.GroupDetailsActivity"
+        <activity
+            android:name=".Activities.NotificationDetailsActivity"
+            android:label="@string/notificationDetails" />
+        <activity
+            android:name=".Activities.PaymentDetailsActivity"
             android:label="@string/app_name_label" />
-        <activity android:name=".Activities.CourseDetailsActivity"
-            android:label="@string/app_name_label"/>
-        <activity android:name=".Activities.EventsDetailsActivity"
+        <activity
+            android:name=".Activities.GroupDetailsActivity"
             android:label="@string/app_name_label" />
-        <activity android:name=".Activities.NewsDetailsActivity"
+        <activity
+            android:name=".Activities.CourseDetailsActivity"
+            android:label="@string/app_name_label" />
+        <activity
+            android:name=".Activities.EventsDetailsActivity"
+            android:label="@string/app_name_label" />
+        <activity
+            android:name=".Activities.NewsDetailsActivity"
             android:label="@string/app_name_label" />
         <activity android:name=".Activities.LoginActivity" />
         <activity
@@ -62,10 +68,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activities.NewsActivity"
-            android:label="@string/app_name_label"  />
-        <activity android:name=".Activities.EventsActivity"
-            android:label="@string/app_name_label"  />
+        <activity
+            android:name=".Activities.NewsActivity"
+            android:label="@string/app_name_label" />
+        <activity
+            android:name=".Activities.EventsActivity"
+            android:label="@string/app_name_label" />
 
         <!-- Firebase Notifications -->
         <service android:name=".services.MyFirebaseMessagingService">
@@ -93,10 +101,16 @@
             </intent-filter>
             -->
         </activity>
-        <activity android:name=".Activities.ActivitySessionAttendance"
-            android:label="@string/app_name_label"/>
-        <activity android:name=".Activities.PaymentTraineesActivity"
-            android:label="@string/app_name_label"></activity>
+        <activity
+            android:name=".Activities.ActivitySessionAttendance"
+            android:label="@string/app_name_label" />
+        <activity
+            android:name=".Activities.PaymentTraineesActivity"
+            android:label="@string/app_name_label" />
+        <activity
+            android:name=".Activities.LevelsActivity"
+            android:label="@string/title_activity_levels"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

@@ -72,9 +72,13 @@ public class CoursesAdapter extends ArrayAdapter<CourseEntity> {
 
                 @Override
                 public void onError() {
+                    progressBar.setVisibility(View.GONE);
                     Log.d("Image Loading ","ERROR In Loading");
                 }
             });
+        }
+        else {
+            progressBar.setVisibility(View.GONE);
         }
 
         Title.setText(name);
