@@ -146,6 +146,9 @@ public class ProgramsFragment extends Fragment {
             httpCall.setMethodtype(HttpCall.POST);
             httpCall.setUrl(Constants.selectData);
 
+            JSONObject where_info = new JSONObject();
+            where_info.put(getString(R.string.Key_deactive), 0);
+
             JSONObject limit_info = new JSONObject();
             limit_info.put(getString(R.string.select_start), currentStart);
             limit_info.put(getString(R.string.select_limit), limitValue);
@@ -153,6 +156,7 @@ public class ProgramsFragment extends Fragment {
             params.put(getString(R.string.parameter_table), getString(R.string.table_program));
             params.put(getString(R.string.parameter_order),getString(R.string.value_true));
             params.put(getString(R.string.parameter_limit), limit_info.toString());
+            params.put(getString(R.string.parameter_where),where_info.toString());
 
             httpCall.setParams(params);
             new HttpRequest() {

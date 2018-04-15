@@ -200,4 +200,5 @@
     <string name="table_program">classes_category</string>
     <string name="DefaultName">Kids Lessons</string>
     <string name="Key_programID">classcat_id</string>
+    <string name="Key_deactive">deactive</string>
 </resources>
