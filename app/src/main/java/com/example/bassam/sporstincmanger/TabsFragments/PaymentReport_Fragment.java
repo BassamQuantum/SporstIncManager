@@ -163,7 +163,7 @@ public class PaymentReport_Fragment extends Fragment {
             limit_info.put("limit", limitValue);
             HashMap<String, String> params = new HashMap<>();
             Log.d("LimitReport","Limit: "+limit_info.toString());
-            params.put("limit",limit_info.toString());
+           // params.put("limit",limit_info.toString());
 
             httpCall.setParams(params);
 

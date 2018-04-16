@@ -179,7 +179,7 @@ public class PaymentDetailsActivity extends AppCompatActivity {
             limit_info.put("start", entityList.size());
             limit_info.put("limit", limitValue);
             HashMap<String, String> params = new HashMap<>();
-            params.put("limit",limit_info.toString());
+           // params.put("limit",limit_info.toString());
             params.put("where",where_info.toString());
 
             httpCall.setParams(params);
